@@ -35,7 +35,7 @@
                         <span class="welcome-first animate" data-animate="fadeInUp"><?php echo get_theme_mod('home_description_above', ''); ?></span>
                         <h1 class="welcome-title animate" data-animate="fadeInUp"><?php bloginfo('name'); ?></h1>
                         <p class="animate" data-animate="fadeInUp"><?php echo get_theme_mod('home_description_below', ''); ?></p>
-                        <div class="scroll-down next-section animate data-animate="fadeInUp""><img src="<?php echo get_template_directory_uri() ?>/images/mouse-scroll.png" alt=""><span>Scroll Down</span></div>
+                        <div class="scroll-down next-section animate" data-animate="fadeInUp"><img src="<?php echo get_template_directory_uri() ?>/images/mouse-scroll.png" alt=""><span>Scroll Down</span></div>
                     </div>
                 </div>
             </div>
@@ -58,21 +58,22 @@
 
                     if (has_post_thumbnail($page->ID)) {
                         $thumbnail_url = wp_get_attachment_image_src(get_post_thumbnail_id($page->ID), 'full')[0];
-                        $thumbnail_style = 'style="background-image: url(\'' . esc_url($thumbnail_url) . '\');"';
-                        $has_thumbnail_class = 'has-thumbnail';
-                    } else {
-                        $thumbnail_style = ''; // Empty style if no featured image
-                        $has_thumbnail_class = '';
                     }
                     ?>
                     <div class="section animated-row" data-section="<?php echo esc_attr($slug); ?>">
                         <div class="section-inner">
                             <div class="row justify-content-center">
-                                <div class="col-md-8 wide-col-laptop">
-                                    <div class="page-item <?php echo esc_attr($has_thumbnail_class); ?>" <?php echo $thumbnail_style; ?>>
-                                        <div class="title-block animate" data-animate="fadeInUp">
-                                            <h2><?php echo esc_html($title); ?></h2>
-                                        </div>
+                                <div class="col-lg-8 wide-col-laptop">
+                                    <div class="page-item">
+                                        <?php if (has_post_thumbnail($page->ID)) : ?>
+                                            <div class="page-thumbnail" style="background-image: url('<?php echo esc_url($thumbnail_url); ?>');">
+                                                <h2 class="page-title animate" data-animate="fadeInUp"><?php echo esc_html($title); ?></h2>                                                
+                                            </div>
+                                        <?php else : ?>
+                                            <div class="title-block animate" data-animate="fadeInUp">
+                                                <h2><?php echo esc_html($title); ?></h2>
+                                            </div>
+                                        <?php endif; ?>
                                         <div class="animate" data-animate="fadeInDown">
                                             <?php echo $content; ?>
                                         </div>
@@ -85,7 +86,7 @@
                 }
             ?>
 
-        <div id="social-icons">
+        <!-- <div id="social-icons">
             <div class="text-right">
                 <ul class="social-icons">
                     <li><a href="#" title="Facebook"><i class="fa fa-facebook"></i></a></li>
@@ -94,7 +95,7 @@
                     <li><a href="#" title="Instagram"><i class="fa fa-behance"></i></a></li>
                 </ul>
             </div>
-        </div>
+        </div> -->
 
         <script type="text/javascript">
             document.addEventListener('DOMContentLoaded', function() {
@@ -107,6 +108,7 @@
                         navigation: true,
                         navigationPosition: 'right',
                         scrollOverflow: true,
+                        scrollOverflowReset: true,
                         responsiveWidth: 768,
                         responsiveHeight: 600,
                         responsiveSlides: true

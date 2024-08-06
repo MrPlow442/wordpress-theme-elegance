@@ -852,30 +852,38 @@ textarea.form-control {
 10. PAGE BLOCK CSS
 ================================================*/
 .page-item {
-  background-color: rgba(250,250,250,0.25);
+  background-color: rgba(250,250,250,0.5);
   position: relative;
   z-index: 1; /* Ensure the content is on top of the background */
   /* background-blend-mode: lighten; */
   padding: 40px;
   border-radius: 10px;
+  -webkit-box-shadow: 0 0 40px rgba(0,0,0,.3);
+  box-shadow: 0 0 40px rgba(0,0,0,.3);
+  overflow: hidden;
 }
 
-.page-item.has-thumbnail::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(250, 250, 250, 0.25); /* Optional: Add an overlay to darken the background image */
-  border-radius: 10px;
-  z-index: 0; /* Ensure the overlay is behind the content */
+.page-thumbnail {
+  position: relative;
+  background-size: cover;
+  background-position: top center;
+  height: 300px; /* Adjust the height as needed */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: -40px -40px 20px -40px; /* Negative margins to cover top, left, and right */
+  border-radius: 10px 10px 0 0; /* Top rounded corners */
+  overflow: hidden;
 }
 
-.page-item.has-thumbnail {
-  background-size: cover; /* Make sure the background covers the entire area */
-  background-position: center center; /* Center the background image */
-  background-repeat: no-repeat; /* Do not repeat the background image */
+.page-title {
+  position: absolute; /* Use absolute positioning */
+  bottom: 20px; /* Position the title 20px from the bottom of the container */
+  z-index: 2; /* Ensure the title is above the background image */
+  background: rgba(250,250,250,0.5); /* Add a semi-transparent background to the title */
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-align: center;
 }
 
 .page-item > * {

@@ -12,6 +12,7 @@
                         wp_nav_menu(array(
                             'theme_location' => 'top',
                             'menu_class' => 'navigation-menu nav navbar-nav navbars',
+                            'menu_id' => 'nav',
                             'container' => 'ul',
                             'walker'         => new Single_Page_Walker()
                         ));
