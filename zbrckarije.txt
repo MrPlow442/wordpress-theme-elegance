@@ -1,0 +1,44 @@
+ <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var backgroundVideo = document.getElementById('backgroundVideo');
+        var backgroundImage = document.getElementById('backgroundImage');
+
+        // Check if the video can play, otherwise show the image
+        backgroundVideo.oncanplay = function() {
+            backgroundImage.style.display = 'none';
+            backgroundVideo.style.display = 'block';
+        };
+        backgroundVideo.onerror = function() {
+            backgroundVideo.style.display = 'none';
+            backgroundImage.style.display = 'block';
+        };
+
+        // Initialize FullPage.js
+        new fullpage('#fullpage', {
+            anchors: ['home', <?php echo implode(', ', array_map(function($page) { return "'".$page->post_name."'"; }, $pages)); ?>],
+            onLeave: function(origin, destination, direction) {
+                var section = destination.item;
+                var sectionName = section.getAttribute('data-section');
+                <?php foreach ($pages as $page) : ?>
+                    if (sectionName === '<?php echo $page->post_name; ?>') {
+                        <?php if (has_post_thumbnail($page->ID)) : ?>
+                            backgroundImage.src = '<?php echo get_the_post_thumbnail_url($page->ID); ?>';
+                            backgroundImage.style.display = 'block';
+                            backgroundVideo.style.display = 'none';
+                        <?php else : ?>
+                            backgroundImage.src = '<?php echo get_template_directory_uri() ?>/images/static-bg.jpg';
+                            backgroundImage.style.display = 'block';
+                            backgroundVideo.style.display = 'none';
+                        <?php endif; ?>
+                    }
+                <?php endforeach; ?>
+            },
+            afterLoad: function(origin, destination, direction) {
+                if (destination.index === 0) {
+                    backgroundImage.style.display = 'none';
+                    backgroundVideo.style.display = 'block';
+                }
+            }
+        });
+    });
+</script>
