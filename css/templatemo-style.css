@@ -140,6 +140,8 @@ figure {
   top: 0;
   min-width: 100%; 
   min-height: 100%;
+  transition: opacity 200ms ease-out;
+  opacity: 1;
 }
 
 .wrapper-background-dark:after {

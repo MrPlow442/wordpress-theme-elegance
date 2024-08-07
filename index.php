@@ -56,24 +56,25 @@
                     $slug = $page->post_name;
                     $thumbnail = get_the_post_thumbnail($page->ID, 'full');
 
-                    if (has_post_thumbnail($page->ID)) {
-                        $thumbnail_url = wp_get_attachment_image_src(get_post_thumbnail_id($page->ID), 'full')[0];
-                    }
+                    // if (has_post_thumbnail($page->ID)) {
+                    //     $thumbnail_url = wp_get_attachment_image_src(get_post_thumbnail_id($page->ID), 'full')[0];
+                    // }
                     ?>
                     <div class="section animated-row" data-section="<?php echo esc_attr($slug); ?>">
                         <div class="section-inner">
                             <div class="row justify-content-center">
                                 <div class="col-lg-8 wide-col-laptop">
                                     <div class="page-item">
-                                        <?php if (has_post_thumbnail($page->ID)) : ?>
+                                        <div class="title-block animate" data-animate="fadeInUp">
+                                                <h2><?php echo esc_html($title); ?></h2>
+                                        </div>
+                                        <!-- <?php if (has_post_thumbnail($page->ID)) : ?>
                                             <div class="page-thumbnail" style="background-image: url('<?php echo esc_url($thumbnail_url); ?>');">
                                                 <h2 class="page-title animate" data-animate="fadeInUp"><?php echo esc_html($title); ?></h2>                                                
                                             </div>
                                         <?php else : ?>
-                                            <div class="title-block animate" data-animate="fadeInUp">
-                                                <h2><?php echo esc_html($title); ?></h2>
-                                            </div>
-                                        <?php endif; ?>
+                                            
+                                        <?php endif; ?> -->
                                         <div class="animate" data-animate="fadeInDown">
                                             <?php echo $content; ?>
                                         </div>
@@ -99,6 +100,33 @@
 
         <script type="text/javascript">
             document.addEventListener('DOMContentLoaded', function() {
+                var backgroundVideo = document.getElementById('backgroundVideo');
+                var backgroundImage = document.getElementById('backgroundImage');
+
+                var defaultImageUri = backgroundImage.src;
+                
+                function changeBackgroundImage(url) {
+                    backgroundImage.style.opacity = 0;
+
+                    // Wait for the transition to complete before changing the image source
+                    setTimeout(function() {
+                        backgroundImage.src = url;
+                        backgroundImage.style.opacity = 1;
+                    }, 200); // The duration should match the CSS transition duration
+                }
+
+                // Check if the video can play, otherwise show the image
+                if (backgroundVideo) {
+                    backgroundVideo.oncanplay = function() {
+                        backgroundImage.style.display = 'none';
+                        backgroundVideo.style.display = 'block';
+                    };
+                    backgroundVideo.onerror = function() {
+                        backgroundVideo.style.display = 'none';
+                        backgroundImage.style.display = 'block';
+                    };
+                }
+
                 if (document.querySelector('.fullpage-default')) {
                     var myFullpage = new fullpage('.fullpage-default', {
                         licenseKey: 'C7F41B00-5E824594-9A5EFB99-B556A3D5',
@@ -111,7 +139,31 @@
                         scrollOverflowReset: true,
                         responsiveWidth: 768,
                         responsiveHeight: 600,
-                        responsiveSlides: true
+                        responsiveSlides: true,
+                        onLeave: function(origin, destination, direction) {
+                            var section = destination.item;
+                            var sectionName = section.getAttribute('data-section');
+                            
+                            <?php foreach ($pages as $page) : ?>
+                                if (sectionName === '<?php echo $page->post_name; ?>') {
+                                    <?php if (has_post_thumbnail($page->ID)) : ?>
+                                        // backgroundImage.src = '<?php echo get_the_post_thumbnail_url($page->ID); ?>';
+                                        changeBackgroundImage('<?php echo get_the_post_thumbnail_url($page->ID); ?>');
+                                        backgroundImage.style.display = 'block';
+                                    <?php else : ?>
+                                        // backgroundImage.src = defaultImageUri;
+                                        changeBackgroundImage(defaultImageUri);
+                                        backgroundImage.style.display = 'block';
+                                    <?php endif; ?>
+                                }
+                            <?php endforeach; ?>
+                        },
+                        afterLoad: function(origin, destination, direction) {
+                            if (destination.index === 0) {
+                                backgroundImage.style.display = 'block';
+                                // backgroundVideo.style.display = 'none';
+                            }
+                        }
                     });
                 }
             });
