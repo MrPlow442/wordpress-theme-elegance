@@ -14,16 +14,12 @@
         $header_background_video = get_theme_mod('header_background_video');
         $header_background_image = get_theme_mod('header_background_image');
     ?>
-    <div id="backgroundContainer">
-        <?php if (!empty($header_background_video)) : ?>
-            <video autoplay muted loop id="backgroundVideo">
-                <source src="<?php echo esc_url($header_background_video); ?>" type="video/mp4">
-            </video>
-        <?php endif; ?>
 
-        <?php if (!empty($header_background_image)) : ?>
-            <img id="backgroundImage" src="<?php echo esc_url($header_background_image); ?>" alt="Background Image">
-        <?php endif; ?>
+    <div id="backgroundContainer">
+        <video id="backgroundVideo" class="hidden" autoplay muted loop>
+            <source src="<?php echo !empty($header_background_video) ? esc_url($header_background_video) : ''; ?>" type="video/mp4">
+        </video>
+        <img  id="backgroundImage" class="hidden" src="<?php echo !empty($header_background_image) ? esc_url($header_background_image) : ''; ?>" alt="Background Image">
 
         <?php get_header(); ?>
 
@@ -54,11 +50,6 @@
                     $content = apply_filters('the_content', $page->post_content);
                     $title = $page->post_title;
                     $slug = $page->post_name;
-                    $thumbnail = get_the_post_thumbnail($page->ID, 'full');
-
-                    // if (has_post_thumbnail($page->ID)) {
-                    //     $thumbnail_url = wp_get_attachment_image_src(get_post_thumbnail_id($page->ID), 'full')[0];
-                    // }
                     ?>
                     <div class="section animated-row" data-section="<?php echo esc_attr($slug); ?>">
                         <div class="section-inner">
@@ -68,13 +59,6 @@
                                         <div class="title-block animate" data-animate="fadeInUp">
                                                 <h2><?php echo esc_html($title); ?></h2>
                                         </div>
-                                        <!-- <?php if (has_post_thumbnail($page->ID)) : ?>
-                                            <div class="page-thumbnail" style="background-image: url('<?php echo esc_url($thumbnail_url); ?>');">
-                                                <h2 class="page-title animate" data-animate="fadeInUp"><?php echo esc_html($title); ?></h2>                                                
-                                            </div>
-                                        <?php else : ?>
-                                            
-                                        <?php endif; ?> -->
                                         <div class="animate" data-animate="fadeInDown">
                                             <?php echo $content; ?>
                                         </div>
@@ -99,33 +83,92 @@
         </div> -->
 
         <script type="text/javascript">
+            function setVisibility(element, visibility) {
+                if (!element || !visibility || ['hidden', 'visible'].indexOf(visibility) === -1) {
+                    return;
+                }
+                if (element.classList.contains(visibility)) {
+                    return;
+                }
+                let inverse = visibility === 'hidden' ? 'visible' : 'hidden';
+                if (element.classList.contains(inverse)) {
+                    element.classList.remove(inverse);
+                    element.classList.add(visibility);
+                }
+            }
+
+            function isVideo(element) {
+                return element.tagName.toLowerCase() === 'video';
+            }
+
+            function isImage(element) {
+                return element.tagName.toLowerCase() === 'img';
+            }
+
+            function getSource(element) {
+                if (isVideo(element)) {
+                    return element.querySelector('source').src;
+                } else {
+                    return element.src;
+                }
+            }
+
+            function setSource(element, sourceUrl) {
+                if (isVideo(element)) {
+                    element.querySelector('source').src = sourceUrl;
+                } else {
+                    element.src = sourceUrl;
+                }
+            }
+            
+            function changeBackgroundElement(element, url) {
+                if (!element || !url || getSource(element) === url) {
+                    return;
+                }
+                element.style.opacity = 0;
+
+                // Wait for the transition to complete before changing the image source
+                setTimeout(function() {
+                    setSource(element, url);
+                    element.style.opacity = 1;
+                    setVisibility(element, 'visible');
+                }, 200); // The duration should match the CSS transition duration
+            }
+
+            function swapElementDisplay(element1, element2, sourceUrl) {
+                setVisibility(element1, 'hidden');
+                changeBackgroundElement(element2, sourceUrl);
+                setVisibility(element2, 'visible');
+            }
+
             document.addEventListener('DOMContentLoaded', function() {
                 var backgroundVideo = document.getElementById('backgroundVideo');
                 var backgroundImage = document.getElementById('backgroundImage');
 
-                var defaultImageUri = backgroundImage.src;
-                
-                function changeBackgroundImage(url) {
-                    backgroundImage.style.opacity = 0;
+                var defaultVideoUrl = '<?php echo $header_background_video; ?>';
+                var defaultImageUrl = '<?php echo $header_background_image; ?>';
 
-                    // Wait for the transition to complete before changing the image source
-                    setTimeout(function() {
-                        backgroundImage.src = url;
-                        backgroundImage.style.opacity = 1;
-                    }, 200); // The duration should match the CSS transition duration
+                function showDefault() {
+                    if (!defaultVideoUrl && !defaultImageUrl) {
+                        return;
+                    }
+
+                    if (defaultVideoUrl) {                        
+                        swapElementDisplay(backgroundImage, backgroundVideo, defaultVideoUrl);                    
+                    } else {                        
+                        swapElementDisplay(backgroundVideo, backgroundImage, defaultImageUrl);
+                    }
                 }
 
-                // Check if the video can play, otherwise show the image
-                if (backgroundVideo) {
-                    backgroundVideo.oncanplay = function() {
-                        backgroundImage.style.display = 'none';
-                        backgroundVideo.style.display = 'block';
-                    };
-                    backgroundVideo.onerror = function() {
-                        backgroundVideo.style.display = 'none';
-                        backgroundImage.style.display = 'block';
-                    };
+                function showImage(imageUrl) {
+                    if (!imageUrl) {
+                        return;
+                    }
+
+                    swapElementDisplay(backgroundVideo, backgroundImage, imageUrl);
                 }
+
+                showDefault();
 
                 if (document.querySelector('.fullpage-default')) {
                     var myFullpage = new fullpage('.fullpage-default', {
@@ -144,25 +187,19 @@
                             var section = destination.item;
                             var sectionName = section.getAttribute('data-section');
                             
+                            console.log('sectionName', sectionName);
+                            if ( sectionName === 'home' ) {
+                                showDefault();
+                            }
                             <?php foreach ($pages as $page) : ?>
-                                if (sectionName === '<?php echo $page->post_name; ?>') {
+                                if ( sectionName === '<?php echo $page->post_name; ?>') {
                                     <?php if (has_post_thumbnail($page->ID)) : ?>
-                                        // backgroundImage.src = '<?php echo get_the_post_thumbnail_url($page->ID); ?>';
-                                        changeBackgroundImage('<?php echo get_the_post_thumbnail_url($page->ID); ?>');
-                                        backgroundImage.style.display = 'block';
+                                        showImage('<?php echo get_the_post_thumbnail_url($page->ID); ?>');
                                     <?php else : ?>
-                                        // backgroundImage.src = defaultImageUri;
-                                        changeBackgroundImage(defaultImageUri);
-                                        backgroundImage.style.display = 'block';
+                                        showDefault();
                                     <?php endif; ?>
                                 }
                             <?php endforeach; ?>
-                        },
-                        afterLoad: function(origin, destination, direction) {
-                            if (destination.index === 0) {
-                                backgroundImage.style.display = 'block';
-                                // backgroundVideo.style.display = 'none';
-                            }
                         }
                     });
                 }

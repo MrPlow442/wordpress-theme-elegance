@@ -134,6 +134,14 @@ figure {
   opacity: 1 !important;
 }
 
+.hidden {
+  display: none;
+}
+
+.visible {
+  display: block;
+}
+
 #backgroundVideo, #backgroundImage {
   position: fixed;
   left: 0;
@@ -321,7 +329,6 @@ a#logo {
   margin-left: 30px;
 }
 .navbar-nav li a {
-  color:#fff;
   font-size: 15px;
   text-decoration:none;
   display:block;
@@ -406,7 +413,6 @@ a#logo {
   max-width: 620px;
   width:100%;
   margin:0 auto 30px;
-  color: #fff;
 }
 .welcome-title {
   font-weight: 700;

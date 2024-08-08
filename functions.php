@@ -11,7 +11,7 @@ function elegance_theme_scripts() {
 
     wp_enqueue_script('jquery');
     wp_enqueue_script('bootstrap', get_template_directory_uri() . '/js/bootstrap.min.js', array('jquery'), '', true);
-    wp_enqueue_script('fullpage', get_template_directory_uri() . '/js/fullpage.min.js', array('jquery'), '', true);
+    wp_enqueue_script('fullpage', get_template_directory_uri() . '/js/fullpage.extensions.min.js', array('jquery'), '', true);
     wp_enqueue_script('scrolloverflow', get_template_directory_uri() . '/js/scrolloverflow.js', array('jquery'), '', true);
     wp_enqueue_script('owl-carousel', get_template_directory_uri() . '/js/owl.carousel.min.js', array('jquery'), '', true);
     wp_enqueue_script('jquery-inview', get_template_directory_uri() . '/js/jquery.inview.min.js', array('jquery'), '', true);
@@ -79,6 +79,7 @@ function elegance_theme_setup() {
 
 add_action('after_setup_theme', 'elegance_theme_setup');
 
+
 // Register Customizer settings
 function theme_customizer_settings($wp_customize) {
 
@@ -97,10 +98,15 @@ function theme_customizer_settings($wp_customize) {
         'sanitize_callback' => 'esc_url_raw',  // Sanitize callback to ensure URL is safe
     ));
 
-    $wp_customize->add_control(new WP_Customize_Media_Control($wp_customize, 'header_background_video', array(
+    // $wp_customize->add_control(new WP_Customize_Media_Control($wp_customize, 'header_background_video', array(
+    //     'label' => __('Background Video', 'elegance-theme'),
+    //     'section' => 'header_media',
+    //     'mime_type' => 'video',
+    // )));
+
+    $wp_customize->add_control(new WP_Customize_Upload_Control($wp_customize, 'header_background_video', array(
         'label' => __('Background Video', 'elegance-theme'),
         'section' => 'header_media',
-        'mime_type' => 'video',
     )));
 
     // Setting for Background Image
