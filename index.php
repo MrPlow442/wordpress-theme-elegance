@@ -83,64 +83,6 @@
         </div> -->
 
         <script type="text/javascript">
-            function setVisibility(element, visibility) {
-                if (!element || !visibility || ['hidden', 'visible'].indexOf(visibility) === -1) {
-                    return;
-                }
-                if (element.classList.contains(visibility)) {
-                    return;
-                }
-                let inverse = visibility === 'hidden' ? 'visible' : 'hidden';
-                if (element.classList.contains(inverse)) {
-                    element.classList.remove(inverse);
-                    element.classList.add(visibility);
-                }
-            }
-
-            function isVideo(element) {
-                return element.tagName.toLowerCase() === 'video';
-            }
-
-            function isImage(element) {
-                return element.tagName.toLowerCase() === 'img';
-            }
-
-            function getSource(element) {
-                if (isVideo(element)) {
-                    return element.querySelector('source').src;
-                } else {
-                    return element.src;
-                }
-            }
-
-            function setSource(element, sourceUrl) {
-                if (isVideo(element)) {
-                    element.querySelector('source').src = sourceUrl;
-                } else {
-                    element.src = sourceUrl;
-                }
-            }
-            
-            function changeBackgroundElement(element, url) {
-                if (!element || !url || getSource(element) === url) {
-                    return;
-                }
-                element.style.opacity = 0;
-
-                // Wait for the transition to complete before changing the image source
-                setTimeout(function() {
-                    setSource(element, url);
-                    element.style.opacity = 1;
-                    setVisibility(element, 'visible');
-                }, 200); // The duration should match the CSS transition duration
-            }
-
-            function swapElementDisplay(element1, element2, sourceUrl) {
-                setVisibility(element1, 'hidden');
-                changeBackgroundElement(element2, sourceUrl);
-                setVisibility(element2, 'visible');
-            }
-
             document.addEventListener('DOMContentLoaded', function() {
                 var backgroundVideo = document.getElementById('backgroundVideo');
                 var backgroundImage = document.getElementById('backgroundImage');
@@ -187,19 +129,19 @@
                             var section = destination.item;
                             var sectionName = section.getAttribute('data-section');
                             
-                            console.log('sectionName', sectionName);
-                            if ( sectionName === 'home' ) {
-                                showDefault();
-                            }
-                            <?php foreach ($pages as $page) : ?>
-                                if ( sectionName === '<?php echo $page->post_name; ?>') {
+                            switch(sectionName) {
+                                <?php foreach ($pages as $page) : ?>
+                                case '<?php echo $page->post_name; ?>':
                                     <?php if (has_post_thumbnail($page->ID)) : ?>
                                         showImage('<?php echo get_the_post_thumbnail_url($page->ID); ?>');
                                     <?php else : ?>
                                         showDefault();
                                     <?php endif; ?>
-                                }
-                            <?php endforeach; ?>
+                                     break;   
+                                <?php endforeach; ?>
+                                default:
+                                    showDefault();
+                            }
                         }
                     });
                 }
