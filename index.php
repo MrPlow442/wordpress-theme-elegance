@@ -36,13 +36,50 @@
                 </div>
             </div>
 
+            <?php if (have_posts()) : ?>
+                <div class="section animated-row" data-section="posts">
+                    <div class="section-inner">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-8 wide-col-laptop">
+                                <?php while (have_posts()) : the_post(); ?>
+                                    <div class="slide">
+                                        <div class="row post-container animate" data-animate="fadeInDown">
+                                            <?php if (has_post_thumbnail()) : ?>
+                                                <div class="col-md-6">
+                                                    <figure class="post-img animate" data-animate="fadeInUp">
+                                                        <img src="<?php echo get_the_post_thumbnail_url(); ?>"/>
+                                                    </figure>
+                                                </div>
+                                            <?php endif; ?>
+                                            <div class="col-md-<?php echo has_post_thumbnail() ? '6' : '12' ?>">
+                                                <div class="post-contentbox">
+                                                    <div class="animate" data-animate="fadeInUp">
+                                                        <span><?php echo get_the_date(); ?></span>
+                                                        <h2><?php the_title(); ?></h2>                                                        
+                                                        <p><?php the_content(); ?></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>    
+                                    </div>
+                                <?php endwhile; ?>                        
+                            </div>
+                        </div>    
+                    </div>
+                </div>
+            <?php endif; ?>
+
             <?php
                 $pages = get_pages(array('sort_column' => 'menu_order'));
 
                 $anchors = array_map(function($page) {
                     return sanitize_title($page->post_title);
                 }, $pages);
-                array_unshift($anchors, 'home');
+                if (have_posts()) {                    
+                    array_unshift($anchors, 'posts');
+                }
+
+                array_unshift($anchors, 'home');                
 
                 $anchors_json = json_encode($anchors);
                 
@@ -119,6 +156,7 @@
                         menu: '#nav',
                         lazyLoad: true,
                         navigation: true,
+                        slidesNavigation: true,
                         navigationPosition: 'right',
                         scrollOverflow: true,
                         scrollOverflowReset: true,

@@ -898,3 +898,36 @@ textarea.form-control {
   position: relative; /* Ensure direct children are on top of the overlay */
   z-index: 1;
 }
+
+/*==============================================
+11. POST BLOCK CSS
+================================================*/
+.post-container {
+  margin: 0px 0px !important;
+  padding: 0px 25px;
+}
+
+.post-img {
+  margin: 0 auto 40px;
+  position:relative;
+}
+.post-img img {
+  border-radius: 10px;
+  -webkit-box-shadow: 0 0 40px rgba(0,0,0,.3);
+  box-shadow: 0 0 40px rgba(0,0,0,.3);
+}
+.post-contentbox {
+  margin-top: 80px;
+  text-align:left;
+  line-height:1.8;
+}
+.post-contentbox span {
+  font-size: 24px;
+  text-transform: uppercase;
+  font-weight: 300;
+}
+.post-contentbox h2 {
+  font-size: 32px;
+  text-transform: uppercase;
+  font-weight: 700;
+}

@@ -214,8 +214,8 @@ add_action('customize_register', 'theme_customizer_settings');
 
 
 class Single_Page_Walker extends Walker_Nav_Menu {
-    function start_el(&$output, $item, $depth = 0, $args = array(), $id = 0) {
-        $item_id = sanitize_title($item->title);
+    function start_el(&$output, $item, $depth = 0, $args = array(), $id = 0) {        
+        $item_id = $item->type == 'custom' ? sanitize_title($item->attr_title) : sanitize_title($item->title);
         $output .= sprintf( '<li data-menuanchor="%s"><a href="#%s">%s</a>', $item_id, $item_id, $item->title );
     }
 }

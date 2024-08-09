@@ -9,3 +9,22 @@ License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: elegance-theme
 */
+
+.fp-controlArrow {
+    width: 30px !important;
+    height: 30px !important;
+    border-style: solid;
+    padding: 3px;  
+}
+.fp-controlArrow.fp-prev {
+    transform: rotate(135deg);
+    -webkit-transform: rotate(135deg);
+    border-width: 0 5px 5px 0;
+    border-color: #ffffff;
+}
+.fp-controlArrow.fp-next { 
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    border-width: 0 5px 5px 0;
+    border-color: #ffffff;
+}
