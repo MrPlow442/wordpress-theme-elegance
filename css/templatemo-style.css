@@ -860,15 +860,18 @@ textarea.form-control {
 10. PAGE BLOCK CSS
 ================================================*/
 .page-item {
-  background-color: rgba(250,250,250,0.5);
   position: relative;
   z-index: 1; /* Ensure the content is on top of the background */
-  /* background-blend-mode: lighten; */
   padding: 40px;
-  border-radius: 10px;
-  -webkit-box-shadow: 0 0 40px rgba(0,0,0,.3);
-  box-shadow: 0 0 40px rgba(0,0,0,.3);
   overflow: hidden;
+}
+
+.page-item.with-background {
+  background-color: rgba(250,250,250,0.25);
+  -webkit-box-shadow: 0 0 20px rgba(0,0,0,.3);
+  box-shadow: 0 0 20px rgba(0,0,0,.3);
+  /* background-blend-mode: lighten; */
+  border-radius: 10px;
 }
 
 .page-thumbnail {

@@ -82,17 +82,18 @@
                 array_unshift($anchors, 'home');                
 
                 $anchors_json = json_encode($anchors);
-                
+
                 foreach ($pages as $page) {
                     $content = apply_filters('the_content', $page->post_content);
                     $title = $page->post_title;
                     $slug = $page->post_name;
+                    $display_bg = get_post_meta($page->ID, 'display_background', true);
                     ?>
                     <div class="section animated-row" data-section="<?php echo esc_attr($slug); ?>">
                         <div class="section-inner">
                             <div class="row justify-content-center">
                                 <div class="col-lg-8 wide-col-laptop">
-                                    <div class="page-item">
+                                    <div class="page-item <?php echo $display_bg == 'yes' ? 'with-background' : '' ; ?>">
                                         <div class="title-block animate" data-animate="fadeInUp">
                                                 <h2><?php echo esc_html($title); ?></h2>
                                         </div>
