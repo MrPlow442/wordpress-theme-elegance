@@ -56,9 +56,6 @@
 	.service-box {
 		padding:30px 20px;
 	}
-	.testimonial-content {
-		font-size:18px;
-	}
 	.owl-carousel .owl-item .client-img img {
 		max-width:80px;
 	}
@@ -104,13 +101,6 @@
 	}
 	.owl-nav {
 		margin-top: 35px;
-	}
-	.testimonial-content {
-		font-size: 16px;
-		padding:20px 25px;
-	}
-	.testimonials-section {
-		padding-top:10px;
 	}
 	.owl-carousel .owl-dots {
 		margin-top:35px;
@@ -300,9 +290,6 @@
 		margin-top: 60px;
 		text-align:center;
 	}
-	.testimonials-section {
-		padding-top:0;
-	}
 	h4 {
 		font-size:18px;
 	}
@@ -373,9 +360,6 @@
 		max-width:65px;
 		margin-right: 10px;
 	}
-	.testimonials-section {
-		font-size:13px;
-	}
 	.form-control {
 		height:52px;
 		font-size:14px;
@@ -406,9 +390,6 @@
 	.client-row {
 		padding-left: 40px;
 	}
-	.testimonial-content:before {
-		left: 46%;
-	}
 	.client-row {
 		padding-left: 0;
 	}
@@ -417,15 +398,9 @@
 	h4 {
 		font-size: 14px;
 	}
-	.testimonial-content:before {
-		left: 45%;
-	}
 }
 @media only screen and (max-width: 320px) {
 	.gallery-overlay p {
 		display: none;
-	}
-	.testimonial-content:before {
-		left: 43%;
 	}
 }

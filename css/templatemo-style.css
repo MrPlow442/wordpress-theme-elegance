@@ -770,30 +770,6 @@ textarea.form-control {
 }
 
 /*==============================================
-09. TESTIMONOALS BLOCK CSS
-================================================*/
-.testimonials-section .item {
-  background-color: rgba(250,250,250,0.25);
-  padding: 40px;
-  border-radius: 10px;
-}
-.testimonials-section .item img {
-  width: 140px;
-  height: 140px;
-  margin: 0 auto;
-}
-.testimonials-section .item h4 {
-  margin-top: 40px;
-  font-size: 22px;
-  text-transform: capitalize;
-  font-weight: 700;
-}
-.testimonials-section .item p {
-  font-size: 17px;
-  font-style: italic;
-}
-
-/*==============================================
 10. SKILLS BLOCK CSS
 ================================================*/
 .skills-row {
@@ -870,7 +846,6 @@ textarea.form-control {
   background-color: rgba(250,250,250,0.25);
   -webkit-box-shadow: 0 0 20px rgba(0,0,0,.3);
   box-shadow: 0 0 20px rgba(0,0,0,.3);
-  /* background-blend-mode: lighten; */
   border-radius: 10px;
 }
 
@@ -920,7 +895,7 @@ textarea.form-control {
   box-shadow: 0 0 40px rgba(0,0,0,.3);
 }
 .post-contentbox {
-  margin-top: 80px;
+  /* margin-top: 80px; */
   text-align:left;
   line-height:1.8;
 }

@@ -1,0 +1,78 @@
+/* src/style.css */
+.testimonials-section .item {
+  background-color: rgba(250,250,250,0.25);
+  padding: 40px;
+  border-radius: 10px;
+}
+.testimonials-section .item img {
+  width: 140px;
+  height: 140px;
+  margin: 0 auto;
+}
+.testimonials-section .item h4 {
+  margin-top: 40px;
+  font-size: 22px;
+  text-transform: capitalize;
+  font-weight: 700;
+}
+.testimonials-section .item p {
+  font-size: 17px;
+  font-style: italic;
+}
+.testimonials-slider .owl-item {
+  display: flex;
+  justify-content: center; /* Center the item horizontally */
+  align-items: flex-start; /* Align items to the top, removing the vertical gap */
+}
+.testimonial-item {
+	max-width: 600px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+@media only screen and (max-width: 1440px) {
+	.testimonial-content {
+		font-size:18px;
+	}
+	.owl-carousel .owl-item .client-img img {
+		max-width:80px;
+	}
+}
+@media only screen and (max-width: 1199px) {
+	.testimonial-content {
+		font-size: 16px;
+		padding:20px 25px;
+	}
+	.testimonials-section {
+		padding-top:10px;
+	}
+}
+@media only screen and (max-width: 767px) {
+	.testimonials-section {
+		padding-top:0;
+	}
+}
+@media only screen and (max-width: 575px) {
+	.owl-carousel .owl-item .client-img img {
+		max-width:65px;
+		margin-right: 10px;
+	}
+	.testimonials-section {
+		font-size:13px;
+	}
+	.testimonial-content:before {
+		left: 46%;
+	}
+}
+@media only screen and (max-width: 460px) {
+	.testimonial-content:before {
+		left: 45%;
+	}
+}
+@media only screen and (max-width: 320px) {
+	.testimonial-content:before {
+		left: 43%;
+	}
+}

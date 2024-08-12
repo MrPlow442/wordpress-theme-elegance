@@ -212,6 +212,53 @@ function theme_customizer_settings($wp_customize) {
 }
 add_action('customize_register', 'theme_customizer_settings');
 
+function register_testimonials_block() {
+    // Register block editor script
+    wp_register_script(
+        'testimonials-block-editor-script',
+        get_template_directory_uri() . '/blocks/testimonials-block/index.js',
+        array('wp-blocks', 'wp-element', 'wp-editor', 'wp-components')
+    );
+
+    wp_enqueue_script(
+        'testimonial-item-block',
+        get_template_directory_uri() . '/blocks/testimonials-block/testimonial-item-block.js',
+        array('wp-blocks', 'wp-editor', 'wp-element')
+    );
+
+    // Register frontend script
+    wp_register_script(
+        'testimonials-block-frontend-script',
+        get_template_directory_uri() . '/blocks/testimonials-block/frontend.js',
+        array('jquery'),
+        null,
+        true
+    );
+
+    // Register editor style
+    wp_register_style(
+        'testimonials-block-editor-style',
+        get_template_directory_uri() . '/blocks/testimonials-block/style.css'
+    );
+
+    // Register frontend style
+    wp_register_style(
+        'testimonials-block-style',
+        get_template_directory_uri() . '/blocks/testimonials-block/style.css'
+    );
+
+    // Register the block
+    register_block_type('elegance-theme/testimonials-block', array(
+        'editor_script' => 'testimonials-block-editor-script',
+        'script' => 'testimonials-block-frontend-script',
+        'editor_style' => 'testimonials-block-editor-style',
+        'style' => 'testimonials-block-style',
+    ));
+}
+
+add_action('init', 'register_testimonials_block');
+
+
 
 class Single_Page_Walker extends Walker_Nav_Menu {
     function start_el(&$output, $item, $depth = 0, $args = array(), $id = 0) {        

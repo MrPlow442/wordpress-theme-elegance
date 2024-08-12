@@ -87,17 +87,22 @@
                     $content = apply_filters('the_content', $page->post_content);
                     $title = $page->post_title;
                     $slug = $page->post_name;
-                    $display_bg = get_post_meta($page->ID, 'display_background', true);
+                    $description = get_post_meta($page->ID, 'description', true);
+                    $hide_bg = get_post_meta($page->ID, 'hide_background', true);
+                    $do_not_animate = get_post_meta($page->ID, 'do_not_animate', true);
                     ?>
                     <div class="section animated-row" data-section="<?php echo esc_attr($slug); ?>">
                         <div class="section-inner">
                             <div class="row justify-content-center">
                                 <div class="col-lg-8 wide-col-laptop">
-                                    <div class="page-item <?php echo $display_bg == 'yes' ? 'with-background' : '' ; ?>">
+                                    <div class="page-item <?php echo $hide_bg == 'yes' ? '' : 'with-background' ; ?>">
                                         <div class="title-block animate" data-animate="fadeInUp">
                                                 <h2><?php echo esc_html($title); ?></h2>
+                                                <?php if ($description) : ?>
+                                                    <span><?php echo esc_html($description); ?></span>
+                                                <?php endif ; ?>
                                         </div>
-                                        <div class="animate" data-animate="fadeInDown">
+                                        <div <?php echo $do_not_animate == 'yes' ? '' : 'class="animate" data-animate="fadeInDown"' ; ?>>
                                             <?php echo $content; ?>
                                         </div>
                                     </div>                                
