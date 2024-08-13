@@ -18,9 +18,7 @@ wp.blocks.registerBlockType('elegance-theme/testimonials-block', {
 
         return  wp.element.createElement('div', { ...blockProps, className: 'col-md-8 offset-md-2' },
                     wp.element.createElement('div', { className: 'testimonials-section' },
-                        wp.element.createElement('div', innerBlockProps
-                            /*,wp.element.createElement(wp.blockEditor.InnerBlocks, { allowedBlocks: ['elegance-theme/testimonial-item-block'], template: [['elegance-theme/testimonial-item-block']], templateLock: false })*/
-                        )
+                        wp.element.createElement('div', innerBlockProps)
                     )
             );
     },
