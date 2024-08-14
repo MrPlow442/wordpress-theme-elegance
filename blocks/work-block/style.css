@@ -1,0 +1,106 @@
+.work-section {
+    text-align: center;
+}
+
+.download-button {
+    display: inline-block;
+    min-width: 50px;  /* Minimum width */
+    height: 50px; /* Fixed height */
+    padding: 0 10px;   /* Adjust padding to allow text to fit */
+    background-color: #0073aa; /* WordPress admin blue */
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 4px; /* Rounded corners */
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    line-height: 50px; /* Vertical centering of text */
+    overflow: hidden; /* Ensures content doesn't overflow */
+    white-space: nowrap; /* Prevents text wrapping */
+}
+
+.download-button:hover {
+    background-color: #005177; /* Darker blue on hover */
+}
+
+.download-button:active {
+    background-color: #003b50; /* Even darker blue when active */
+}
+
+.download-button:focus {
+    outline: none; /* Remove default focus outline */
+    box-shadow: 0 0 0 3px rgba(0, 115, 170, 0.5); /* Add a custom focus outline */
+}
+
+/* Text should not be cut off and should fit within the button */
+.download-button span {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 100%; /* Ensure it fits within the button */
+}
+
+.work-item img {
+    max-width: 370px;
+    max-height: 400px;
+    overflow: hidden;
+    position: relative;
+    z-index: 9;
+    border-radius: 10px;
+}
+.work-item .thumb-inner {
+    position: absolute;
+    z-index: 99;
+    bottom: 0;
+    text-align: left;
+    padding: 20px;
+    background-color: rgba(250,250,250,0.7);
+    width: 100%;
+    height: 60px;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    -webkit-transition: all 0.4s ease;
+    transition: all 0.4s ease;
+}
+.work-item .thumb-inner h4 {
+    margin-bottom: 0;
+    font-size: 16px;
+    margin-top: 0px;
+}
+.work-item .thumb-inner p {
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+    margin-bottom: 0px;
+}
+.work-item:hover .thumb-inner p {
+    position: relative;
+    opacity: 1;
+    visibility: visible;
+    color: #4a4a4a;
+}
+.work-item .thumb-inner .download-button {
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+    margin-bottom: 0px;
+}
+.work-item:hover .thumb-inner .download-button {
+    position: absolute;
+    bottom: 10px;
+    opacity: 1;
+    visibility: visible;
+}
+.work-item:hover .thumb-inner {
+    border-radius: 10px;
+    height: 100%;
+    background-color: rgba(250,250,250,0.9)
+}
+.work-item:hover .thumb-inner h4 {
+    margin-top: 30%;
+    color: #1e1e1e;
+    margin-bottom: 20px;
+}

@@ -15,7 +15,7 @@ CSS SITEMAP >>>>
   06. SERVICES BLOCK CSS
   07. WORK BLOCK CSS
   08. CONTACT BLOCK CSS
-  09. TESTIMONOALS BLOCK CSS
+  09. TESTIMONIALS BLOCK CSS
   10. SKILLS BLOCK CSS
 
 
@@ -583,61 +583,6 @@ a#logo {
 
 .owl-carousel .owl-dots .owl-dot.active {
     background: #fff
-}
-
-/*==============================================
-07. WORK BLOCK CSS
-================================================*/
-.gallery-section {
-  text-align: center;
-}
-.portfolio-item img {
-  max-width: 100%;
-  overflow: hidden;
-  position: relative;
-  z-index: 9;
-  border-radius: 10px;
-}
-.portfolio-item .thumb-inner {
-  position: absolute;
-  z-index: 99;
-  bottom: 0;
-  text-align: left;
-  padding: 20px;
-  background-color: rgba(250,250,250,0.25);
-  width: 100%;
-  height: 60px;
-  border-top-left-radius: 0px;
-  border-top-right-radius: 0px;
-  -webkit-transition: all 0.4s ease;
-  transition: all 0.4s ease;
-}
-.portfolio-item .thumb-inner h4 {
-  margin-bottom: 0;
-  font-size: 16px;
-  margin-top: 0px;
-}
-.portfolio-item .thumb-inner p {
-  opacity: 0;
-  visibility: hidden;
-  position: absolute;
-  margin-bottom: 0px;
-}
-.portfolio-item:hover .thumb-inner p {
-  position: relative;
-  opacity: 1;
-  visibility: visible;
-  color: #4a4a4a;
-}
-.portfolio-item:hover .thumb-inner {
-  border-radius: 10px;
-  height: 100%;
-  background-color: rgba(250,250,250,0.9)
-}
-.portfolio-item:hover .thumb-inner h4 {
-   margin-top: 30%;
-  color: #1e1e1e;
-  margin-bottom: 20px;
 }
 
 /*==============================================

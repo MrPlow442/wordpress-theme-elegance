@@ -1,22 +1,22 @@
 <?php
 /*
-Plugin Name: Testimonials Block
-Description: A custom block for displaying testimonials.
+Plugin Name: Work Block
+Description: A custom block for displaying work.
 Version: 1.0
 Author: Matija Lovrekovic
 */
 
-function testimonials_block_register() {
+function work_block_register() {
     // Register the block editor script
     wp_register_script(
-        'testimonials-block-editor-script',
+        'work-block-editor-script',
         plugins_url('build/index.js', __FILE__),
         array('wp-blocks', 'wp-element', 'wp-editor', 'wp-components')
     );
 
     // Register the frontend script
     wp_register_script(
-        'testimonials-block-frontend-script',
+        'work-block-frontend-script',
         plugins_url('build/frontend.js', __FILE__),
         array('jquery'),
         null,
@@ -25,23 +25,23 @@ function testimonials_block_register() {
 
     // Register the editor style
     wp_register_style(
-        'testimonials-block-editor-style',
+        'work-block-editor-style',
         plugins_url('src/style.css', __FILE__)
     );
 
     // Register the frontend style
     wp_register_style(
-        'testimonials-block-style',
+        'work-block-style',
         plugins_url('build/style.css', __FILE__)
     );
 
     // Register the block type
-    register_block_type('testimonials/testimonials-block', array(
-        'editor_script' => 'testimonials-block-editor-script',
-        'script' => 'testimonials-block-frontend-script',
-        'editor_style' => 'testimonials-block-editor-style',
-        'style' => 'testimonials-block-style',
+    register_block_type('work/work-block', array(
+        'editor_script' => 'work-block-editor-script',
+        'script' => 'work-block-frontend-script',
+        'editor_style' => 'work-block-editor-style',
+        'style' => 'work-block-style',
     ));
 }
 
-add_action('init', 'testimonials_block_register');
+add_action('init', 'work_block_register');
