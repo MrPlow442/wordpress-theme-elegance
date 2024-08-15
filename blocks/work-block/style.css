@@ -2,47 +2,6 @@
     text-align: center;
 }
 
-.download-button {
-    display: inline-block;
-    min-width: 50px;  /* Minimum width */
-    height: 50px; /* Fixed height */
-    padding: 0 10px;   /* Adjust padding to allow text to fit */
-    background-color: #0073aa; /* WordPress admin blue */
-    color: white;
-    font-weight: bold;
-    text-align: center;
-    text-decoration: none;
-    border-radius: 4px; /* Rounded corners */
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    line-height: 50px; /* Vertical centering of text */
-    overflow: hidden; /* Ensures content doesn't overflow */
-    white-space: nowrap; /* Prevents text wrapping */
-}
-
-.download-button:hover {
-    background-color: #005177; /* Darker blue on hover */
-}
-
-.download-button:active {
-    background-color: #003b50; /* Even darker blue when active */
-}
-
-.download-button:focus {
-    outline: none; /* Remove default focus outline */
-    box-shadow: 0 0 0 3px rgba(0, 115, 170, 0.5); /* Add a custom focus outline */
-}
-
-/* Text should not be cut off and should fit within the button */
-.download-button span {
-    display: block;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    max-width: 100%; /* Ensure it fits within the button */
-}
-
 .work-item img {
     max-width: 370px;
     max-height: 400px;
@@ -82,15 +41,20 @@
     visibility: visible;
     color: #4a4a4a;
 }
-.work-item .thumb-inner .download-button {
+.work-item .thumb-inner .btn {
     opacity: 0;
     visibility: hidden;
     position: absolute;
     margin-bottom: 0px;
+    -webkit-transition: opacity 0.7s ease;
+    transition: opacity 0.7s ease;
 }
-.work-item:hover .thumb-inner .download-button {
+.work-item:hover .thumb-inner .btn {
     position: absolute;
     bottom: 10px;
+    left: 0;
+    width: 90%;
+    margin: 0 5%;
     opacity: 1;
     visibility: visible;
 }

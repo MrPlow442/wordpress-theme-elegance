@@ -127,7 +127,7 @@ wp.blocks.registerBlockType('elegance-theme/work-item-block', {
                     }),
                     fileUrl && wp.element.createElement('a', {
                         href: fileUrl,
-                        className: 'download-button',
+                        className: 'btn btn-dark',
                         download: true
                     }, `Download`)
                 )
