@@ -2,6 +2,7 @@ wp.blocks.registerBlockType('elegance-theme/work-item-block', {
     title: 'Work Item Block',
     icon: 'format-image',
     category: 'widgets',
+    parent: ['elegance-theme/work-block'],
     attributes: {
         imageUrl: {
             type: 'string',
@@ -32,11 +33,14 @@ wp.blocks.registerBlockType('elegance-theme/work-item-block', {
             default: ''
         }
     },
+    supports: {
+        inserter: false
+    },
 
     edit: (props) => {
         const { attributes: { imageUrl, imageAlt, title, description, fileUrl, fileName }, setAttributes } = props;
 
-        const blockProps = wp.blockEditor.useBlockProps();
+        const blockProps = wp.blockEditor.useBlockProps({ className: 'work-item row' });
 
         const onSelectImage = (media) => {
             setAttributes({
@@ -53,42 +57,39 @@ wp.blocks.registerBlockType('elegance-theme/work-item-block', {
         };
 
         return wp.element.createElement('div', { ...blockProps },
-            wp.element.createElement('div', { },
-                wp.element.createElement('div', { },
-                    wp.element.createElement(wp.blockEditor.MediaUpload, {
-                        onSelect: onSelectImage,
-                        allowedTypes: ['image'],
-                        value: imageUrl,
-                        render: ({ open }) => (
-                            wp.element.createElement(wp.components.Button, { 
-                                onClick: open, 
-                                className: imageUrl ? 'image-button' : 'button button-large' 
-                            },
-                                imageUrl ? 
-                                    wp.element.createElement('img', {
-                                        src: imageUrl,
-                                        alt: imageAlt,
-                                        style: { maxWidth: '150px', maxHeight: '150px', objectFit: 'cover' } // Limit the size in the editor
-                                    }) 
-                                    : 'Select Image'
-                            )
+            wp.element.createElement('div', { className: 'col-md-4' },
+                imageUrl ? wp.element.createElement('img', {
+                    src: imageUrl,
+                    alt: imageAlt,
+                    style: { maxWidth: '100%', maxHeight: '150px', objectFit: 'cover' }
+                }) : null,
+                wp.element.createElement(wp.blockEditor.MediaUpload, {
+                    onSelect: onSelectImage,
+                    allowedTypes: ['image'],
+                    value: imageUrl,
+                    render: ({ open }) => (
+                        wp.element.createElement(wp.components.Button, {
+                            onClick: open,
+                            className: 'button button-large'
+                        },
+                            imageUrl ? 'Change Image' : 'Select Image'
                         )
-                    })
-                ),
-                wp.element.createElement('div', { },
-                    wp.element.createElement(wp.blockEditor.RichText, {
-                        tagName: 'h4',
-                        value: title,
-                        onChange: (newTitle) => setAttributes({ title: newTitle }),
-                        placeholder: 'Enter title...'
-                    }),
-                    wp.element.createElement(wp.blockEditor.RichText, {
-                        tagName: 'p',
-                        value: description,
-                        onChange: (newDescription) => setAttributes({ description: newDescription }),
-                        placeholder: 'Enter description...'
-                    })
-                ),
+                    )
+                })
+            ),
+            wp.element.createElement('div', { className: 'col-md-8' },
+                wp.element.createElement(wp.blockEditor.RichText, {
+                    tagName: 'h4',
+                    value: title,
+                    onChange: (newTitle) => setAttributes({ title: newTitle }),
+                    placeholder: 'Enter title...'
+                }),
+                wp.element.createElement(wp.blockEditor.RichText, {
+                    tagName: 'p',
+                    value: description,
+                    onChange: (newDescription) => setAttributes({ description: newDescription }),
+                    placeholder: 'Enter description...'
+                }),
                 wp.element.createElement('div', { className: 'file-upload' },
                     wp.element.createElement(wp.blockEditor.MediaUpload, {
                         onSelect: onSelectFile,
@@ -97,7 +98,7 @@ wp.blocks.registerBlockType('elegance-theme/work-item-block', {
                         render: ({ open }) => (
                             wp.element.createElement(wp.components.Button, {
                                 onClick: open,
-                                className: fileUrl ? 'button file-button' : 'button button-large'
+                                className: 'button button-large'
                             },
                                 fileUrl ? `File: ${fileName}` : 'Upload File'
                             )

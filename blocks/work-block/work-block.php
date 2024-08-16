@@ -6,37 +6,43 @@ Version: 1.0
 Author: Matija Lovrekovic
 */
 
-function work_block_register() {
-    // Register the block editor script
+function register_work_block() {
+    // Register block editor script
     wp_register_script(
         'work-block-editor-script',
-        plugins_url('build/index.js', __FILE__),
+        get_template_directory_uri() . '/blocks/work-block/work-block.js',
         array('wp-blocks', 'wp-element', 'wp-editor', 'wp-components')
     );
 
-    // Register the frontend script
+    wp_enqueue_script(
+        'work-item-block',
+        get_template_directory_uri() . '/blocks/work-block/work-item-block.js',
+        array('wp-blocks', 'wp-editor', 'wp-element')
+    );
+
+    // Register frontend script
     wp_register_script(
         'work-block-frontend-script',
-        plugins_url('build/frontend.js', __FILE__),
+        get_template_directory_uri() . '/blocks/work-block/work-frontend.js',
         array('jquery'),
         null,
         true
     );
 
-    // Register the editor style
+    // Register editor style
     wp_register_style(
         'work-block-editor-style',
-        plugins_url('src/style.css', __FILE__)
+        get_template_directory_uri() . '/blocks/work-block/work-block.css'
     );
 
-    // Register the frontend style
+    // Register frontend style
     wp_register_style(
         'work-block-style',
-        plugins_url('build/style.css', __FILE__)
+        get_template_directory_uri() . '/blocks/work-block/work-block.css'
     );
 
-    // Register the block type
-    register_block_type('work/work-block', array(
+    // Register the block
+    register_block_type('elegance-theme/work-block', array(
         'editor_script' => 'work-block-editor-script',
         'script' => 'work-block-frontend-script',
         'editor_style' => 'work-block-editor-style',
@@ -44,4 +50,4 @@ function work_block_register() {
     ));
 }
 
-add_action('init', 'work_block_register');
+add_action('init', 'register_work_block');

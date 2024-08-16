@@ -6,37 +6,43 @@ Version: 1.0
 Author: Matija Lovrekovic
 */
 
-function testimonials_block_register() {
-    // Register the block editor script
+function register_testimonials_block() {
+    // Register block editor script
     wp_register_script(
         'testimonials-block-editor-script',
-        plugins_url('build/index.js', __FILE__),
+        get_template_directory_uri() . '/blocks/testimonials-block/testimonials-block.js',
         array('wp-blocks', 'wp-element', 'wp-editor', 'wp-components')
     );
 
-    // Register the frontend script
+    wp_enqueue_script(
+        'testimonial-item-block',
+        get_template_directory_uri() . '/blocks/testimonials-block/testimonial-item-block.js',
+        array('wp-blocks', 'wp-editor', 'wp-element')
+    );
+
+    // Register frontend script
     wp_register_script(
         'testimonials-block-frontend-script',
-        plugins_url('build/frontend.js', __FILE__),
+        get_template_directory_uri() . '/blocks/testimonials-block/testimonials-frontend.js',
         array('jquery'),
         null,
         true
     );
 
-    // Register the editor style
+    // Register editor style
     wp_register_style(
         'testimonials-block-editor-style',
-        plugins_url('src/style.css', __FILE__)
+        get_template_directory_uri() . '/blocks/testimonials-block/testimonials-block.css'
     );
 
-    // Register the frontend style
+    // Register frontend style
     wp_register_style(
         'testimonials-block-style',
-        plugins_url('build/style.css', __FILE__)
+        get_template_directory_uri() . '/blocks/testimonials-block/testimonials-block.css'
     );
 
-    // Register the block type
-    register_block_type('testimonials/testimonials-block', array(
+    // Register the block
+    register_block_type('elegance-theme/testimonials-block', array(
         'editor_script' => 'testimonials-block-editor-script',
         'script' => 'testimonials-block-frontend-script',
         'editor_style' => 'testimonials-block-editor-style',
@@ -44,4 +50,4 @@ function testimonials_block_register() {
     ));
 }
 
-add_action('init', 'testimonials_block_register');
+add_action('init', 'register_testimonials_block');
