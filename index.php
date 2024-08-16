@@ -21,6 +21,14 @@
         </video>
         <img  id="backgroundImage" class="hidden" src="<?php echo !empty($header_background_image) ? esc_url($header_background_image) : ''; ?>" alt="Background Image">
 
+        <div class="preloader">
+            <div class="preloader-bounce">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+
         <?php get_header(); ?>
 
         <div id="fullpage" class="fullpage-default">

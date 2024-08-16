@@ -224,19 +224,7 @@ figure {
   display: flex;
   flex: 1 0 auto;
 }
-.preloader {
-  background: -moz-linear-gradient(top, #ffffff 0%, #a1a1a1 100%); /* FF3.6-15 */
-  background: -webkit-linear-gradient(top, #ffffff 0%, #a1a1a1 100%); /* Chrome10-25,Safari5.1-6 */
-  background: linear-gradient(to bottom, #ffffff 0%, #a1a1a1 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#a1a1a1',GradientType=0 ); /* IE6-9 */
-  height: 100%;
-  left: 0;
-  position: fixed;
-  right: 0;
-  top: 0;
-  z-index: 9999;
-  text-align: center;
-}
+
 .preloader-bounce {
   left: 0;
   right: 0;
