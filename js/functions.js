@@ -55,3 +55,12 @@ function swapElementDisplay(element1, element2, sourceUrl) {
     changeBackgroundElement(element2, sourceUrl);
     setVisibility(element2, 'visible');
 }
+
+function preloadImages(urls) {
+    urls.forEach(function(url) {
+        if (url) {
+            var img = new Image();
+            img.src = url;
+        }
+    });
+}

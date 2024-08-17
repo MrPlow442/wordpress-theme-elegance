@@ -19,7 +19,7 @@
         <video id="backgroundVideo" class="hidden" autoplay muted loop>
             <source src="<?php echo !empty($header_background_video) ? esc_url($header_background_video) : ''; ?>" type="video/mp4">
         </video>
-        <img  id="backgroundImage" class="hidden" src="<?php echo !empty($header_background_image) ? esc_url($header_background_image) : ''; ?>" alt="Background Image">
+        <img  id="backgroundImage" class="hidden" src="<?php echo !empty($header_background_image) ? esc_url($header_background_image) : ''; ?>" alt="Background Image" loading="eager">
 
         <div class="preloader">
             <div class="preloader-bounce">
@@ -140,6 +140,12 @@
 
                 var defaultVideoUrl = '<?php echo $header_background_video; ?>';
                 var defaultImageUrl = '<?php echo $header_background_image; ?>';
+
+                preloadImages([
+                    <?php foreach ($pages as $page) : ?>
+                        '<?php echo has_post_thumbnail($page->ID) ? get_the_post_thumbnail_url($page->ID) : ''; ?>',
+                    <?php endforeach; ?>
+                ]);
 
                 function showDefault() {
                     if (!defaultVideoUrl && !defaultImageUrl) {
