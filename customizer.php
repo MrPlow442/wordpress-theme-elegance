@@ -94,13 +94,13 @@ function theme_customizer_settings($wp_customize) {
     $wp_customize->add_section( 'home_section' , array(
         'title'      => __( 'Home Text Settings', 'elegance-theme' ),
         'priority'   => 30,
-    ) );
+    ));
 
     // Add the setting for the homepage description above the title
     $wp_customize->add_setting( 'home_description_above' , array(
         'default'   => __( 'Hello, welcome to', 'elegance-theme' ),
         'transport' => 'refresh',
-    ) );
+    ));
 
     // Add the control for the homepage description above the title
     $wp_customize->add_control( new WP_Customize_Control( $wp_customize, 'home_description_above_control', array(
@@ -108,13 +108,13 @@ function theme_customizer_settings($wp_customize) {
         'section'    => 'home_section',
         'settings'   => 'home_description_above',
         'type'       => 'textarea',
-    ) ) );
+    )));
 
     // Add the setting for the homepage description below the title
     $wp_customize->add_setting( 'home_description_below' , array(
         'default'   => __( 'This is a clean and modern HTML5 template with a video background. You can use this layout for your profile page. Please spread a word about templatemo to your friends. Thank you.', 'elegance-theme' ),
         'transport' => 'refresh',
-    ) );
+    ));
 
     // Add the control for the homepage description below the title
     $wp_customize->add_control( new WP_Customize_Control( $wp_customize, 'home_description_below_control', array(
@@ -122,7 +122,7 @@ function theme_customizer_settings($wp_customize) {
         'section'    => 'home_section',
         'settings'   => 'home_description_below',
         'type'       => 'textarea',
-    ) ) );
+    )));
 
     /*************************************
      *          COLOR SETTINGS           *
@@ -131,48 +131,86 @@ function theme_customizer_settings($wp_customize) {
      $wp_customize->add_section( 'color_settings' , array(
         'title'      => __( 'Color Settings', 'elegance-theme' ),
         'priority'   => 40,
-    ) );
+    ));
 
     // Add setting for global text color
     $wp_customize->add_setting( 'global_text_color' , array(
         'default'   => '#ffffff',
         'transport' => 'refresh',
         'sanitize_callback' => 'sanitize_hex_color',
-    ) );
+    ));
 
     // Add control for global text color
     $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'global_text_color_control', array(
         'label'      => __( 'Global Text Color', 'elegance-theme' ),
         'section'    => 'color_settings',
         'settings'   => 'global_text_color',
-    ) ) );
+    )));
 
     // Add setting for gradient color 1
     $wp_customize->add_setting( 'gradient_color_1' , array(
         'default'   => '#4096ee',
         'transport' => 'refresh',
         'sanitize_callback' => 'sanitize_hex_color',
-    ) );
+    ));
 
     // Add control for gradient color 1
     $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'gradient_color_1_control', array(
         'label'      => __( 'Gradient Color 1', 'elegance-theme' ),
         'section'    => 'color_settings',
         'settings'   => 'gradient_color_1',
-    ) ) );
+    )));
 
     // Add setting for gradient color 2
     $wp_customize->add_setting( 'gradient_color_2' , array(
         'default'   => '#39ced6',
         'transport' => 'refresh',
         'sanitize_callback' => 'sanitize_hex_color',
-    ) );
+    ));
 
     // Add control for gradient color 2
     $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'gradient_color_2_control', array(
         'label'      => __( 'Gradient Color 2', 'elegance-theme' ),
         'section'    => 'color_settings',
         'settings'   => 'gradient_color_2',
-    ) ) );
+    )));
+
+    /*************************************
+     *          SOCIALS SETTINGS         *
+    *************************************/
+    // Add a section for the social icons
+    $wp_customize->add_section('social_icons_section', array(
+        'title' => __('Social Icons', 'theme_textdomain'),
+        'priority' => 30,
+    ));
+
+    // Add a setting to manage social icons (this will be a repeater)
+    $wp_customize->add_setting('social_icons', array(
+        'default' => json_encode(array()),
+        'sanitize_callback' => 'sanitize_social_icons',
+    ));
+
+    // Add a control to manage social icons
+    $wp_customize->add_control(new Social_Icons_Repeater_Control($wp_customize, 'social_icons', array(
+        'label' => __('Social Icons', 'theme_textdomain'),
+        'section' => 'social_icons_section',
+        'settings' => 'social_icons',
+        'priority' => 1,
+    )));
 }
 add_action('customize_register', 'theme_customizer_settings');
+
+// Sanitize function for social icons
+function sanitize_social_icons($input) {
+    $input_decoded = json_decode($input, true);
+    if (!empty($input_decoded)) {
+        foreach ($input_decoded as $key => $value) {
+            $input_decoded[$key]['url'] = esc_url_raw($value['url']);
+            $input_decoded[$key]['icon'] = sanitize_text_field($value['icon']);
+        }
+        return json_encode($input_decoded);
+    }
+    return json_encode(array());
+}
+
+require get_template_directory() . '/social-icons-repeater-control.php';

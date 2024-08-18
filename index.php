@@ -122,17 +122,6 @@
                 }
             ?>
 
-        <!-- <div id="social-icons">
-            <div class="text-right">
-                <ul class="social-icons">
-                    <li><a href="#" title="Facebook"><i class="fa fa-facebook"></i></a></li>
-                    <li><a href="#" title="Twitter"><i class="fa fa-twitter"></i></a></li>
-                    <li><a href="#" title="Linkedin"><i class="fa fa-linkedin"></i></a></li>
-                    <li><a href="#" title="Instagram"><i class="fa fa-behance"></i></a></li>
-                </ul>
-            </div>
-        </div> -->
-
         <script type="text/javascript">
             document.addEventListener('DOMContentLoaded', function() {
                 var backgroundVideo = document.getElementById('backgroundVideo');
@@ -205,7 +194,23 @@
                 }
             });
         </script>
-
+        </div>
+        <div id="social-icons">
+            <div class="text-right">
+                <ul class="social-icons">
+                    <?php
+                    $social_icons = json_decode(get_theme_mod('social_icons'));
+                    if (!empty($social_icons)) {
+                        foreach ($social_icons as $social_icon) {
+                            $title = !empty($social_icon->title) ? esc_attr($social_icon->title) : ''; // Safely access the title
+                            $url = $social_icon->icon === 'fa-envelope' ? 'mailto:' . esc_attr($social_icon->url) : esc_url($social_icon->url);
+                            echo '<li><a href="' . $url . '" title="' . $title . '"><i class="fa ' . esc_attr($social_icon->icon) . '"></i></a></li>';
+                        }
+                    }
+                    ?>
+                </ul>
+            </div>
+        </div>
         <?php get_footer(); ?>
     </div>  
 </body>

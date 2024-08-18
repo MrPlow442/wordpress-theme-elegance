@@ -1,84 +1,18 @@
-<div class="col-md-8 offset-md-2">
-    <div class="testimonials-section">
-        <div class="testimonials-slider owl-carousel">
-            <div class="item animate" data-animate="fadeInUp">
-                <div class="testimonial-item">
-                    <div class="testimonial-content">
-                        <h4>Sandar</h4>
-                        <p>"Ut varius leo eu mauris lacinia, eleifend posuere urna gravida. Aenean a mattis lacus."</p>
-                        <span>Managing Director</span>
-                    </div>                                           
-                </div>
-            </div>
-            <div class="item animate" data-animate="fadeInUp">
-                <div class="testimonial-item">
-                    <div class="testimonial-content">
-                        <h4>Shinn</h4>
-                        <p>"Nam iaculis, leo nec facilisis sollicitudin, dui massa tempus odio, vitae malesuada ante elit vitae eros."</p>
-                        <span>CEO and Founder</span>
-                    </div>                                           
-                </div>
-            </div>
-            <div class="item animate" data-animate="fadeInUp">
-                <div class="testimonial-item">                                               
-                    <div class="testimonial-content">
-                        <h4>Marlar</h4>
-                        <p>"Etiam efficitur, tortor facilisis finibus semper, diam magna fringilla lectus, et fringilla felis urna posuere tortor."</p>
-                        <span>Chief Marketing Officer</span>
-                    </div>                                           
-                </div>
+        <div id="social-icons">
+            <div class="text-right">
+                <ul class="social-icons">
+                    <li><a href="#" title="Facebook"><i class="fa fa-facebook"></i></a></li>
+                    <li><a href="#" title="Twitter"><i class="fa fa-twitter"></i></a></li>
+                    <li><a href="#" title="Linkedin"><i class="fa fa-linkedin"></i></a></li>
+                    <li><a href="#" title="Instagram"><i class="fa fa-behance"></i></a></li>
+                </ul>
             </div>
         </div>
-    </div>
-</div>
-<style>
-.testimonials-section .item {
-  background-color: rgba(250,250,250,0.25);
-  padding: 40px;
-  border-radius: 10px;
-}
-.testimonials-section .item img {
-  width: 140px;
-  height: 140px;
-  margin: 0 auto;
-}
-.testimonials-section .item h4 {
-  margin-top: 40px;
-  font-size: 22px;
-  text-transform: capitalize;
-  font-weight: 700;
-}
-.testimonials-section .item p {
-  font-size: 17px;
-  font-style: italic;
-}
-</style>
-<script type="text/javascript">
-(function ($, document) {
-    $(document).ready(function() {
-        $(window).on('load', function() {
-            if ($('.testimonials-slider').length) {
-                $('.testimonials-slider').owlCarousel({
-                    loop: true,
-                    nav: false,
-                    dots: true,
-                    items: 1,
-                    margin: 30,
-                    autoplay: true,
-                    smartSpeed: 700,
-                    autoplayTimeout: 6000,
-                    responsive: {
-                        0: {
-                            items: 1,
-                            margin: 0
-                        },
-                        768: {
-                            items: 1
-                        }
-                    }
-                });
-            }
-        });
-    });
-})(jQuery, document);
-</script>
+
+
+LINKS:
+https://www.facebook.com/arvak.hr/
+https://www.youtube.com/channel/UC0oEUc8P_y9hhVMG0-5RHcA
+https://www.linkedin.com/in/helena-smr%C4%8Dek-56b322170
+helena@arvak.hr
+https://www.instagram.com/arvak.hr/
