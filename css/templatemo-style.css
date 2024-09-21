@@ -577,19 +577,19 @@ a#logo {
 08. CONTACT BLOCK CSS
 ================================================*/
 ::-webkit-input-placeholder {
-  color:#fff !important;
+  /* color:#fff !important; */
   opacity:1;
 }
 ::-moz-placeholder {
-  color:#fff !important;
+  /* color:#fff !important; */
   opacity:1;
 }
 :-ms-input-placeholder {
-  color:#fff !important;
+  /* color:#fff !important; */
   opacity:1;
 }
 :-moz-placeholder {
-  color:#fff !important;
+  /* color:#fff !important; */
   opacity:1;
 }
 .input-field {

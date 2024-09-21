@@ -180,7 +180,7 @@ function theme_customizer_settings($wp_customize) {
     *************************************/
     // Add a section for the social icons
     $wp_customize->add_section('social_icons_section', array(
-        'title' => __('Social Icons', 'theme_textdomain'),
+        'title' => __('Social Icons', 'elegance-theme'),
         'priority' => 30,
     ));
 
@@ -192,11 +192,57 @@ function theme_customizer_settings($wp_customize) {
 
     // Add a control to manage social icons
     $wp_customize->add_control(new Social_Icons_Repeater_Control($wp_customize, 'social_icons', array(
-        'label' => __('Social Icons', 'theme_textdomain'),
+        'label' => __('Social Icons', 'elegance-theme'),
         'section' => 'social_icons_section',
         'settings' => 'social_icons',
         'priority' => 1,
     )));
+
+    /*************************************
+     *          CONTACT SETTINGS         *
+    *************************************/
+    // Phone Number
+    // $wp_customize->add_setting('contact_phone', array(
+    //     'default' => '090 080 0210',
+    //     'sanitize_callback' => 'sanitize_text_field',
+    // ));
+
+    // $wp_customize->add_control('contact_phone', array(
+    //     'label' => __('Contact Phone', 'elegance-theme'),
+    //     'section' => 'contact_section',
+    //     'type' => 'text',
+    // ));
+
+    // // Email Address
+    // $wp_customize->add_setting('contact_email', array(
+    //     'default' => 'info@company.co',
+    //     'sanitize_callback' => 'sanitize_email',
+    // ));
+
+    // $wp_customize->add_control('contact_email', array(
+    //     'label' => __('Contact Email', 'elegance-theme'),
+    //     'section' => 'contact_section',
+    //     'type' => 'email',
+    // ));
+
+    // // Add Setting for MailerLite Shortcode
+    // $wp_customize->add_setting('mailerlite_form_shortcode', array(
+    //     'default' => '',
+    //     'sanitize_callback' => 'sanitize_text_field',
+    // ));
+
+    // // Add Control for MailerLite Shortcode
+    // $wp_customize->add_control('mailerlite_form_shortcode', array(
+    //     'label' => __('MailerLite Form Shortcode', 'elegance-theme'),
+    //     'section' => 'contact_section',
+    //     'type' => 'text',
+    // ));
+
+    // // Contact Section
+    // $wp_customize->add_section('contact_section', array(
+    //     'title' => __('Contact Section', 'your-theme-textdomain'),
+    //     'priority' => 30,
+    // ));
 }
 add_action('customize_register', 'theme_customizer_settings');
 
