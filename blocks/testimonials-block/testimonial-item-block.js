@@ -41,33 +41,46 @@ wp.blocks.registerBlockType('elegance-theme/testimonial-item-block', {
 
         return wp.element.createElement('div', { ...blockProps },
             wp.element.createElement('div', { className: 'testimonial-item' },
-                // Add the image upload section
+                // Conditionally render the image if present
                 imageUrl && wp.element.createElement('div', { className: 'client-row' },
                     wp.element.createElement('img', { src: imageUrl, className: 'rounded-circle', alt: 'Client image' })
                 ),
-                wp.element.createElement(wp.blockEditor.MediaUpload, {
-                    onSelect: (media) => setAttributes({ imageUrl: media.url }),
-                    allowedTypes: ['image'],
-                    render: ({ open }) => wp.element.createElement(wp.components.Button, { onClick: open },
-                        imageUrl ? 'Change Image' : 'Upload Image'
-                    ),
-                }),
+                wp.element.createElement(wp.blockEditor.MediaUploadCheck, {},
+                    wp.element.createElement(wp.blockEditor.MediaUpload, {
+                        onSelect: (media) => setAttributes({ imageUrl: media.url }),
+                        allowedTypes: ['image'],
+                        render: ({ open }) => wp.element.createElement(wp.element.Fragment, {},
+                            wp.element.createElement(wp.components.Button, { onClick: open },
+                                imageUrl ? 'Change Image' : 'Upload Image'
+                            ),
+                            // Add a "Remove Image" button
+                            imageUrl && wp.element.createElement(wp.components.Button, {
+                                onClick: () => setAttributes({ imageUrl: '' }),
+                                isDestructive: true,
+                                style: { marginLeft: '10px' }
+                            }, 'Remove Image')
+                        )
+                    })
+                ),
                 wp.element.createElement('div', { className: 'testimonial-content' },
                     wp.element.createElement(wp.blockEditor.RichText, { 
                         tagName: 'h4', 
                         value: name, 
                         placeholder: 'Name', 
-                        onChange: (value) => setAttributes({ name: value })}),
+                        onChange: (value) => setAttributes({ name: value })
+                    }),
                     wp.element.createElement(wp.blockEditor.RichText, { 
                         tagName: 'p', 
                         value: quote, 
                         placeholder: 'Quote', 
-                        onChange: (value) => setAttributes({ quote: value })}),
+                        onChange: (value) => setAttributes({ quote: value })
+                    }),
                     wp.element.createElement(wp.blockEditor.RichText, { 
                         tagName: 'span', 
                         value: position, 
                         placeholder: 'Position', 
-                        onChange: (value) => setAttributes({ position: value })})
+                        onChange: (value) => setAttributes({ position: value })
+                    })
                 )
             )
         );
@@ -79,7 +92,7 @@ wp.blocks.registerBlockType('elegance-theme/testimonial-item-block', {
 
         return wp.element.createElement('div', { className: 'item animate', 'data-animate': 'fadeInUp' },
             wp.element.createElement('div', { className: 'testimonial-item' },
-                // Conditionally render the image
+                // Conditionally render the image if present
                 imageUrl && wp.element.createElement('div', { className: 'client-row' },
                     wp.element.createElement('img', { src: imageUrl, className: 'rounded-circle', alt: 'Client image' })
                 ),

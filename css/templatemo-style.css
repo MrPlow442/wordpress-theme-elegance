@@ -842,3 +842,12 @@ textarea.form-control {
   text-transform: uppercase;
   font-weight: 700;
 }
+
+.client-row img.rounded-circle {
+  width: 120px; /* Set a consistent width */
+  height: 120px; /* Set a consistent height */
+  object-fit: cover; /* Ensure the image scales correctly */
+  border-radius: 50%; /* Keep the image circular */
+  display: block;
+  margin: 0 auto; /* Center the image */
+}
