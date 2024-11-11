@@ -876,7 +876,7 @@ textarea.form-control {
   border-radius: 10px !important;
   padding: 4px 22px !important;
   font-size: 14px !important;
-  margin-bottom: 30px !important;
+  margin-top: 30px !important;
 }
 
 .wpforms-field textarea {
@@ -923,16 +923,8 @@ textarea.form-control {
   outline:none !important;
 }
 
-/* .wpforms-submit {
-  background-color: #0073e6;
-  color: #fff;
-  border: none;
-  border-radius: 10px;
-  padding: 10px 20px;
-  font-size: 16px;
-  cursor: pointer;
+div.wpforms-container-full .wpforms-confirmation-container-full {
+  background: transparent !important;
+  border: 1px solid #e0ffc7 !important;
+  border-radius: 20px !important;
 }
-
-.wpforms-submit:hover {
-  background-color: #005bb5;
-} */
