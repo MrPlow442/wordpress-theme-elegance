@@ -718,6 +718,18 @@ textarea.form-control {
 }
 
 /*==============================================
+9. TESTIMONIALS BLOCK CSS
+================================================*/
+.client-row img.rounded-circle {
+	width: 120px; /* Set a consistent width */
+	height: 120px; /* Set a consistent height */
+	object-fit: cover; /* Ensure the image scales correctly */
+	border-radius: 50%; /* Keep the image circular */
+	display: block;
+	margin: 0 auto; /* Center the image */
+}
+
+/*==============================================
 10. SKILLS BLOCK CSS
 ================================================*/
 .skills-row {
