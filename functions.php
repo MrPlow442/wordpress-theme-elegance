@@ -6,6 +6,7 @@ function elegance_theme_scripts() {
     wp_enqueue_style('owl-carousel', get_template_directory_uri() . '/css/owl.carousel.css');
     wp_enqueue_style('animate', get_template_directory_uri() . '/css/animate.css');
     wp_enqueue_style('templatemo-style', get_template_directory_uri() . '/css/templatemo-style.css');
+    wp_enqueue_style('wpforms-overrides', get_template_directory_uri() . '/css/wpforms-overrides.css');
     wp_enqueue_style('responsive', get_template_directory_uri() . '/css/responsive.css');
     wp_enqueue_style('elegance-style', get_stylesheet_uri() );
 
@@ -15,7 +16,6 @@ function elegance_theme_scripts() {
     wp_enqueue_script('scrolloverflow', get_template_directory_uri() . '/js/scrolloverflow.js', array('jquery'), '', true);
     wp_enqueue_script('owl-carousel', get_template_directory_uri() . '/js/owl.carousel.min.js', array('jquery'), '', true);
     wp_enqueue_script('jquery-inview', get_template_directory_uri() . '/js/jquery.inview.min.js', array('jquery'), '', true);
-    wp_enqueue_script('form', get_template_directory_uri() . '/js/form.js', array('jquery'), '', true);
     wp_enqueue_script('custom', get_template_directory_uri() . '/js/custom.js', array('jquery'), '', true);
     wp_enqueue_script('functions', get_template_directory_uri() . '/js/functions.js', array('jquery'), '', true);
 }

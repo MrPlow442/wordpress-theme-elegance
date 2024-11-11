@@ -11,13 +11,7 @@ function elegance_customizer_css() {
         }
 
         #backgroundContainer:after {
-            content: '';
-            opacity: 0.75;
-            position:fixed;
-            left:0;
-            top:0;
-            right:0;
-            bottom: 0;
+            /* Rest is in templatemo-style.css */
             background: {$gradient_color_1}; /* Old browsers */
             background: -moz-linear-gradient(top, {$gradient_color_1} 0%, {$gradient_color_2} 100%); /* FF3.6-15 */
             background: -webkit-linear-gradient(top, {$gradient_color_1} 0%,{$gradient_color_2} 100%); /* Chrome10-25,Safari5.1-6 */
@@ -26,18 +20,36 @@ function elegance_customizer_css() {
         }
 
         .preloader {
+            /* Rest is in templatemo-style.css */
             background: {$gradient_color_1}; /* Old browsers */
             background: -moz-linear-gradient(top, {$gradient_color_1} 0%, {$gradient_color_2} 100%); /* FF3.6-15 */
             background: -webkit-linear-gradient(top, {$gradient_color_1} 0%,{$gradient_color_2} 100%); /* Chrome10-25,Safari5.1-6 */
             background: linear-gradient(to bottom, {$gradient_color_1} 0%,{$gradient_color_2} 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
             filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='{$gradient_color_1}', endColorstr='{$gradient_color_2}',GradientType=0 ); /* IE6-9 */
-            height: 100%;
-            left: 0;
-            position: fixed;
-            right: 0;
-            top: 0;
-            z-index: 9999;
-            text-align: center;
+        }
+
+        ::-webkit-input-placeholder {
+            /* Rest is in templatemo-style.css */
+            color:{$global_text_color} !important;
+        }
+        ::-moz-placeholder {
+            /* Rest is in templatemo-style.css */
+            color:{$global_text_color} !important;
+        }
+        :-ms-input-placeholder {
+            /* Rest is in templatemo-style.css */
+            color:{$global_text_color} !important;
+        }
+        :-moz-placeholder {
+            /* Rest is in templatemo-style.css */
+            color:{$global_text_color} !important;
+        }
+
+        .wpforms-field input[type=\"text\"],
+        .wpforms-field input[type=\"email\"],
+        .wpforms-field textarea {
+            /* Rest is in wpforms-overrides.css */
+            color:{$global_text_color} !important;
         }
     ";
 
