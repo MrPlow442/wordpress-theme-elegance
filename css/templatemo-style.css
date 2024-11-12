@@ -169,6 +169,8 @@ figure {
   min-height: 100%;
   transition: opacity 200ms ease-out;
   opacity: 1;
+  object-fit: cover;
+  object-position: center;
 }
 
 .wrapper-background-dark:after {
@@ -868,4 +870,17 @@ textarea.form-control {
   font-size: 32px;
   text-transform: uppercase;
   font-weight: 700;
+}
+
+/* Fullpage section adjustments for mobile */
+@media (max-width: 768px) {
+  .section, .slide {
+      overflow: hidden;      /* Prevents content from spilling over */
+      height: 100vh;         /* Ensures sections fit the viewport height */
+  }
+
+  .post-container {
+      max-height: 80vh;      /* Allows scrolling within the container */
+      overflow-y: auto;      /* Adds vertical scroll if content overflows */
+  }
 }

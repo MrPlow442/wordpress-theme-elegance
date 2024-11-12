@@ -53,6 +53,10 @@
 	.testimonials-section {
 		padding-top:0;
 	}
+
+	.testimonials-section .item {
+		padding: 5px 0 0 0;
+	}
 }
 @media only screen and (max-width: 575px) {
 	.owl-carousel .owl-item .client-img img {
@@ -65,14 +69,23 @@
 	.testimonial-content:before {
 		left: 46%;
 	}
+	.testimonials-section .item {
+		padding: 5px 0 0 0;
+	}
 }
 @media only screen and (max-width: 460px) {
 	.testimonial-content:before {
 		left: 45%;
 	}
+	.testimonials-section .item {
+		padding: 5px 0 0 0;
+	}
 }
 @media only screen and (max-width: 320px) {
 	.testimonial-content:before {
 		left: 43%;
+	}
+	.testimonials-section .item {
+		padding: 5px 0 0 0;
 	}
 }
