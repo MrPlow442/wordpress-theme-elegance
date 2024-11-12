@@ -68,7 +68,17 @@ require_once get_parent_theme_file_path('/blocks/work-block/work-block.php');
 
 class Single_Page_Walker extends Walker_Nav_Menu {
     function start_el(&$output, $item, $depth = 0, $args = array(), $id = 0) {        
+        $is_custom_link = ($item->type === 'custom' && !empty($item->url));
+        
         $item_id = $item->type == 'custom' ? sanitize_title($item->attr_title) : sanitize_title($item->title);
-        $output .= sprintf( '<li data-menuanchor="%s"><a href="#%s">%s</a>', $item_id, $item_id, $item->title );
+        
+        $href = $is_custom_link ? esc_url($item->url) : '#' . esc_attr($item_id);
+
+        $output .= sprintf(
+            '<li data-menuanchor="%s"><a href="%s">%s</a>',
+            esc_attr($item_id),
+            $href,
+            esc_html($item->title)
+        );
     }
 }

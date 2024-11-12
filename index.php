@@ -78,49 +78,78 @@
             <?php endif; ?>
 
             <?php
-                $pages = get_pages(array('sort_column' => 'menu_order'));
+                $menu_items = wp_get_nav_menu_items('top'); // Retrieve items in "top" menu
 
-                $anchors = array_map(function($page) {
-                    return sanitize_title($page->post_title);
-                }, $pages);
-                if (have_posts()) {                    
-                    array_unshift($anchors, 'posts');
+                // Extract page IDs and custom URLs with fragments from menu items
+                $page_ids = [];
+                $custom_items = [];
+                foreach ($menu_items as $item) {
+                    if ($item->type === 'post_type' && $item->object === 'page') {
+                        $page_ids[] = $item->object_id; // Collect page IDs for ordering
+                    } elseif ($item->type === 'custom') {
+                        $custom_items[] = [
+                            'title' => $item->title,
+                            'anchor' => sanitize_title($item->attr_title),
+                            'url' => esc_url($item->url)
+                        ];
+                    }
                 }
 
-                array_unshift($anchors, 'home');                
+                // Fetch pages by IDs, sorted by menu order in "top" menu
+                $pages = get_pages([
+                    'include' => $page_ids,
+                    'sort_column' => 'post__in'
+                ]);
+
+                // Append custom items to anchors list for fragment navigation
+                $anchors = array_map(function ($item) {
+                    return sanitize_title($item->post_title);
+                }, $pages);
+                if (have_posts()) {
+                    array_unshift($anchors, 'posts');
+                }
+                foreach ($custom_items as $custom) {
+                    $anchors[] = $custom['anchor'];
+                }
+                array_unshift($anchors, 'home');
 
                 $anchors_json = json_encode($anchors);
 
-                foreach ($pages as $page) {
-                    $content = apply_filters('the_content', $page->post_content);
-                    $title = $page->post_title;
-                    $slug = $page->post_name;
-                    $description = get_post_meta($page->ID, 'description', true);
-                    $hide_bg = get_post_meta($page->ID, 'hide_background', true);
-                    $do_not_animate = get_post_meta($page->ID, 'do_not_animate', true);
-                    ?>
-                    <div class="section animated-row" data-section="<?php echo esc_attr($slug); ?>">
-                        <div class="section-inner">
-                            <div class="row justify-content-center">
-                                <div class="col-lg-8 wide-col-laptop">
-                                    <div class="page-item <?php echo $hide_bg == 'yes' ? '' : 'with-background' ; ?>">
-                                        <div class="title-block animate" data-animate="fadeInUp">
+                // Loop through each menu item, rendering custom items separately
+                foreach ($menu_items as $item) {
+                    if ($item->type === 'post_type' && $item->object === 'page') {
+                        $page = get_post($item->object_id);
+                        $content = apply_filters('the_content', $page->post_content);
+                        $title = $page->post_title;
+                        $slug = $page->post_name;
+                        $description = get_post_meta($page->ID, 'description', true);
+                        $hide_bg = get_post_meta($page->ID, 'hide_background', true);
+                        $do_not_animate = get_post_meta($page->ID, 'do_not_animate', true);
+                        ?>
+                        <div class="section animated-row" data-section="<?php echo esc_attr($slug); ?>">
+                            <div class="section-inner">
+                                <div class="row justify-content-center">
+                                    <div class="col-lg-8 wide-col-laptop">
+                                        <div class="page-item <?php echo $hide_bg == 'yes' ? '' : 'with-background' ; ?>">
+                                            <div class="title-block animate" data-animate="fadeInUp">
                                                 <h2><?php echo esc_html($title); ?></h2>
                                                 <?php if ($description) : ?>
                                                     <span><?php echo esc_html($description); ?></span>
                                                 <?php endif ; ?>
-                                        </div>
-                                        <div <?php echo $do_not_animate == 'yes' ? '' : 'class="animate" data-animate="fadeInDown"' ; ?>>
-                                            <?php echo $content; ?>
-                                        </div>
-                                    </div>                                
-                                </div>
-                            </div>    
+                                            </div>
+                                            <div <?php echo $do_not_animate == 'yes' ? '' : 'class="animate" data-animate="fadeInDown"' ; ?>>
+                                                <?php echo $content; ?>
+                                            </div>
+                                        </div>                                
+                                    </div>
+                                </div>    
+                            </div>
                         </div>
-                    </div>
-                    <?php
+                        <?php
+                    }
                 }
             ?>
+
 
         <script type="text/javascript">
             document.addEventListener('DOMContentLoaded', function() {
