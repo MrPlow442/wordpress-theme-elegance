@@ -137,7 +137,7 @@
                                                     <span><?php echo esc_html($description); ?></span>
                                                 <?php endif ; ?>
                                             </div>
-                                            <div <?php echo $do_not_animate == 'yes' ? '' : 'class="animate" data-animate="fadeInDown"' ; ?>>
+                                            <div class="page-item-content <?php echo $do_not_animate == 'yes' ? '' : 'animate'; ?>" <?php echo $do_not_animate == 'yes' ? '' : 'data-animate="fadeInDown"'; ?>>
                                                 <?php echo $content; ?>
                                             </div>
                                         </div>                                

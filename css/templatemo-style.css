@@ -811,6 +811,23 @@ textarea.form-control {
   border-radius: 10px;
 }
 
+.page-item-content {
+  text-align: inherit;
+}
+
+.page-item-content .has-text-align-left {
+  text-align: left;
+}
+
+.page-item-content .has-text-align-center {
+  text-align: center;
+}
+
+.page-item-content .has-text-align-right {
+  text-align: right;
+}
+
+
 .page-thumbnail {
   position: relative;
   background-size: cover;
