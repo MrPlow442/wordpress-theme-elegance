@@ -209,6 +209,38 @@ function theme_customizer_settings($wp_customize) {
         'settings' => 'social_icons',
         'priority' => 1,
     )));
+
+    /*************************************
+     *          BLOG SETTINGS            *
+    *************************************/
+    // Blog Section
+    $wp_customize->add_section('blog_settings', array(
+        'title' => 'Blog Settings',
+        'priority' => 30,
+    ));
+
+    $wp_customize->add_setting('blog_title', array(
+        'default' => 'Blog',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+
+    $wp_customize->add_control('blog_title', array(
+        'label' => 'Blog Page Title',
+        'section' => 'blog_settings',
+        'type' => 'text',
+    ));
+
+    $wp_customize->add_setting('blog_description', array(
+        'default' => 'Latest articles and insights',
+        'sanitize_callback' => 'sanitize_textarea_field',
+    ));
+
+    $wp_customize->add_control('blog_description', array(
+        'label' => 'Blog Page Description',
+        'section' => 'blog_settings',
+        'type' => 'textarea',
+    ));
+
 }
 add_action('customize_register', 'theme_customizer_settings');
 

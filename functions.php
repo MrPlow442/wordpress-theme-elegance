@@ -59,6 +59,8 @@ function enqueue_block_editor_assets() {
 }
 add_action('enqueue_block_editor_assets', 'enqueue_block_editor_assets');
 
+require_once get_parent_theme_file_path('/blog/blog-functions.php');
+
 require_once get_parent_theme_file_path('/customizer.php');
 
 require_once get_parent_theme_file_path('/blocks/testimonials-block/testimonials-block.php');

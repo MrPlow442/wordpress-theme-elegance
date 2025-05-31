@@ -44,25 +44,34 @@
                 </div>
             </div>
 
-            <?php if (have_posts()) : ?>
-                <div class="section animated-row" data-section="posts">
+            <?php
+            $notices_query = new WP_Query(array(
+                'post_type' => 'notice',
+                'posts_per_page' => -1,
+                'orderby' => 'date',
+                'order' => 'DESC',
+                'post_status' => 'publish'
+            ));
+
+            if ($notices_query->have_posts()) : ?>
+            <div class="section animated-row" data-section="posts">
                     <div class="section-inner">
                         <div class="row justify-content-center">
                             <div class="col-lg-8 wide-col-laptop">
-                                <?php while (have_posts()) : the_post(); ?>
+                                <?php while ($notices_query->have_posts()) : $notices_query->the_post(); ?>                                
                                     <div class="slide">
                                         <div class="row post-container animate" data-animate="fadeInDown">
                                             <?php if (has_post_thumbnail()) : ?>
                                                 <div class="col-md-6">
-                                                    <figure class="post-img animate" data-animate="fadeInUp">
+                                                    <figure class="post-img animate" data-animate="fadeInUp">                                                        
                                                         <img src="<?php echo get_the_post_thumbnail_url(); ?>"/>
                                                     </figure>
                                                 </div>
                                             <?php endif; ?>
                                             <div class="col-md-<?php echo has_post_thumbnail() ? '6' : '12' ?>">
                                                 <div class="post-contentbox">
-                                                    <div class="animate" data-animate="fadeInUp">
-                                                        <span><?php echo get_the_date(); ?></span>
+                                                    <div class="animate" data-animate="fadeInUp">                                                        
+                                                        <span><?php echo get_the_date(); ?></span>                                                        
                                                         <h2><?php the_title(); ?></h2>                                                        
                                                         <p><?php the_content(); ?></p>
                                                     </div>
@@ -75,7 +84,10 @@
                         </div>    
                     </div>
                 </div>
-            <?php endif; ?>
+            <?php 
+            endif;
+            wp_reset_postdata();
+            ?>
 
             <?php
                 $menu_items = wp_get_nav_menu_items('top'); // Retrieve items in "top" menu
@@ -105,7 +117,8 @@
                 $anchors = array_map(function ($item) {
                     return sanitize_title($item->post_title);
                 }, $pages);
-                if (have_posts()) {
+    
+                if ($notices_query->have_posts()) {
                     array_unshift($anchors, 'posts');
                 }
                 foreach ($custom_items as $custom) {
