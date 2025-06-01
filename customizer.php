@@ -60,6 +60,11 @@ function elegance_customizer_css() {
             filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='{$gradient_color_1}', endColorstr='{$gradient_color_2}',GradientType=0 ); /* IE6-9 */
             color: {$global_text_color};
         }
+
+        .blog-page {
+            background: {$gradient_color_2};
+            color: {$global_text_color};
+        }
     ";
 
     wp_add_inline_style( 'elegance-style', $custom_css );

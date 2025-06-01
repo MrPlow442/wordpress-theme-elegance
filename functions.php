@@ -1,5 +1,6 @@
 <?php
 function elegance_theme_scripts() {
+    wp_enqueue_style('elegance-google-fonts', 'https://fonts.googleapis.com/css?family=Raleway:100,300,400,500,700,900', array(), null);
     wp_enqueue_style('bootstrap', get_template_directory_uri() . '/css/bootstrap.min.css');
     wp_enqueue_style('font-awesome', get_template_directory_uri() . '/css/font-awesome.css');
     wp_enqueue_style('fullpage', get_template_directory_uri() . '/css/fullpage.min.css');
