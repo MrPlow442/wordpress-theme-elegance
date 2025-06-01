@@ -51,6 +51,15 @@ function elegance_customizer_css() {
             /* Rest is in wpforms-overrides.css */
             color:{$global_text_color} !important;
         }
+
+        .blog-header {
+            background: {$gradient_color_1}; /* Old browsers */
+            background: -moz-linear-gradient(top, {$gradient_color_1} 0%, {$gradient_color_2} 100%); /* FF3.6-15 */
+            background: -webkit-linear-gradient(top, {$gradient_color_1} 0%,{$gradient_color_2} 100%); /* Chrome10-25,Safari5.1-6 */
+            background: linear-gradient(to bottom, {$gradient_color_1} 0%,{$gradient_color_2} 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='{$gradient_color_1}', endColorstr='{$gradient_color_2}',GradientType=0 ); /* IE6-9 */
+            color: {$global_text_color};
+        }
     ";
 
     wp_add_inline_style( 'elegance-style', $custom_css );
@@ -209,6 +218,38 @@ function theme_customizer_settings($wp_customize) {
         'settings' => 'social_icons',
         'priority' => 1,
     )));
+
+    /*************************************
+     *          BLOG SETTINGS            *
+    *************************************/    
+    // Blog Section
+    $wp_customize->add_section('blog_settings', array(
+        'title' => 'Blog Settings',
+        'priority' => 30,
+    ));
+
+    $wp_customize->add_setting('blog_title', array(
+        'default' => 'Blog',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+
+    $wp_customize->add_control('blog_title', array(
+        'label' => 'Blog Page Title',
+        'section' => 'blog_settings',
+        'type' => 'text',
+    ));
+
+    $wp_customize->add_setting('blog_description', array(
+        'default' => 'Latest articles and insights',
+        'sanitize_callback' => 'sanitize_textarea_field',
+    ));
+
+    $wp_customize->add_control('blog_description', array(
+        'label' => 'Blog Page Description',
+        'section' => 'blog_settings',
+        'type' => 'textarea',
+    ));
+
 }
 add_action('customize_register', 'theme_customizer_settings');
 
