@@ -39,7 +39,7 @@
                             </small>
                             <small class="mr-3">
                                 <i class="fa fa-user mr-1"></i>
-                                By <?php the_author(); ?>
+                                <?php printf( esc_html__( 'By %s', 'wordpress-theme-elegance' ), get_the_author() ); ?>
                             </small>
                             <!-- <?php if (get_the_category()) : ?>
                                 <div class="badge badge-primary mr-3">
@@ -108,7 +108,7 @@
                                         <div class="card border-0 bg-light h-100">
                                             <div class="card-body">
                                                 <small class="text-muted d-block mb-2">
-                                                    <i class="fa fa-chevron-left mr-1"></i>Previous Article
+                                                    <i class="fa fa-chevron-left mr-1"></i><?php esc_html_e( 'Previous Article', 'wordpress-theme-elegance' ); ?>
                                                 </small>
                                                 <h6 class="card-title mb-0">
                                                     <a href="<?php echo get_permalink($prev_post); ?>" class="text-dark text-decoration-none">
@@ -125,7 +125,7 @@
                                         <div class="card border-0 bg-light h-100">
                                             <div class="card-body text-md-right">
                                                 <small class="text-muted d-block mb-2">
-                                                    Next Article <i class="fa fa-chevron-right ml-1"></i>
+                                                    <?php esc_html_e( 'Next Article', 'wordpress-theme-elegance' ); ?> <i class="fa fa-chevron-right ml-1"></i>
                                                 </small>
                                                 <h6 class="card-title mb-0">
                                                     <a href="<?php echo get_permalink($next_post); ?>" class="text-dark text-decoration-none">
@@ -142,7 +142,7 @@
                                         <div class="card-body text-center">                                    
                                             <h6 class="card-title mb-0">
                                                 <a href="<?php echo home_url('/blog'); ?>" class="text-dark text-decoration-none">
-                                                    <i class="fa fa-book ml-1"></i> Back to Blog Index
+                                                    <i class="fa fa-book ml-1"></i> <?php esc_html_e( 'Back to Blog Index', 'wordpress-theme-elegance' ); ?>
                                                 </a>
                                             </h6>
                                         </div>

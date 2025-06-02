@@ -63,7 +63,7 @@ Template Name: Blog Page
                                 
                                 <div class="mt-auto">
                                     <a href="<?php the_permalink(); ?>" class="btn btn-outline-primary btn-sm">
-                                        Read More
+                                        <?php esc_html_e( 'Read More', 'wordpress-theme-elegance' ); ?>
                                         <i class="fa fa-arrow-right ml-1"></i>
                                     </a>
                                 </div>
@@ -106,10 +106,14 @@ Template Name: Blog Page
             else : ?>
                 <div class="col-12">
                     <div class="text-center py-5">
-                        <h3 class="text-muted">No blog posts found</h3>
-                        <p class="text-muted">Check back later for new content.</p>
+                        <h3 class="text-muted">                            
+                            <?php esc_html_e( 'No blog posts found', 'wordpress-theme-elegance' ); ?>
+                        </h3>
+                        <p class="text-muted">
+                            <?php esc_html_e( 'Check back later for new content.', 'wordpress-theme-elegance' ); ?>                            
+                        </p>
                         <a href="<?php echo esc_url(home_url('/')); ?>" class="btn btn-primary">
-                            Back to Homepage
+                            <?php esc_html_e( 'Back to Homepage', 'wordpress-theme-elegance' ); ?>
                         </a>
                     </div>
                 </div>

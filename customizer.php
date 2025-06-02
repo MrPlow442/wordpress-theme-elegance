@@ -76,7 +76,7 @@ function theme_customizer_settings($wp_customize) {
     *************************************/
     // Section for Header Media
     $wp_customize->add_section('header_media', array(
-        'title' => __('Header Media', 'elegance-theme'),
+        'title' => __('Header Media', 'wordpress-theme-elegance'),
         'priority' => 30,
     ));
 
@@ -87,13 +87,13 @@ function theme_customizer_settings($wp_customize) {
     ));
 
     // $wp_customize->add_control(new WP_Customize_Media_Control($wp_customize, 'header_background_video', array(
-    //     'label' => __('Background Video', 'elegance-theme'),
+    //     'label' => __('Background Video', 'wordpress-theme-elegance'),
     //     'section' => 'header_media',
     //     'mime_type' => 'video',
     // )));
 
     $wp_customize->add_control(new WP_Customize_Upload_Control($wp_customize, 'header_background_video', array(
-        'label' => __('Background Video', 'elegance-theme'),
+        'label' => __('Background Video', 'wordpress-theme-elegance'),
         'section' => 'header_media',
     )));
 
@@ -104,7 +104,7 @@ function theme_customizer_settings($wp_customize) {
     ));
 
     $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'header_background_image', array(
-        'label' => __('Background Image', 'elegance-theme'),
+        'label' => __('Background Image', 'wordpress-theme-elegance'),
         'section' => 'header_media',
     )));
 
@@ -114,19 +114,19 @@ function theme_customizer_settings($wp_customize) {
     *************************************/
     // Add a new section for the homepage settings
     $wp_customize->add_section( 'home_section' , array(
-        'title'      => __( 'Home Text Settings', 'elegance-theme' ),
+        'title'      => __( 'Home Text Settings', 'wordpress-theme-elegance' ),
         'priority'   => 30,
     ));
 
     // Add the setting for the homepage description above the title
     $wp_customize->add_setting( 'home_description_above' , array(
-        'default'   => __( 'Hello, welcome to', 'elegance-theme' ),
+        'default'   => __( 'Hello, welcome to', 'wordpress-theme-elegance' ),
         'transport' => 'refresh',
     ));
 
     // Add the control for the homepage description above the title
     $wp_customize->add_control( new WP_Customize_Control( $wp_customize, 'home_description_above_control', array(
-        'label'      => __( 'Homepage Description Above Title', 'elegance-theme' ),
+        'label'      => __( 'Homepage Description Above Title', 'wordpress-theme-elegance' ),
         'section'    => 'home_section',
         'settings'   => 'home_description_above',
         'type'       => 'textarea',
@@ -134,13 +134,13 @@ function theme_customizer_settings($wp_customize) {
 
     // Add the setting for the homepage description below the title
     $wp_customize->add_setting( 'home_description_below' , array(
-        'default'   => __( 'This is a clean and modern HTML5 template with a video background. You can use this layout for your profile page. Please spread a word about templatemo to your friends. Thank you.', 'elegance-theme' ),
+        'default'   => __( 'This is a clean and modern HTML5 template with a video background. You can use this layout for your profile page. Please spread a word about templatemo to your friends. Thank you.', 'wordpress-theme-elegance' ),
         'transport' => 'refresh',
     ));
 
     // Add the control for the homepage description below the title
     $wp_customize->add_control( new WP_Customize_Control( $wp_customize, 'home_description_below_control', array(
-        'label'      => __( 'Homepage Description Below Title', 'elegance-theme' ),
+        'label'      => __( 'Homepage Description Below Title', 'wordpress-theme-elegance' ),
         'section'    => 'home_section',
         'settings'   => 'home_description_below',
         'type'       => 'textarea',
@@ -151,7 +151,7 @@ function theme_customizer_settings($wp_customize) {
     *************************************/
      // Add a new section for color settings
      $wp_customize->add_section( 'color_settings' , array(
-        'title'      => __( 'Color Settings', 'elegance-theme' ),
+        'title'      => __( 'Color Settings', 'wordpress-theme-elegance' ),
         'priority'   => 40,
     ));
 
@@ -164,7 +164,7 @@ function theme_customizer_settings($wp_customize) {
 
     // Add control for global text color
     $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'global_text_color_control', array(
-        'label'      => __( 'Global Text Color', 'elegance-theme' ),
+        'label'      => __( 'Global Text Color', 'wordpress-theme-elegance' ),
         'section'    => 'color_settings',
         'settings'   => 'global_text_color',
     )));
@@ -178,7 +178,7 @@ function theme_customizer_settings($wp_customize) {
 
     // Add control for gradient color 1
     $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'gradient_color_1_control', array(
-        'label'      => __( 'Gradient Color 1', 'elegance-theme' ),
+        'label'      => __( 'Gradient Color 1', 'wordpress-theme-elegance' ),
         'section'    => 'color_settings',
         'settings'   => 'gradient_color_1',
     )));
@@ -192,7 +192,7 @@ function theme_customizer_settings($wp_customize) {
 
     // Add control for gradient color 2
     $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'gradient_color_2_control', array(
-        'label'      => __( 'Gradient Color 2', 'elegance-theme' ),
+        'label'      => __( 'Gradient Color 2', 'wordpress-theme-elegance' ),
         'section'    => 'color_settings',
         'settings'   => 'gradient_color_2',
     )));
@@ -202,7 +202,7 @@ function theme_customizer_settings($wp_customize) {
     *************************************/
     // Add a section for the social icons
     $wp_customize->add_section('social_icons_section', array(
-        'title' => __('Social Icons', 'elegance-theme'),
+        'title' => __('Social Icons', 'wordpress-theme-elegance'),
         'priority' => 30,
     ));
 
@@ -214,7 +214,7 @@ function theme_customizer_settings($wp_customize) {
 
     // Add a control to manage social icons
     $wp_customize->add_control(new Social_Icons_Repeater_Control($wp_customize, 'social_icons', array(
-        'label' => __('Social Icons', 'elegance-theme'),
+        'label' => __('Social Icons', 'wordpress-theme-elegance'),
         'section' => 'social_icons_section',
         'settings' => 'social_icons',
         'priority' => 1,

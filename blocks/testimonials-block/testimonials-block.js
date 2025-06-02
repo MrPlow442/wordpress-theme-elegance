@@ -1,4 +1,4 @@
-wp.blocks.registerBlockType('elegance-theme/testimonials-block', {
+wp.blocks.registerBlockType('wordpress-theme-elegance/testimonials-block', {
     title: 'Testimonials Block',
     icon: 'format-quote',
     category: 'widgets',
@@ -10,8 +10,8 @@ wp.blocks.registerBlockType('elegance-theme/testimonials-block', {
                 className: 'testimonials-slider owl-carousel'
             },
             {
-                allowedBlocks: ['elegance-theme/testimonial-item-block'],
-                template: [['elegance-theme/testimonial-item-block']],
+                allowedBlocks: ['wordpress-theme-elegance/testimonial-item-block'],
+                template: [['wordpress-theme-elegance/testimonial-item-block']],
                 templateLock: false
             }
         );

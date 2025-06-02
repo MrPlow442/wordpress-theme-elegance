@@ -23,9 +23,15 @@ function elegance_theme_scripts() {
 }
 add_action('wp_enqueue_scripts', 'elegance_theme_scripts');
 
+function elegance_load_textdomain() {
+    load_theme_textdomain( 'wordpress-theme-elegance', get_template_directory() . '/languages' );
+}
+add_action( 'after_setup_theme', 'elegance_load_textdomain' );
+
+
 function elegance_theme_setup() {
     register_nav_menus(array(
-        'top' => __('Primary Menu', 'elegance-theme'),
+        'top' => __('Primary Menu', 'wordpress-theme-elegance'),
     ));
 
     /*

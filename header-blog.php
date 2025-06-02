@@ -1,18 +1,3 @@
-<!-- <header class="blog-header">
-    <div class="container-fluid">
-        <div class="navbar">
-            <a href="<?php echo home_url(); ?>" id="logo" title="<?php bloginfo('name'); ?>">
-                <?php bloginfo('name'); ?>
-            </a>
-            <p class="font-weight-bold lead d-flex flex-column">
-                    <?php echo get_theme_mod('blog_title', 'Blog'); ?>
-                </p>
-                <p class="d-flex flex-column">
-                    <small><?php echo get_theme_mod('blog_description', 'Latest articles and insights'); ?></small>
-                </p>
-        </div>        
-    </div>
-</header> -->
 <header class="blog-header">
     <div class="container-fluid">
         <div class="navbar d-flex justify-content-between align-items-center">
@@ -37,8 +22,8 @@
                     </button>
                     <div class="nav-box navbar-collapse">
                         <ul class="navigation-menu nav navbar-nav navbars">
-                            <li><a href="<?php echo home_url(); ?>">← Back to Main Site</a></li>
-                            <li><a href="<?php echo home_url('/blog'); ?>">← Back to Blog page</a></li>                        
+                            <li><a href="<?php echo home_url(); ?>"><i class="fa fa-chevron-left mr-1"></i> <?php esc_html_e( 'Back to Homepage', 'wordpress-theme-elegance' ); ?></a></li>
+                            <li><a href="<?php echo home_url('/blog'); ?>"><i class="fa fa-chevron-left mr-1"></i> <?php esc_html_e( 'Back to Blog Index', 'wordpress-theme-elegance' ); ?></a></li>                        
                         </ul>
                     </div>
                 </nav>

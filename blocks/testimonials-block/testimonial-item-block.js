@@ -4,11 +4,11 @@ const TEMPLATE = [
     ['core/html', { placeholder: 'Enter position...' }],
 ];
 
-wp.blocks.registerBlockType('elegance-theme/testimonial-item-block', {
+wp.blocks.registerBlockType('wordpress-theme-elegance/testimonial-item-block', {
     title: 'Testimonial Item',
     icon: 'admin-comments',
     category: 'widgets',
-    parent: ['elegance-theme/testimonials-block'], // Only allow within the testimonials block
+    parent: ['wordpress-theme-elegance/testimonials-block'], // Only allow within the testimonials block
     attributes: {
         name: {
             type: 'string',

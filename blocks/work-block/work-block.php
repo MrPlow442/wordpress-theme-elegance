@@ -42,7 +42,7 @@ function register_work_block() {
     );
 
     // Register the block
-    register_block_type('elegance-theme/work-block', array(
+    register_block_type('wordpress-theme-elegance/work-block', array(
         'editor_script' => 'work-block-editor-script',
         'script' => 'work-block-frontend-script',
         'editor_style' => 'work-block-editor-style',

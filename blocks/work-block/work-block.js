@@ -1,4 +1,4 @@
-wp.blocks.registerBlockType('elegance-theme/work-block', {
+wp.blocks.registerBlockType('wordpress-theme-elegance/work-block', {
     title: 'Work Block',
     icon: 'portfolio',
     category: 'widgets',
@@ -10,8 +10,8 @@ wp.blocks.registerBlockType('elegance-theme/work-block', {
                 className: 'work-list owl-carousel'
             },
             {
-                allowedBlocks: ['elegance-theme/work-item-block'],
-                template: [['elegance-theme/work-item-block']],
+                allowedBlocks: ['wordpress-theme-elegance/work-item-block'],
+                template: [['wordpress-theme-elegance/work-item-block']],
                 templateLock: false
             }
         );
