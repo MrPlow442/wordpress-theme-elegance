@@ -1,5 +1,9 @@
 /* Blog Page Styles */
 /* Back navigation styling */
+.blog-header {
+    padding: 20px 0;
+}
+
 .back-to-main, .back-to-blog {
     margin: 20px 0;
     padding: 15px 0;

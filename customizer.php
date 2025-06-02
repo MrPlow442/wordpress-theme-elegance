@@ -52,17 +52,13 @@ function elegance_customizer_css() {
             color:{$global_text_color} !important;
         }
 
-        .blog-header {
-            background: {$gradient_color_1}; /* Old browsers */
-            background: -moz-linear-gradient(top, {$gradient_color_1} 0%, {$gradient_color_2} 100%); /* FF3.6-15 */
-            background: -webkit-linear-gradient(top, {$gradient_color_1} 0%,{$gradient_color_2} 100%); /* Chrome10-25,Safari5.1-6 */
-            background: linear-gradient(to bottom, {$gradient_color_1} 0%,{$gradient_color_2} 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='{$gradient_color_1}', endColorstr='{$gradient_color_2}',GradientType=0 ); /* IE6-9 */
-            color: {$global_text_color};
-        }
-
         .blog-page {
-            background: {$gradient_color_2};
+            background: {$gradient_color_1}; /* Old browsers */
+            background: -moz-linear-gradient(top, {$gradient_color_1} 0%, {$gradient_color_2} 25%); /* FF3.6-15 */
+            background: -webkit-linear-gradient(top, {$gradient_color_1} 0%,{$gradient_color_2} 25%); /* Chrome10-25,Safari5.1-6 */
+            background: linear-gradient(to bottom, {$gradient_color_1} 0%,{$gradient_color_2} 25%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='{$gradient_color_1}', endColorstr='{$gradient_color_2}',GradientType=0 ); /* IE6-9 */
+            background-repeat: no-repeat;
             color: {$global_text_color};
         }
     ";
