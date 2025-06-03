@@ -62,7 +62,7 @@ Template Name: Blog Page
                                 </div>
                                 
                                 <div class="mt-auto">
-                                    <a href="<?php the_permalink(); ?>" class="btn btn-outline-primary btn-sm">
+                                    <a href="<?php the_permalink(); ?>" class="btn btn-dark btn-sm">
                                         <?php esc_html_e( 'Read More', 'wordpress-theme-elegance' ); ?>
                                         <i class="fa fa-arrow-right ml-1"></i>
                                     </a>
@@ -81,19 +81,19 @@ Template Name: Blog Page
                                 $pagination_links = paginate_links(array(
                                     'total' => $blog_query->max_num_pages,
                                     'current' => max(1, get_query_var('paged')),
-                                    'prev_text' => '<i class="fa fa-chevron-left"></i> Previous',
-                                    'next_text' => 'Next <i class="fa fa-chevron-right"></i>',
+                                    'prev_text' => '<i class="fa fa-chevron-left mr-1"></i>'.__( ' Previous', 'wordpress-theme-elegance' ),
+                                    'next_text' => __('Next', 'wordpress-theme-elegance').'<i class="fa fa-chevron-right ml-1"></i>',
                                     'type' => 'array'
                                 ));
                                 
                                 if ($pagination_links) {
                                     foreach ($pagination_links as $link) {
                                         if (strpos($link, 'current') !== false) {
-                                            echo '<li class="active">' . str_replace('<span', '<span class="page-link"', $link) . '</li>';
+                                            echo '<li class="page-item page-item-dark active">' . str_replace('<span', '<span class="page-link"', $link) . '</li>';
                                         } elseif (strpos($link, 'dots') !== false) {
-                                            echo '<li class="disabled">' . str_replace('<span', '<span class="page-link"', $link) . '</li>';
+                                            echo '<li class="page-item page-item-dark disabled">' . str_replace('<span', '<span class="page-link"', $link) . '</li>';
                                         } else {
-                                            echo '<li>' . str_replace('<a', '<a class="page-link"', $link) . '</li>';
+                                            echo '<li class="page-item page-item-dark">' . str_replace('<a', '<a class="page-link"', $link) . '</li>';
                                         }
                                     }
                                 }

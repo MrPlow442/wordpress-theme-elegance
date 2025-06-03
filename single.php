@@ -158,7 +158,11 @@
                         <section class="comments-section mt-5 pt-4 border-top">
                             <h3 class="h4 mb-4">
                                 <i class="fa fa-comments mr-2"></i>
-                                <?php comments_number('Leave a Comment', 'One Comment', '% Comments'); ?>
+                                <?php comments_number(
+                                    __('Leave a Comment', 'wordpress-theme-elegance'), 
+                                    __('One Comment', 'wordpress-theme-elegance'), 
+                                    __('% Comments', 'wordpress-theme-elegance')
+                                ); ?>
                             </h3>
                             <?php comments_template(); ?>
                         </section>
