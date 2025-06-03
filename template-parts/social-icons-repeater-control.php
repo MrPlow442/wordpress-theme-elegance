@@ -1,4 +1,10 @@
 <?php
+/**
+ * Social Icons Repeater Control
+ *
+ * @package Elegance
+ */
+
 if (class_exists('WP_Customize_Control')) {
 
     class Social_Icons_Repeater_Control extends WP_Customize_Control {

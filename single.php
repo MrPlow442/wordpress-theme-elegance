@@ -3,13 +3,7 @@
     <?php wp_head(); ?>
 </head>
 <body class="blog-page">
-    <div class="preloader">
-        <div class="preloader-bounce">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-    </div>
+    <?php elegance_preloader(); ?>
 
     <?php get_header("blog"); ?>
     <?php while (have_posts()) : the_post(); ?>
