@@ -16,6 +16,7 @@ $theme_includes = [
     '/inc/assets.php',       // Asset management
     '/inc/walkers.php',      // Custom walkers
     '/inc/template-functions.php', // Template helpers
+    '/inc/comments-functions.php', // Comments functions
     '/inc/custom-post-types.php', // CPTs
     '/inc/customizer.php',    // Customizer
     '/blocks/testimonials-block/testimonials-block.php', // Testimonials block

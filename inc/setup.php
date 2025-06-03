@@ -30,6 +30,8 @@ if (!function_exists('elegance_theme_setup')) {
         );
 
         add_theme_support('post-thumbnails');
+
+        add_theme_support('html5', array('comment-list', 'comment-form', 'search-form'));
     }
     add_action('after_setup_theme', 'elegance_theme_setup');
 }
