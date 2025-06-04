@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Elegance Theme\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-03 15:54+0000\n"
+"POT-Creation-Date: 2025-06-04 19:59+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -20,28 +20,37 @@ msgstr ""
 msgid " Previous"
 msgstr ""
 
-#: single.php:164
+#: single.php:166
 msgid "% Comments"
+msgstr ""
+
+#: comments.php:116
+#, php-format
+msgid "%1$s at %2$s"
 msgstr ""
 
 #. Description of the theme
 msgid "A custom theme based on the Elegance HTML template."
 msgstr ""
 
-#: single.php:145 header-blog.php:26
+#: single.php:147 header-blog.php:24
 msgid "Back to Blog Index"
 msgstr ""
 
-#: page-blog.php:116 header-blog.php:25
+#: page-blog.php:116 header-blog.php:22
 msgid "Back to Homepage"
 msgstr ""
 
-#: customizer.php:107
+#: inc/customizer.php:107
 msgid "Background Image"
 msgstr ""
 
-#: customizer.php:96
+#: inc/customizer.php:96
 msgid "Background Video"
+msgstr ""
+
+#: inc/customizer.php:258
+msgid "Blog Background Image"
 msgstr ""
 
 #. Name of the template
@@ -49,52 +58,73 @@ msgstr ""
 msgid "Blog Page"
 msgstr ""
 
-#: single.php:42
+#: single.php:44
 #, php-format
 msgid "By %s"
+msgstr ""
+
+#: comments.php:71
+msgid "Cancel Reply"
 msgstr ""
 
 #: page-blog.php:113
 msgid "Check back later for new content."
 msgstr ""
 
-#: customizer.php:154
+#: inc/customizer.php:154
 msgid "Color Settings"
+msgstr ""
+
+#: inc/comments-functions.php:221
+msgid "Comment navigation"
+msgstr ""
+
+#: inc/comments-functions.php:113
+msgid "Comment submitted successfully!"
+msgstr ""
+
+#: comments.php:33
+#, php-format
+msgctxt "comments title"
+msgid "%1$s comment on \"%2$s\""
+msgid_plural "%1$s comments on \"%2$s\""
+msgstr[0] ""
+msgstr[1] ""
+
+#: inc/comments-functions.php:173
+#, php-format
+msgid "Edit <span class=\"screen-reader-text\">comment by %s</span>"
 msgstr ""
 
 #. Name of the theme
 msgid "Elegance Theme"
 msgstr ""
 
-#: customizer.php:167
+#: inc/customizer.php:167
 msgid "Global Text Color"
 msgstr ""
 
-#: customizer.php:181
+#: inc/customizer.php:181
 msgid "Gradient Color 1"
 msgstr ""
 
-#: customizer.php:195
+#: inc/customizer.php:195
 msgid "Gradient Color 2"
 msgstr ""
 
-#: customizer.php:79
-msgid "Header Media"
-msgstr ""
-
-#: customizer.php:123
+#: inc/customizer.php:123
 msgid "Hello, welcome to"
 msgstr ""
 
-#: customizer.php:117
+#: inc/customizer.php:117
 msgid "Home Text Settings"
 msgstr ""
 
-#: customizer.php:129
+#: inc/customizer.php:129
 msgid "Homepage Description Above Title"
 msgstr ""
 
-#: customizer.php:143
+#: inc/customizer.php:143
 msgid "Homepage Description Below Title"
 msgstr ""
 
@@ -106,15 +136,28 @@ msgstr ""
 msgid "https://yourwebsite.com"
 msgstr ""
 
-#: single.php:162
+#: comments.php:69 single.php:164
 msgid "Leave a Comment"
+msgstr ""
+
+#: comments.php:70
+#, php-format
+msgid "Leave a Reply to %s"
+msgstr ""
+
+#: inc/customizer.php:85
+msgid "Main Page Media"
+msgstr ""
+
+#: comments.php:56 inc/comments-functions.php:228
+msgid "Newer Comments"
 msgstr ""
 
 #: page-blog.php:85
 msgid "Next"
 msgstr ""
 
-#: single.php:128
+#: single.php:130
 msgid "Next Article"
 msgstr ""
 
@@ -122,33 +165,88 @@ msgstr ""
 msgid "No blog posts found"
 msgstr ""
 
-#: single.php:163
+#: comments.php:55 inc/comments-functions.php:224
+msgid "Older Comments"
+msgstr ""
+
+#: single.php:165
 msgid "One Comment"
 msgstr ""
 
-#: single.php:111
+#: comments.php:30
+#, php-format
+msgid "One comment on \"%s\""
+msgstr ""
+
+#: comments.php:72
+msgid "Post Comment"
+msgstr ""
+
+#: single.php:113
 msgid "Previous Article"
 msgstr ""
 
-#: functions.php:34
+#: inc/setup.php:11
 msgid "Primary Menu"
+msgstr ""
+
+#: inc/comments-functions.php:111
+msgid "Processing..."
 msgstr ""
 
 #: page-blog.php:66
 msgid "Read More"
 msgstr ""
 
-#: customizer.php:205 customizer.php:217
+#: comments.php:131 inc/comments-functions.php:68
+msgid "Reply"
+msgstr ""
+
+#: inc/comments-functions.php:153
+msgid "says:"
+msgstr ""
+
+#: inc/customizer.php:205 inc/customizer.php:217
 msgid "Social Icons"
 msgstr ""
 
-#: customizer.php:137
+#: inc/comments-functions.php:112
+msgid "There was an error submitting your comment."
+msgstr ""
+
+#: inc/customizer.php:137
 msgid ""
 "This is a clean and modern HTML5 template with a video background. You can "
 "use this layout for your profile page. Please spread a word about templatemo "
 "to your friends. Thank you."
 msgstr ""
 
+#: inc/comments-functions.php:163
+msgctxt "used between date and time"
+msgid "at"
+msgstr ""
+
+#: comments.php:73
+msgid "Your Comment"
+msgstr ""
+
+#: comments.php:141 inc/comments-functions.php:189
+msgid "Your comment is awaiting moderation."
+msgstr ""
+
+#: comments.php:76
+msgid "Your Email"
+msgstr ""
+
+#: comments.php:81
+msgid "Your email address will not be published."
+msgstr ""
+
 #. Author of the theme
+#: comments.php:75
 msgid "Your Name"
+msgstr ""
+
+#: comments.php:77
+msgid "Your Website (Optional)"
 msgstr ""

@@ -52,8 +52,8 @@ if (!comments_open() && get_comments_number() && post_password_required()) {
 
             <?php if (get_comment_pages_count() > 1 && get_option('page_comments')) : ?>
                 <nav class="comments-pagination" role="navigation">
-                    <div class="nav-previous"><?php previous_comments_link(__('← Older Comments', 'wordpress-theme-elegance')); ?></div>
-                    <div class="nav-next"><?php next_comments_link(__('Newer Comments →', 'wordpress-theme-elegance')); ?></div>
+                    <div class="nav-previous"><?php previous_comments_link(__('Older Comments', 'wordpress-theme-elegance')); ?></div>
+                    <div class="nav-next"><?php next_comments_link(__('Newer Comments', 'wordpress-theme-elegance')); ?></div>
                 </nav>
             <?php endif; ?>
 
