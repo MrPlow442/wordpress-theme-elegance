@@ -52,8 +52,14 @@ function changeBackgroundElement(element, url) {
 
 function swapElementDisplay(element1, element2, sourceUrl) {
     setVisibility(element1, 'hidden');
-    changeBackgroundElement(element2, sourceUrl);
-    setVisibility(element2, 'visible');
+    // changeBackgroundElement(element2, sourceUrl);
+    // setVisibility(element2, 'visible');
+    setElementDisplay(element2, sourceUrl);
+}
+
+function setElementDisplay(element, sourceUrl) {
+    changeBackgroundElement(element, sourceUrl);
+    setVisibility(element, 'visible');
 }
 
 function preloadImages(urls) {

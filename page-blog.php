@@ -8,12 +8,18 @@ Template Name: Blog Page
     <title><?php bloginfo('name'); ?> - <?php wp_title(); ?></title>
     <?php wp_head(); ?>
 </head>
-<body class="blog-page">
+<body id="blog-background-container" <?php body_class("blog-page"); ?>>
+    <?php        
+        $blog_background_image = get_theme_mod('blog_background_image');
+    ?>
+    
+    <img id="background-image" class="hidden" src="<?php echo !empty($blog_background_image) ? esc_url($blog_background_image) : ''; ?>" alt="Background Image" loading="eager">
+
     <?php elegance_preloader(); ?>
 
     <?php get_header("blog"); ?>
 
-    <main class="blog-content container my-5">
+    <main id="blog-content" class="container my-5">
         <div class="row">
             <?php
             $blog_query = new WP_Query(array(
@@ -114,6 +120,32 @@ Template Name: Blog Page
             <?php endif;
             wp_reset_postdata(); ?>
         </div>
+
+        <script type="text/javascript">
+            document.addEventListener('DOMContentLoaded', function() {                
+                var backgroundImageElement = document.getElementById('background-image');
+                
+                var defaultImageUrl = '<?php echo $blog_background_image; ?>';                
+
+                function showDefault() {
+                    if (!defaultImageUrl) {
+                        return;
+                    }
+                
+                    setElementDisplay(backgroundImageElement, defaultImageUrl);                
+                }
+
+                function showImage(imageUrl) {
+                    if (!imageUrl) {
+                        return;
+                    }
+
+                    setElementDisplay(backgroundImageElement, imageUrl);                               
+                }
+
+                showDefault();
+            });
+        </script>
     </main>
 
     <?php get_footer(); ?>

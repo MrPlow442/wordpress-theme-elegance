@@ -16,7 +16,7 @@
                 color: {$global_text_color};
             }
 
-            #backgroundContainer:after {
+            #background-container:after {
                 /* Rest is in templatemo-style.css */
                 background: {$gradient_color_1}; /* Old browsers */
                 background: -moz-linear-gradient(top, {$gradient_color_1} 0%, {$gradient_color_2} 100%); /* FF3.6-15 */
@@ -58,14 +58,13 @@
                 color:{$global_text_color} !important;
             }
 
-            .blog-page {
+            #blog-background-container:after {
                 background: {$gradient_color_1}; /* Old browsers */
                 background: -moz-linear-gradient(top, {$gradient_color_1} 0%, {$gradient_color_2} 25%); /* FF3.6-15 */
                 background: -webkit-linear-gradient(top, {$gradient_color_1} 0%,{$gradient_color_2} 25%); /* Chrome10-25,Safari5.1-6 */
                 background: linear-gradient(to bottom, {$gradient_color_1} 0%,{$gradient_color_2} 25%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
                 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='{$gradient_color_1}', endColorstr='{$gradient_color_2}',GradientType=0 ); /* IE6-9 */
-                background-repeat: no-repeat;
-                color: {$global_text_color};
+                background-repeat: no-repeat;                
             }
         ";
 
@@ -257,6 +256,15 @@ if (!function_exists('elegance_theme_customizer_settings')) {
             'section' => 'blog_settings',
             'type' => 'textarea',
         ));
+
+        $wp_customize->add_setting('blog_background_image', array(
+            'sanitize_callback' => 'esc_url_raw',
+        ));
+        $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'blog_background_image', array(
+            'label' => __('Blog Background Image', 'wordpress-theme-elegance'),
+            'section' => 'blog_settings',
+            'settings' => 'blog_background_image',
+        )));
 
     }
     add_action('customize_register', 'elegance_theme_customizer_settings');
