@@ -77,41 +77,35 @@
 if (!function_exists('elegance_theme_customizer_settings')) {
     function elegance_theme_customizer_settings($wp_customize) {
 
-        /*************************************
-         *          HEADER MEDIA SETTINGS    *
-        *************************************/
-        // Section for Header Media
-        $wp_customize->add_section('header_media', array(
-            'title' => __('Header Media', 'wordpress-theme-elegance'),
+        /****************************************
+         *          MAIN PAGE MEDIA SETTINGS    *
+        *****************************************/
+        // Section for Main Page Media Settings
+        $wp_customize->add_section('main_page_media', array(
+            'title' => __('Main Page Media', 'wordpress-theme-elegance'),
             'priority' => 30,
         ));
 
         // Setting for Background Video
-        $wp_customize->add_setting('header_background_video', array(
+        $wp_customize->add_setting('main_page_background_video', array(
             'default' => '',
             'sanitize_callback' => 'esc_url_raw',  // Sanitize callback to ensure URL is safe
-        ));
+        ));        
 
-        // $wp_customize->add_control(new WP_Customize_Media_Control($wp_customize, 'header_background_video', array(
-        //     'label' => __('Background Video', 'wordpress-theme-elegance'),
-        //     'section' => 'header_media',
-        //     'mime_type' => 'video',
-        // )));
-
-        $wp_customize->add_control(new WP_Customize_Upload_Control($wp_customize, 'header_background_video', array(
+        $wp_customize->add_control(new WP_Customize_Upload_Control($wp_customize, 'main_page_background_video', array(
             'label' => __('Background Video', 'wordpress-theme-elegance'),
-            'section' => 'header_media',
+            'section' => 'main_page_media',
         )));
 
         // Setting for Background Image
-        $wp_customize->add_setting('header_background_image', array(
+        $wp_customize->add_setting('main_page_background_image', array(
             'default' => '',
             'sanitize_callback' => 'esc_url_raw',  // Sanitize callback to ensure URL is safe
         ));
 
-        $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'header_background_image', array(
+        $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'main_page_background_image', array(
             'label' => __('Background Image', 'wordpress-theme-elegance'),
-            'section' => 'header_media',
+            'section' => 'main_page_media',
         )));
 
 

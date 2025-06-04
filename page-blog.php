@@ -122,28 +122,16 @@ Template Name: Blog Page
         </div>
 
         <script type="text/javascript">
+            <?php                            
+            $js_config = [                
+                'imageElementId' => 'background-image',                
+                'defaultImageUrl' => $blog_background_image ?? '',
+            ];
+            ?>
+
+            const config = <?php echo wp_json_encode($js_config); ?>;                          
             document.addEventListener('DOMContentLoaded', function() {                
-                var backgroundImageElement = document.getElementById('background-image');
-                
-                var defaultImageUrl = '<?php echo $blog_background_image; ?>';                
-
-                function showDefault() {
-                    if (!defaultImageUrl) {
-                        return;
-                    }
-                
-                    setElementDisplay(backgroundImageElement, defaultImageUrl);                
-                }
-
-                function showImage(imageUrl) {
-                    if (!imageUrl) {
-                        return;
-                    }
-
-                    setElementDisplay(backgroundImageElement, imageUrl);                               
-                }
-
-                showDefault();
+                initializeBlogPage(config);
             });
         </script>
     </main>

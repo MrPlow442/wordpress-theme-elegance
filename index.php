@@ -10,14 +10,14 @@
 </head>
 <body id="background-container" <?php body_class("elegance-body"); ?>>
     <?php
-        $header_background_video = get_theme_mod('header_background_video');
-        $header_background_image = get_theme_mod('header_background_image');
+        $main_page_background_video = get_theme_mod('main_page_background_video');
+        $main_page_background_image = get_theme_mod('main_page_background_image');
     ?>
 
     <video id="background-video" class="hidden" autoplay muted loop>
-        <source src="<?php echo !empty($header_background_video) ? esc_url($header_background_video) : ''; ?>" type="video/mp4">
+        <source src="<?php echo !empty($main_page_background_video) ? esc_url($main_page_background_video) : ''; ?>" type="video/mp4">
     </video>
-    <img  id="background-image" class="hidden" src="<?php echo !empty($header_background_image) ? esc_url($header_background_image) : ''; ?>" alt="Background Image" loading="eager">
+    <img  id="background-image" class="hidden" src="<?php echo !empty($main_page_background_image) ? esc_url($main_page_background_image) : ''; ?>" alt="Background Image" loading="eager">
 
     <?php elegance_preloader(); ?>
 
@@ -115,9 +115,7 @@
             foreach ($custom_items as $custom) {
                 $anchors[] = $custom['anchor'];
             }
-            array_unshift($anchors, 'home');
-
-            $anchors_json = json_encode($anchors);
+            array_unshift($anchors, 'home');            
 
             // Loop through each menu item, rendering custom items separately
             foreach ($menu_items as $item) {
@@ -155,77 +153,30 @@
         ?>
 
 
-    <script type="text/javascript">
-        document.addEventListener('DOMContentLoaded', function() {
-            var backgroundVideo = document.getElementById('background-video');
-            var backgroundImage = document.getElementById('background-image');
-
-            var defaultVideoUrl = '<?php echo $header_background_video; ?>';
-            var defaultImageUrl = '<?php echo $header_background_image; ?>';
-
-            preloadImages([
-                <?php foreach ($pages as $page) : ?>
-                    '<?php echo has_post_thumbnail($page->ID) ? get_the_post_thumbnail_url($page->ID) : ''; ?>',
-                <?php endforeach; ?>
-            ]);
-
-            function showDefault() {
-                if (!defaultVideoUrl && !defaultImageUrl) {
-                    return;
-                }
-
-                if (defaultVideoUrl) {                        
-                    swapElementDisplay(backgroundImage, backgroundVideo, defaultVideoUrl);                    
-                } else {                        
-                    swapElementDisplay(backgroundVideo, backgroundImage, defaultImageUrl);
-                }
-            }
-
-            function showImage(imageUrl) {
-                if (!imageUrl) {
-                    return;
-                }
-
-                swapElementDisplay(backgroundVideo, backgroundImage, imageUrl);
-            }
-
-            showDefault();
-
-            if (document.querySelector('.fullpage-default')) {
-                var myFullpage = new fullpage('.fullpage-default', {
-                    licenseKey: 'C7F41B00-5E824594-9A5EFB99-B556A3D5',
-                    anchors: <?php echo $anchors_json; ?>,
-                    menu: '#nav',
-                    lazyLoad: true,
-                    navigation: true,
-                    slidesNavigation: true,
-                    navigationPosition: 'right',
-                    scrollOverflow: true,
-                    scrollOverflowReset: true,
-                    responsiveWidth: 768,
-                    responsiveHeight: 600,
-                    responsiveSlides: true,
-                    onLeave: function(origin, destination, direction) {
-                        var section = destination.item;
-                        var sectionName = section.getAttribute('data-section');
-                        
-                        switch(sectionName) {
-                            <?php foreach ($pages as $page) : ?>
-                            case '<?php echo $page->post_name; ?>':
-                                <?php if (has_post_thumbnail($page->ID)) : ?>
-                                    showImage('<?php echo get_the_post_thumbnail_url($page->ID); ?>');
-                                <?php else : ?>
-                                    showDefault();
-                                <?php endif; ?>
-                                    break;   
-                            <?php endforeach; ?>
-                            default:
-                                showDefault();
-                        }
-                    }
-                });
-            }
-        });
+    <script type="text/javascript">        
+        <?php        
+        $page_info = array_map(function($page) {
+            return [
+                'name' => $page->post_name,
+                'hasThumbnail' => has_post_thumbnail($page->ID),
+                'thumbnail' => has_post_thumbnail($page->ID) ? get_the_post_thumbnail_url($page->ID) : ''
+            ];
+        }, $pages);
+                
+        $js_config = [
+            'videoElementId' => 'background-video',
+            'imageElementId' => 'background-image',
+            'defaultVideoUrl' => $main_page_background_video ?? '',
+            'defaultImageUrl' => $main_page_background_image ?? '',
+            'anchorsJson' => $anchors,
+            'pageInfo' => $page_info
+        ];
+        ?>
+        
+        const config = <?php echo wp_json_encode($js_config); ?>;            
+        document.addEventListener('DOMContentLoaded', function() {            
+            initializeFullpage(config);
+        });        
     </script>
     </div>
     <div id="social-icons">
