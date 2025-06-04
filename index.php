@@ -28,9 +28,9 @@
         <div class="section animated-row" data-section="home">
             <div class="section-inner">
                 <div class="welcome-box">
-                    <span class="welcome-first animate" data-animate="fadeInUp"><?php echo get_theme_mod('home_description_above', ''); ?></span>
+                    <span class="welcome-first animate" data-animate="fadeInUp"><?php echo wp_kses_post(get_theme_mod('home_description_above', '')); ?></span>
                     <h1 class="welcome-title animate" data-animate="fadeInUp"><?php bloginfo('name'); ?></h1>
-                    <p class="animate" data-animate="fadeInUp"><?php echo get_theme_mod('home_description_below', ''); ?></p>
+                    <p class="animate" data-animate="fadeInUp"><?php echo wp_kses_post(get_theme_mod('home_description_below', '')); ?></p>
                     <div class="scroll-down next-section animate" data-animate="fadeInUp"><img src="<?php echo get_template_directory_uri() ?>/images/mouse-scroll.png" alt=""><span>Scroll Down</span></div>
                 </div>
             </div>
