@@ -2,7 +2,7 @@
     <title><?php bloginfo('name'); ?> - <?php wp_title(); ?></title>
     <?php wp_head(); ?>
 </head>
-<body id="blog-background-container" <?php body_class("blog-page"); ?>>
+<body id="background-container" <?php body_class("blog-page"); ?>>
     <?php        
         $blog_background_image = get_theme_mod('blog_background_image');
     ?>
@@ -107,7 +107,7 @@
                                     
                                     <?php if ($prev_post) : ?>
                                         <div class="col-md-6 mb-3">
-                                            <div class="card border-0 bg-light h-100">
+                                            <div class="card h-100">
                                                 <div class="card-body">
                                                     <small class="text-muted d-block mb-2">
                                                         <i class="fa fa-chevron-left mr-1"></i><?php esc_html_e( 'Previous Article', 'wordpress-theme-elegance' ); ?>
@@ -124,7 +124,7 @@
                                     
                                     <?php if ($next_post) : ?>
                                         <div class="col-md-6 mb-3">
-                                            <div class="card border-0 bg-light h-100">
+                                            <div class="card h-100">
                                                 <div class="card-body text-md-right">
                                                     <small class="text-muted d-block mb-2">
                                                         <?php esc_html_e( 'Next Article', 'wordpress-theme-elegance' ); ?> <i class="fa fa-chevron-right ml-1"></i>
@@ -140,7 +140,7 @@
                                     <?php endif; ?>
 
                                     <div class="col-md-12 mb-3">
-                                        <div class="card border-0 bg-light h-100">
+                                        <div class="card h-100">
                                             <div class="card-body text-center">                                    
                                                 <h6 class="card-title mb-0">
                                                     <a href="<?php echo home_url('/blog'); ?>" class="text-dark text-decoration-none">
@@ -176,28 +176,16 @@
 
         <?php endwhile; ?>
         <script type="text/javascript">
+            <?php                            
+            $js_config = [                
+                'imageElementId' => 'background-image',                
+                'defaultImageUrl' => $blog_background_image ?? '',
+            ];
+            ?>
+
+            const config = <?php echo wp_json_encode($js_config); ?>;                          
             document.addEventListener('DOMContentLoaded', function() {                
-                var backgroundImageElement = document.getElementById('background-image');
-                
-                var defaultImageUrl = '<?php echo $blog_background_image; ?>';                
-
-                function showDefault() {
-                    if (!defaultImageUrl) {
-                        return;
-                    }
-                
-                    setElementDisplay(backgroundImageElement, defaultImageUrl);                
-                }
-
-                function showImage(imageUrl) {
-                    if (!imageUrl) {
-                        return;
-                    }
-
-                    setElementDisplay(backgroundImageElement, imageUrl);                               
-                }
-
-                showDefault();
+                initializeBlogPage(config);
             });
         </script>
     </main>

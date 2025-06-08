@@ -5,6 +5,12 @@
  * @package Elegance
  */
 
+// Prevent direct access
+if (!defined('ABSPATH')) {
+    exit;
+}
+
+
  if (!function_exists('elegance_customizer_css')) {
     function elegance_customizer_css() {
         $global_text_color = get_theme_mod( 'global_text_color');

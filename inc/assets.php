@@ -5,7 +5,14 @@
  * @package Elegance
  */
 
+// Prevent direct access
+if (!defined('ABSPATH')) {
+    exit;
+}
 
+/**
+ * Enqueue styles and scripts for the Elegance theme
+ */
 function elegance_theme_scripts() {
     wp_enqueue_style('elegance-google-fonts', 'https://fonts.googleapis.com/css?family=Raleway:100,300,400,500,700,900', array(), null);
     wp_enqueue_style('bootstrap', get_template_directory_uri() . '/css/bootstrap.min.css');
@@ -31,6 +38,9 @@ function elegance_theme_scripts() {
 add_action('wp_enqueue_scripts', 'elegance_theme_scripts');
 
 
+/**
+ * Enqueue block editor styles for the Elegance theme
+ */
 function elegance_enqueue_block_editor_assets() {
     wp_enqueue_style(
         'bootstrap-css',

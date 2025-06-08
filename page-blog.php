@@ -8,7 +8,7 @@ Template Name: Blog Page
     <title><?php bloginfo('name'); ?> - <?php wp_title(); ?></title>
     <?php wp_head(); ?>
 </head>
-<body id="blog-background-container" <?php body_class("blog-page"); ?>>
+<body id="background-container" <?php body_class("blog-page"); ?>>
     <?php        
         $blog_background_image = get_theme_mod('blog_background_image');
     ?>
@@ -106,13 +106,13 @@ Template Name: Blog Page
             else : ?>
                 <div class="col-12">
                     <div class="text-center py-5">
-                        <h3 class="text-muted">                            
+                        <h3>                            
                             <?php esc_html_e( 'No blog posts found', 'wordpress-theme-elegance' ); ?>
                         </h3>
-                        <p class="text-muted">
+                        <p>
                             <?php esc_html_e( 'Check back later for new content.', 'wordpress-theme-elegance' ); ?>                            
                         </p>
-                        <a href="<?php echo esc_url(home_url('/')); ?>" class="btn btn-primary">
+                        <a href="<?php echo esc_url(home_url('/')); ?>" class="btn btn-dark">
                             <?php esc_html_e( 'Back to Homepage', 'wordpress-theme-elegance' ); ?>
                         </a>
                     </div>

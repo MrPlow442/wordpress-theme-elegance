@@ -19,7 +19,7 @@ if (!comments_open() && get_comments_number() && post_password_required()) {
 ?>
 
 <div class="comments-section section-inner" id="comments">
-    <div class="container">
+    <div class="container border-0">
         
         <?php if (have_comments()) : ?>
             <div class="title-block">
