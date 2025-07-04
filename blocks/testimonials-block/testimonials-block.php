@@ -42,7 +42,7 @@ function register_testimonials_block() {
     );
 
     // Register the block
-    register_block_type('elegance-theme/testimonials-block', array(
+    register_block_type('wordpress-theme-elegance/testimonials-block', array(
         'editor_script' => 'testimonials-block-editor-script',
         'script' => 'testimonials-block-frontend-script',
         'editor_style' => 'testimonials-block-editor-style',

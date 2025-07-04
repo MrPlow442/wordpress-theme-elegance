@@ -1,0 +1,298 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Elegance Theme\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-06-02 17:22+0000\n"
+"PO-Revision-Date: 2025-07-04 14:27+0000\n"
+"Last-Translator: \n"
+"Language-Team: Hrvatski\n"
+"Language: hr\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10 >= 2 && "
+"n%10<=4 &&(n%100<10||n%100 >= 20)? 1 : 2;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.8.0; wp-6.8.1; php-8.3.14\n"
+"X-Domain: wordpress-theme-elegance"
+
+#: page-blog.php:84
+msgid " Previous"
+msgstr "Prethodna"
+
+#: single.php:166
+msgid "% Comments"
+msgstr "% Komentara"
+
+#: comments.php:116 inc/comments-functions.php:84
+#, php-format
+msgid "%1$s at %2$s"
+msgstr "%1$s u %2$s"
+
+#. Description of the theme
+msgid "A custom theme based on the Elegance HTML template."
+msgstr "Prilagođena tema bazirana na Elegance HTML predlošku."
+
+#: inc/customizer-controls.php:214
+msgid "Available Sections in File:"
+msgstr "Dostupni Odjeljci u Datoteci:"
+
+#: single.php:147 header-blog.php:17
+msgid "Back to Blog Index"
+msgstr "Indeks"
+
+#: page-blog.php:116 header-blog.php:15
+msgid "Back to Homepage"
+msgstr "Početna"
+
+#: inc/customizer.php:111
+msgid "Background Image"
+msgstr "Pozadinska Slika"
+
+#: inc/customizer.php:101
+msgid "Background Video"
+msgstr "Videozapis U Pozadini"
+
+#: inc/customizer.php:235
+msgid "Blog Background Image"
+msgstr "Blog Pozadinska Slika"
+
+#. Name of the template
+#: page-blog.php:2
+msgid "Blog Page"
+msgstr "Blog Stranicu"
+
+#: single.php:44
+#, php-format
+msgid "By %s"
+msgstr "Autor %s"
+
+#: comments.php:71
+msgid "Cancel Reply"
+msgstr "Odustani"
+
+#: page-blog.php:113
+msgid "Check back later for new content."
+msgstr "Provjerite kasnije za novi sadržaj."
+
+#: inc/customizer.php:152
+msgid "Color Settings"
+msgstr "Postavke boje"
+
+#: comments.php:33
+#, php-format
+msgctxt "comments title"
+msgid "%1$s comment on \"%2$s\""
+msgid_plural "%1$s comments on \"%2$s\""
+msgstr[0] "%1$s komentar na \"%2$s\""
+msgstr[1] "%1$s komentara na \"%2$s\""
+msgstr[2] "%1$s komentara na \"%2$s\""
+
+#: inc/comments-functions.php:88
+msgid "Edit"
+msgstr "Uredi"
+
+#. Name of the theme
+msgid "Elegance Theme"
+msgstr "Tema Elegancije"
+
+#: inc/customizer.php:255
+msgid ""
+"Enter the URL from Google Fonts (e.g., https://fonts.googleapis.com/css2?"
+"family=Great+Vibes&display=swap)"
+msgstr ""
+"Unesi URL sa Google Fonts (npr. https://fonts.googleapis.com/css2?"
+"family=Great+Vibes&display=swap)"
+
+#: inc/customizer.php:272
+msgid "Export Customizer Sections"
+msgstr "Izvezi Odjeljke iz Uređivača"
+
+#: inc/customizer-controls.php:184
+msgid "Export Selected Sections"
+msgstr "Izvezi Odabrane Odjeljke"
+
+#: inc/customizer.php:264
+msgid "Export/Import Settings"
+msgstr "Postavke Uvoza/Izvoza"
+
+#: inc/customizer.php:163
+msgid "Global Text Color"
+msgstr "Globalni Boju teksta"
+
+#: inc/customizer.php:244
+msgid "Google Fonts"
+msgstr "Google Fonts"
+
+#: inc/customizer.php:254
+msgid "Google Fonts URL"
+msgstr "Google Fonts URL"
+
+#: inc/customizer.php:175
+msgid "Gradient Color 1"
+msgstr "Gradient boje 1"
+
+#: inc/customizer.php:187
+msgid "Gradient Color 2"
+msgstr "Gradient boje 2"
+
+#: inc/customizer.php:125
+msgid "Hello, welcome to"
+msgstr "Pozdrav, dobrodošli na"
+
+#: inc/customizer.php:120
+msgid "Home Text Settings"
+msgstr "Postavke glavnog teksta"
+
+#: inc/customizer.php:130
+msgid "Homepage Description Above Title"
+msgstr "Opis početne stranice Iznad Zaglavlja"
+
+#: inc/customizer.php:142
+msgid "Homepage Description Below Title"
+msgstr "Opis početne stranice Ispod Naslova"
+
+#. URI of the theme
+msgid "https://templatemo.com/tm-528-elegance"
+msgstr "https://templatemo.com/tm-528-elegance"
+
+#. Author URI of the theme
+msgid "https://yourwebsite.com"
+msgstr "https://yourwebsite.com"
+
+#: inc/customizer.php:280
+msgid "Import Customizer Sections"
+msgstr "Uvezi Odjeljke Uređivača"
+
+#: inc/customizer-controls.php:226
+msgid "Import Selected Sections"
+msgstr "Uvezi Odabrane Odjeljke"
+
+#: comments.php:69 single.php:164 inc/comments-functions.php:17
+msgid "Leave a Comment"
+msgstr "Ostavi Komentar"
+
+#: comments.php:70
+#, php-format
+msgid "Leave a Reply to %s"
+msgstr "Odgovori korisniku %s"
+
+#: inc/customizer.php:91
+msgid "Main Page Media"
+msgstr "Mediji Glavne Stranice"
+
+#: comments.php:56
+msgid "Newer Comments"
+msgstr "Noviji Komentari"
+
+#: page-blog.php:85
+msgid "Next"
+msgstr "Sljedeća"
+
+#: single.php:130
+msgid "Next Article"
+msgstr "Sljedeći Članak"
+
+#: page-blog.php:110
+msgid "No blog posts found"
+msgstr "Nije pronađen nijedan blog post"
+
+#: inc/customizer-functions.php:19
+msgid "No sections selected for export."
+msgstr "Nijedan odjeljak nije odabran za izvoz."
+
+#: comments.php:55
+msgid "Older Comments"
+msgstr "Stariji Komentari"
+
+#: single.php:165
+msgid "One Comment"
+msgstr "Jedan Komentar"
+
+#: comments.php:30
+#, php-format
+msgid "One comment on \"%s\""
+msgstr "Jedan komentar na \"%s\""
+
+#: inc/customizer-functions.php:13
+msgid "Permission denied."
+msgstr "Nedopušteno."
+
+#: comments.php:72
+msgid "Post Comment"
+msgstr "Objavi Komentar"
+
+#: single.php:113
+msgid "Previous Article"
+msgstr "Prethodni Članak"
+
+#: inc/setup.php:11
+msgid "Primary Menu"
+msgstr "Glavni izbornik"
+
+#: page-blog.php:66
+msgid "Read More"
+msgstr "Pročitaj više"
+
+#: comments.php:131 inc/comments-functions.php:45
+msgid "Reply"
+msgstr "Odgovor"
+
+#: inc/comments-functions.php:76
+msgid "says:"
+msgstr "kaže:"
+
+#: inc/customizer-controls.php:169 inc/customizer-controls.php:218
+msgid "Select All Sections"
+msgstr "Odaberi Sve Odjeljke"
+
+#: inc/customizer-controls.php:187
+msgid "Select which sections to export, then click the export button."
+msgstr "Odaberite koje odjeljke želite izvesti i zatim kliknite gumb za Izvoz."
+
+#: inc/customizer-controls.php:229
+msgid "Select which sections to import and apply to your theme."
+msgstr "Odaberite koje odjeljke želite uvesti i primijeniti na vašu temu."
+
+#: inc/customizer.php:196 inc/customizer.php:206
+msgid "Social Icons"
+msgstr "Društvene Ikone"
+
+#: inc/customizer.php:137
+msgid ""
+"This is a clean and modern HTML5 template with a video background. You can "
+"use this layout for your profile page. Please spread a word about templatemo "
+"to your friends. Thank you."
+msgstr ""
+"Ovo je čist i moderan HTML5 predložak s video pozadinom. Možete koristiti "
+"ovaj izgled za svoju profilnu stranicu. Molimo vas da preporučite templatemo "
+"svojim prijateljima. Hvala."
+
+#: inc/customizer-controls.php:209
+msgid "Upload JSON file to preview available sections."
+msgstr "Unesi JSON datoteku za pregled dostupnih odjeljaka."
+
+#: comments.php:73
+msgid "Your Comment"
+msgstr "Vaš Komentar"
+
+#: comments.php:141 inc/comments-functions.php:74
+msgid "Your comment is awaiting moderation."
+msgstr "Vaš komentar je u procesu odobravanja."
+
+#: comments.php:76
+msgid "Your Email"
+msgstr "Vaša Email adresa"
+
+#: comments.php:81
+msgid "Your email address will not be published."
+msgstr "Vaša email adresa se neće objaviti"
+
+#. Author of the theme
+#: comments.php:75
+msgid "Your Name"
+msgstr "Vaše ime"
+
+#: comments.php:77
+msgid "Your Website (Optional)"
+msgstr "Vaša web stranica (Opcionalno)"

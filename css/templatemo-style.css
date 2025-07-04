@@ -29,7 +29,7 @@ CSS SITEMAP >>>>
   --gradient-color-2: #39ced6;
 }
 
-#backgroundContainer:after {
+#background-container:after {
   content: '';
   opacity: 0.75;
   position:fixed;
@@ -161,7 +161,7 @@ figure {
   display: block;
 }
 
-#backgroundVideo, #backgroundImage {
+#background-video, #background-image {
   position: fixed;
   left: 0;
   top: 0;
@@ -232,6 +232,20 @@ figure {
   background: #222;
   color: #fff;
 }
+.page-item-dark.active .page-link {
+	z-index: 1;
+	color: #fff;
+  background-color: rgba(34, 34, 34, 0.75);
+	border-color: #222;
+}
+.page-item-dark .page-link {
+  color: #222;
+  background-color: rgba(250, 250, 250, 0.75);
+}
+.page-item-dark.disabled .page-link {
+  background-color: #e9ecef;
+}
+
 .owl-carousel .owl-stage {
   display: -webkit-box;
   display: -webkit-flex;
@@ -797,33 +811,33 @@ textarea.form-control {
 /*==============================================
 10. PAGE BLOCK CSS
 ================================================*/
-.page-item {
+.page-block-item {
   position: relative;
   z-index: 1; /* Ensure the content is on top of the background */
   padding: 40px;
   overflow: hidden;
 }
 
-.page-item.with-background {
+.page-block-item.with-background {
   background-color: rgba(250,250,250,0.25);
   -webkit-box-shadow: 0 0 20px rgba(0,0,0,.3);
   box-shadow: 0 0 20px rgba(0,0,0,.3);
   border-radius: 10px;
 }
 
-.page-item-content {
+.page-block-item-content {
   text-align: inherit;
 }
 
-.page-item-content .has-text-align-left {
+.page-block-item-content .has-text-align-left {
   text-align: left;
 }
 
-.page-item-content .has-text-align-center {
+.page-block-item-content .has-text-align-center {
   text-align: center;
 }
 
-.page-item-content .has-text-align-right {
+.page-block-item-content .has-text-align-right {
   text-align: right;
 }
 
@@ -851,7 +865,7 @@ textarea.form-control {
   text-align: center;
 }
 
-.page-item > * {
+.page-block-item > * {
   position: relative; /* Ensure direct children are on top of the overlay */
   z-index: 1;
 }

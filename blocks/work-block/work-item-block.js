@@ -1,8 +1,8 @@
-wp.blocks.registerBlockType('elegance-theme/work-item-block', {
+wp.blocks.registerBlockType('wordpress-theme-elegance/work-item-block', {
     title: 'Work Item Block',
     icon: 'format-image',
     category: 'widgets',
-    parent: ['elegance-theme/work-block'],
+    parent: ['wordpress-theme-elegance/work-block'],
     attributes: {
         imageUrl: {
             type: 'string',
