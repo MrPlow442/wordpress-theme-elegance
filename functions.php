@@ -24,6 +24,16 @@ $theme_includes = [
     '/blocks/work-block/work-block.php', // Work block
 ];
 
+$admin_includes = [
+    '/inc/admin.php', // Admin-only functionality
+];
+
 foreach ($theme_includes as $file) {
     require_once get_theme_file_path($file);
+}
+
+if (is_admin()) {
+  foreach ($admin_includes as $file) {
+      require_once get_theme_file_path($file);
+  }  
 }

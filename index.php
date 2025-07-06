@@ -37,13 +37,7 @@
         </div>
 
         <?php 
-        $notices_query = new WP_Query(array(
-            'post_type' => 'notice',
-            'posts_per_page' => -1,
-            'orderby' => 'date',
-            'order' => 'DESC',
-            'post_status' => 'publish'
-        ));
+        $notices_query = elegance_notices_query();
 
         if ($notices_query->have_posts()) : ?>
             <div class="section animated-row" data-section="posts">

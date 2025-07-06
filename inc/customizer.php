@@ -144,6 +144,66 @@ if (!function_exists('elegance_theme_customizer_settings')) {
             'settings'   => 'home_description_below',
             'type'       => 'textarea',
         )));
+        
+        /*******************************************
+         *           NAVIGATION SETTINGS           *
+         ******************************************/
+        $wp_customize->add_section('theme_navigation_settings', array(
+            'title' => __('Navigation Settings', 'wordpress-theme-elegance'),
+            'priority' => 25,
+        ));
+
+        // Home Navigation Settings
+        $wp_customize->add_setting('nav_home_label', array(
+            'default' => __('Home', 'wordpress-theme-elegance'),
+            'sanitize_callback' => 'sanitize_text_field',
+            'transport' => 'refresh',
+        ));
+
+        $wp_customize->add_control('nav_home_label', array(
+            'label' => __('Home Menu Label', 'wordpress-theme-elegance'),
+            'section' => 'theme_navigation_settings',
+            'type' => 'text',
+        ));
+
+        // Notices Navigation Settings
+        $wp_customize->add_setting('nav_notices_label', array(
+            'default' => __('Notices', 'wordpress-theme-elegance'),
+            'sanitize_callback' => 'sanitize_text_field',
+            'transport' => 'refresh',
+        ));
+
+        $wp_customize->add_control('nav_notices_label', array(
+            'label' => __('Notices Menu Label', 'wordpress-theme-elegance'),
+            'section' => 'theme_navigation_settings',
+            'type' => 'text',
+        ));
+
+        // Blog Navigation Settings
+        $wp_customize->add_setting('nav_blog_label', array(
+            'default' => __('Blog', 'wordpress-theme-elegance'),
+            'sanitize_callback' => 'sanitize_text_field',
+            'transport' => 'refresh',
+        ));
+
+        $wp_customize->add_control('nav_blog_label', array(
+            'label' => __('Blog Menu Label', 'wordpress-theme-elegance'),
+            'section' => 'theme_navigation_settings',
+            'type' => 'text',
+        ));
+
+        $wp_customize->add_setting('nav_blog_url', array(
+            'default' => '/blog',
+            'sanitize_callback' => 'esc_url_raw',
+            'transport' => 'refresh',
+        ));
+
+        $wp_customize->add_control('nav_blog_url', array(
+            'label' => __('Blog URL Path', 'wordpress-theme-elegance'),
+            'section' => 'theme_navigation_settings',
+            'type' => 'text',
+            'description' => __('Relative URL path to blog page (e.g., /blog or /arvakhr/blog)', 'wordpress-theme-elegance'),
+        ));
 
         /*************************************
          *          COLOR SETTINGS           *
