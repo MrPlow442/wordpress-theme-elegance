@@ -12,13 +12,7 @@ function register_testimonials_block() {
         'testimonials-block-editor-script',
         get_template_directory_uri() . '/blocks/testimonials-block/testimonials-block.js',
         array('wp-blocks', 'wp-element', 'wp-editor', 'wp-components')
-    );
-
-    wp_enqueue_script(
-        'testimonial-item-block',
-        get_template_directory_uri() . '/blocks/testimonials-block/testimonial-item-block.js',
-        array('wp-blocks', 'wp-editor', 'wp-element')
-    );
+    );    
 
     // Register frontend script
     wp_register_script(

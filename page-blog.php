@@ -3,9 +3,10 @@
 Template Name: Blog Page
 */
 ?>
-
+<!DOCTYPE html> 
+<html>
 <head>
-    <title><?php bloginfo('name'); ?> - <?php wp_title(); ?></title>
+    <title><?php bloginfo('name'); ?> - <?php wp_title(); ?></title>    
     <?php wp_head(); ?>
 </head>
 <body id="background-container" <?php body_class("blog-page"); ?>>
@@ -19,7 +20,7 @@ Template Name: Blog Page
 
     <?php get_header("blog"); ?>
 
-    <main id="blog-content" class="container my-5">
+    <main id="blog-content" class="container my-5">        
         <div class="row">
             <?php
             $blog_query = new WP_Query(array(
@@ -138,3 +139,4 @@ Template Name: Blog Page
 
     <?php get_footer(); ?>
 </body>
+</html>

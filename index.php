@@ -1,10 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">    
+<html>
+<head>     
     <title><?php bloginfo('name'); ?> - <?php wp_title(); ?></title>
     <?php wp_head(); ?>
 </head>
@@ -40,7 +36,7 @@
         $notices_query = elegance_notices_query();
 
         if ($notices_query->have_posts()) : ?>
-            <div class="section animated-row" data-section="posts">
+            <div class="section animated-row" data-section="notices">
                 <div class="section-inner">
                     <div class="row justify-content-center">
                         <div class="col-lg-8 wide-col-laptop">
@@ -104,7 +100,7 @@
                 return sanitize_title($item->post_title);
             }, $pages);
             if ($notices_query->have_posts()) {
-                array_unshift($anchors, 'posts');
+                array_unshift($anchors, 'notices');
             }
             foreach ($custom_items as $custom) {
                 $anchors[] = $custom['anchor'];

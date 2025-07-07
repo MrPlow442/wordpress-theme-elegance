@@ -12,6 +12,7 @@ if (!defined('ABSPATH')) {
 
 // Load dependencies with child theme support and safe inclusion
 $theme_includes = [
+    '/inc/constants.php',    // Theme constants
     '/inc/setup.php',        // Theme setup
     '/inc/assets.php',       // Asset management
     '/inc/walkers.php',      // Custom walkers
@@ -37,3 +38,33 @@ if (is_admin()) {
       require_once get_theme_file_path($file);
   }  
 }
+
+add_action( 'wp_enqueue_scripts', function () {
+
+    $scripts = wp_scripts();
+
+    if ( ! wp_script_is( 'wp-preferences', 'enqueued' ) ) {
+        return;
+    }
+
+    $parents = [];
+
+    // Recursive walk
+    $check = function( $handle, $trail = [] ) use ( &$check, $scripts, &$parents ) {
+        $trail[] = $handle;
+        $deps    = $scripts->registered[ $handle ]->deps ?? [];
+        if ( in_array( 'wp-preferences', $deps, true ) ) {
+            $parents[] = implode( ' → ', $trail ) . ' → wp-preferences';
+        }
+        foreach ( $deps as $dep ) {
+            $check( $dep, $trail );
+        }
+    };
+
+    foreach ( $scripts->queue as $h ) {
+        $check( $h );
+    }
+
+    error_log( "Handles that lead to wp-preferences:\n" . implode( "\n", array_unique( $parents ) ) );
+}, 99 );
+

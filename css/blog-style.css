@@ -1,6 +1,6 @@
 /* Blog Page Styles */
 /* Back navigation styling */
-.blog-header {
+#blog-header {
     padding: 20px 0;
     position: relative;
     z-index: 999;
@@ -40,4 +40,20 @@
     padding-top: 20px;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
+}
+
+#blog-content .article-content {
+  text-align: left;
+}
+
+#blog-content .article-content .has-text-align-left {
+  text-align: left;
+}
+
+#blog-content .article-content .has-text-align-center {
+  text-align: center;
+}
+
+#blog-content .article-content .has-text-align-right {
+  text-align: right;
 }

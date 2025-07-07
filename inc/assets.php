@@ -10,6 +10,15 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+function elegance_meta_tags() {
+    ?>    
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="<?php bloginfo('description'); ?>">
+    <meta name="author" content="<?php echo esc_attr(get_bloginfo('name')); ?>">
+    <?php
+}
+add_action('wp_head', 'elegance_meta_tags', 1);
+
 /**
  * Enqueue styles and scripts for the Elegance theme
  */
@@ -27,7 +36,7 @@ function elegance_theme_scripts() {
     wp_enqueue_style('elegance-style', get_stylesheet_uri() );
 
     wp_enqueue_script('jquery');
-    wp_enqueue_script('bootstrap', get_template_directory_uri() . '/js/bootstrap.min.js', array('jquery'), '', true);
+    wp_enqueue_script('bootstrap', get_template_directory_uri() . '/js/bootstrap.min.js', array('jquery'), '', true);    
     wp_enqueue_script('fullpage', get_template_directory_uri() . '/js/fullpage.extensions.min.js', array('jquery'), '', true);
     wp_enqueue_script('scrolloverflow', get_template_directory_uri() . '/js/scrolloverflow.js', array('jquery'), '', true);
     wp_enqueue_script('owl-carousel', get_template_directory_uri() . '/js/owl.carousel.min.js', array('jquery'), '', true);

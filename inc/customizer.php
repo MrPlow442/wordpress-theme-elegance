@@ -346,6 +346,7 @@ if (!function_exists('elegance_theme_customizer_settings')) {
     add_action('customize_register', 'elegance_theme_customizer_settings');
 }
 
+
 if (!function_exists('elegance_sanitize_social_icons')) {
     function elegance_sanitize_social_icons($input) {
         $input_decoded = json_decode($input, true);

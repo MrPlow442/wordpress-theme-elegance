@@ -50,9 +50,9 @@ function changeBackgroundElement(element, url) {
     }, 200); // The duration should match the CSS transition duration
 }
 
-function swapElementDisplay(element1, element2, sourceUrl) {
-    setVisibility(element1, 'hidden');
-    setElementDisplay(element2, sourceUrl);
+function swapElementDisplay(toHide, toShow, sourceUrl) {    
+    setVisibility(toHide, 'hidden');    
+    setElementDisplay(toShow, sourceUrl);
 }
 
 function setElementDisplay(element, sourceUrl) {
@@ -75,9 +75,9 @@ function showDefault(config, elements) {
         return;
     }
 
-    if (config.defaultVideoUrl) {                        
+    if (elements.backgroundVideoElement && config.defaultVideoUrl) {                        
         swapElementDisplay(elements.backgroundImageElement, elements.backgroundVideoElement, config.defaultVideoUrl);                    
-    } else {                        
+    } else if (elements.backgroundImageElement && config.defaultImageUrl) {                        
         swapElementDisplay(elements.backgroundVideoElement, elements.backgroundImageElement, config.defaultImageUrl);
     }
 }
@@ -135,7 +135,8 @@ function initializeFullpage(config) {
 
 function initializeBlogPage(config) {
     const elements = {        
-        backgroundImageElement: document.getElementById(config.imageElementId)
+        backgroundImageElement: document.getElementById(config.imageElementId),
+        backgroundVideoElement: null
     };
 
     showDefault(config, elements);

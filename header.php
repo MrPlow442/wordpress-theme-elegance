@@ -1,4 +1,4 @@
-<header id="header">
+<header id="header" class="header">
     <div class="container-fluid">
         <div class="navbar">
             <a href="<?php echo home_url(); ?>" id="logo" title="<?php bloginfo('name'); ?>">

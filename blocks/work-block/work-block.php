@@ -12,13 +12,7 @@ function register_work_block() {
         'work-block-editor-script',
         get_template_directory_uri() . '/blocks/work-block/work-block.js',
         array('wp-blocks', 'wp-element', 'wp-editor', 'wp-components')
-    );
-
-    wp_enqueue_script(
-        'work-item-block',
-        get_template_directory_uri() . '/blocks/work-block/work-item-block.js',
-        array('wp-blocks', 'wp-editor', 'wp-element')
-    );
+    );    
 
     // Register frontend script
     wp_register_script(

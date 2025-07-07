@@ -56,9 +56,9 @@ if (!function_exists('elegance_get_theme_nav_items')) {
         // Home item (always available)
         $home_label = get_theme_mod('nav_home_label', __('Home', 'wordpress-theme-elegance'));
         $items[] = array(
-            'id' => '999',
+            'id' => _elegance_create_theme_nav_item_id('home_nav'),
             'label' => $home_label,
-            'value' => 'home',                            
+            'value' => '#home',
             'type' => 'anchor'
         );
         
@@ -66,9 +66,9 @@ if (!function_exists('elegance_get_theme_nav_items')) {
         if (elegance_has_notices()) {
             $notices_label = get_theme_mod('nav_notices_label', __('Notices', 'wordpress-theme-elegance'));
             $items[] = array(
-                'id' => '998',
+                'id' => _elegance_create_theme_nav_item_id('notices_nav'),
                 'label' => $notices_label,
-                'value' => 'notices',
+                'value' => '#notices',
                 'type' => 'anchor'
             );
         }
@@ -78,13 +78,19 @@ if (!function_exists('elegance_get_theme_nav_items')) {
             $blog_label = get_theme_mod('nav_blog_label', __('Blog', 'wordpress-theme-elegance'));
             $blog_url = get_theme_mod('nav_blog_url', '/blog');
             $items[] = array(
-                'id' => '997',
+                'id' => _elegance_create_theme_nav_item_id('blog_nav'),
                 'label' => $blog_label,
                 'value' => home_url($blog_url),
                 'type' => 'link'
             );
         }
-            
+        
         return $items;
+    }
+}
+
+if (!function_exists('_elegance_create_theme_nav_item_id')) {
+    function _elegance_create_theme_nav_item_id($name) {
+        return 'elegance_nav_' . sanitize_title($name);
     }
 }

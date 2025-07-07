@@ -1,5 +1,7 @@
+<!DOCTYPE html>
+<html>
 <head>
-    <title><?php bloginfo('name'); ?> - <?php wp_title(); ?></title>
+    <title><?php bloginfo('name'); ?> - <?php wp_title(); ?></title>        
     <?php wp_head(); ?>
 </head>
 <body id="background-container" <?php body_class("blog-page"); ?>>
@@ -192,3 +194,4 @@
 
     <?php get_footer(); ?>
 </body>
+</html>
