@@ -342,6 +342,9 @@ if (!function_exists('elegance_theme_customizer_settings')) {
         )));
         
         elegance_export_selected_sections($wp_customize);
+
+        // Remove static_front_page section        
+        $wp_customize->remove_section('static_front_page');
     }
     add_action('customize_register', 'elegance_theme_customizer_settings');
 }

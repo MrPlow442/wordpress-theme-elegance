@@ -32,7 +32,7 @@ Template Name: Blog Page
             if ($blog_query->have_posts()) :
                 while ($blog_query->have_posts()) : $blog_query->the_post(); ?>
                     <div class="col-lg-4 col-md-12 mb-4">
-                        <article class="card h-100 shadow-sm">
+                        <article class="article-peek card h-100 shadow-sm">
                             <?php if (has_post_thumbnail()) : ?>
                                 <div class="card-img-top-wrapper" style="height: 200px; overflow: hidden;">
                                     <a href="<?php the_permalink(); ?>">

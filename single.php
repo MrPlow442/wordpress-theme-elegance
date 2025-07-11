@@ -29,7 +29,7 @@
             <?php endif; ?>
 
             <!-- Article Content -->
-            <article class="container">
+            <article class="container content">
                 <div class="row justify-content-center">
                     <div class="col-lg-8 col-md-10">
                         
@@ -163,9 +163,9 @@
                                 <h3 class="h4 mb-4">
                                     <i class="fa fa-comments mr-2"></i>
                                     <?php comments_number(
-                                        __('Leave a Comment', 'wordpress-theme-elegance'), 
-                                        __('One Comment', 'wordpress-theme-elegance'), 
-                                        __('% Comments', 'wordpress-theme-elegance')
+                                        __('Leave a Comment'), 
+                                        __('One Comment'), 
+                                        __('% Comments')
                                     ); ?>
                                 </h3>
                                 <?php comments_template(); ?>
