@@ -39,41 +39,50 @@ if (!function_exists('elegance_has_notices')) {
     }
 }
 
-if (!function_exists('elegance_has_blog_page')) {
-    function elegance_has_blog_page() {
-        $blog_url = get_theme_mod('nav_blog_url', '/blog');        
-        $blog_path = trim($blog_url, '/');        
-        $page = get_page_by_path($blog_path);        
-        return !is_null($page);
+if (!function_exists('elegance_url_post_exists')) {
+    function elegance_url_post_exists($url) {
+        $post_id = url_to_postid(trim($url, '/'));
+        return !is_null($post_id) && get_post_status($post_id) === 'publish';
     }
 }
 
+if (!function_exists('elegance_is_blog_page')) {
+    function elegance_is_blog_page($url) {        
+        $blog_url = get_theme_mod('nav_blog_url', '/blog');
+        $blog_path = trim($blog_url, '/');                
+        return strpos($url, $blog_path) !== false;
+    }
+}
+
+if (!function_exists('elegance_has_blog_page')) {
+    function elegance_has_blog_page() {
+        $blog_url = home_url(get_theme_mod('nav_blog_url', '/blog'));        
+        return elegance_url_post_exists($blog_url);
+    }
+}
 
 if (!function_exists('elegance_get_theme_nav_items')) {
     function elegance_get_theme_nav_items() {
         $items = array();
-        
-        // Home item (always available)
+                
         $home_label = get_theme_mod('nav_home_label', __('Home', 'wordpress-theme-elegance'));
         $items[] = array(
             'id' => _elegance_create_theme_nav_item_id('home_nav'),
             'label' => $home_label,
             'value' => '#home',
-            'type' => 'anchor'
+            'type' => EleganceNavType::ANCHOR->value
         );
-        
-        // Notices item (conditional)
+                
         if (elegance_has_notices()) {
             $notices_label = get_theme_mod('nav_notices_label', __('Notices', 'wordpress-theme-elegance'));
             $items[] = array(
                 'id' => _elegance_create_theme_nav_item_id('notices_nav'),
                 'label' => $notices_label,
                 'value' => '#notices',
-                'type' => 'anchor'
+                'type' => EleganceNavType::ANCHOR->value
             );
         }
-        
-        // Blog item (conditional)
+                
         if (elegance_has_blog_page()) {
             $blog_label = get_theme_mod('nav_blog_label', __('Blog', 'wordpress-theme-elegance'));
             $blog_url = get_theme_mod('nav_blog_url', '/blog');
@@ -81,7 +90,7 @@ if (!function_exists('elegance_get_theme_nav_items')) {
                 'id' => _elegance_create_theme_nav_item_id('blog_nav'),
                 'label' => $blog_label,
                 'value' => home_url($blog_url),
-                'type' => 'link'
+                'type' => EleganceNavType::LINK->value
             );
         }
         

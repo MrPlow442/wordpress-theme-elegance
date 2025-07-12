@@ -11,12 +11,22 @@
         function start_el(&$output, $item, $depth = 0, $args = array(), $id = 0) {                              
             $elegance_nav_type = get_post_meta($item->ID, ELEGANCE_NAV_META_KEY, true);            
 
-            if ($elegance_nav_type === 'link') {                                
-                $post_id = url_to_postid(trim($item->url, '/'));                
-                if (is_null($post_id)) {
+            switch ($elegance_nav_type) {
+                case EleganceNavType::ANCHOR->value:                    
+                    if ($item->url === '#notices' && !elegance_has_notices()) {      
+                        // If no notices, don't render the nav item              
+                        return;
+                    }                    
+                    break;
+                case EleganceNavType::LINK->value:
+                    if (elegance_is_blog_page($item->url) && !elegance_has_blog_page()) {                        
+                        // If no blog page, don't render the nav item
+                        return;
+                    }
+                    break;
+                default:
                     return;
-                }        
-            }
+            }            
 
             if ($item->type === 'custom') {                
                 $href = esc_url($item->url);

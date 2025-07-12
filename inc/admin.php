@@ -6,30 +6,23 @@
  * be loaded in the WordPress admin context.
  */
 
-// Prevent direct access
+
 if (!defined('ABSPATH')) {
     exit;
 }
 
-// Ensure we're in admin context
+
 if (!is_admin()) {
     return;
 }
 
-/**
- * Load WordPress admin dependencies when needed
- */
+
 add_action('admin_init', 'elegance_load_nav_menu_dependencies');
 function elegance_load_nav_menu_dependencies() {            
     require_once ABSPATH . 'wp-admin/includes/nav-menu.php';    
 }
 
-/**
- * Register admin meta boxes for custom navigation
- * Use wp_nav_menu_setup hook for proper timing
- */
-//add_action('wp_nav_menu_setup', 'elegance_register_custom_nav_meta_box');
-add_action( 'admin_head-nav-menus.php', 'elegance_register_custom_nav_meta_box' );
+
 function elegance_register_custom_nav_meta_box() {
     add_meta_box(
         'elegance-nav-items',
@@ -40,10 +33,8 @@ function elegance_register_custom_nav_meta_box() {
         'default'
     );
 }
+add_action( 'admin_head-nav-menus.php', 'elegance_register_custom_nav_meta_box' );
 
-/**
- * Display custom navigation meta box
- */
 function elegance_nav_menu_meta_box() {
     global $_nav_menu_placeholder, $nav_menu_selected_id;
     $_nav_menu_placeholder = 0 > $_nav_menu_placeholder ? $_nav_menu_placeholder - 1 : -1;
@@ -117,7 +108,6 @@ function elegance_nav_menu_meta_box() {
     <?php
 }
 
-add_action('wp_update_nav_menu_item', 'elegance_save_menu_item_meta', 10, 3);
 function elegance_save_menu_item_meta($menu_id, $menu_item_db_id, $args) {        
     $id = sanitize_text_field($args['menu-item-attr-title']);
 
@@ -150,11 +140,10 @@ function elegance_save_menu_item_meta($menu_id, $menu_item_db_id, $args) {
     update_post_meta($menu_item_db_id, ELEGANCE_NAV_META_KEY, $elegance_type);
     update_post_meta($menu_item_db_id, ELEGANCE_NAV_ID_KEY, $elegance_id);    
 }
+add_action('wp_update_nav_menu_item', 'elegance_save_menu_item_meta', 10, 3);
 
-/**
- * Handle custom menu item type processing
- */
-add_filter('wp_setup_nav_menu_item', 'elegance_setup_nav_menu_item');
+
+
 function elegance_setup_nav_menu_item($menu_item) {            
     $elegance_type = get_post_meta($menu_item->ID, ELEGANCE_NAV_META_KEY, true);
     $elegance_id = get_post_meta($menu_item->ID, ELEGANCE_NAV_ID_KEY, true);
@@ -176,8 +165,8 @@ function elegance_setup_nav_menu_item($menu_item) {
     
     return $menu_item;
 }
+add_filter('wp_setup_nav_menu_item', 'elegance_setup_nav_menu_item');
 
-add_action('wp_nav_menu_item_custom_fields', 'elegance_nav_menu_custom_fields', 10, 4);
 function elegance_nav_menu_custom_fields($item_id, $item, $depth, $args) {    
     $elegance_type = get_post_meta($item_id, ELEGANCE_NAV_META_KEY, true);    
     if ($elegance_type) {
@@ -226,11 +215,9 @@ function elegance_nav_menu_custom_fields($item_id, $item, $depth, $args) {
         <?php
     }
 }
+add_action('wp_nav_menu_item_custom_fields', 'elegance_nav_menu_custom_fields', 10, 4);
 
-/**
- * Enqueue admin styles
- */
-add_action('admin_enqueue_scripts', 'elegance_admin_menu_styles');
+
 function elegance_admin_menu_styles($hook) {
     if ($hook === 'nav-menus.php') {
         wp_enqueue_style(
@@ -241,8 +228,8 @@ function elegance_admin_menu_styles($hook) {
         );
     }
 }
+add_action('admin_enqueue_scripts', 'elegance_admin_menu_styles');
 
-add_action('customize_save_after', 'elegance_sync_menu_items');
 function elegance_sync_menu_items() {
     $menus = wp_get_nav_menus();
     foreach ($menus as $menu) {
@@ -267,3 +254,4 @@ function elegance_sync_menu_items() {
         }
     }
 }
+add_action('customize_save_after', 'elegance_sync_menu_items');
