@@ -106,23 +106,6 @@
     margin-bottom: 0;
 }
 
-.comment-actions .comment-reply-link {
-    background-color: #3498db;
-    color: white;
-    padding: 0.25rem 0.75rem;
-    border-radius: 20px;
-    text-decoration: none;
-    font-size: 0.875rem;
-    transition: all 0.2s ease;
-}
-
-.comment-actions .comment-reply-link:hover {
-    background-color: #2980b9;
-    color: white;
-    text-decoration: none;
-}
-
-/* Comment Form Styling */
 .comment-form .card {
     border-radius: 12px;
 }
@@ -134,6 +117,7 @@
 }
 
 .comment-form .form-control {
+    color: #222;
     border: 2px solid #e9ecef;
     border-radius: 8px;
     padding: 0.75rem 1rem;
@@ -199,4 +183,33 @@
     background-color: #3498db;
     border-color: #3498db;
     color: white;
+}
+
+/* Mobile comment optimizations */
+@media (max-width: 575.98px) {
+    .comments-section .container {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    
+    .comment-content p {
+        font-size: 0.9rem;
+        line-height: 1.5;
+    }
+    
+    .comment-actions .btn {
+        min-width: 44px; /* Touch target size */
+        padding: 0.25rem 0.5rem;
+    }
+    
+    .comment-item .card {
+        margin-bottom: 1rem;
+    }
+    
+    /* Reduce nested comment indentation on mobile */
+    .children {
+        margin-left: 0;
+        padding-left: 0.5rem;
+        border-left: 1px solid #dee2e6;
+    }
 }
