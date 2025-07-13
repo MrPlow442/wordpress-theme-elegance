@@ -25,7 +25,7 @@
                     }
                     break;
                 default:
-                    return;
+                    break;
             }            
 
             if ($item->type === 'custom') {                
