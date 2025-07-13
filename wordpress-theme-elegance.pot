@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Elegance Theme\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-04 14:15+0000\n"
+"POT-Creation-Date: 2025-07-13 07:26+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -16,32 +16,39 @@ msgstr ""
 "X-Loco-Version: 2.8.0; wp-6.8.1; php-8.3.14\n"
 "X-Domain: wordpress-theme-elegance"
 
-#: page-blog.php:84
+#: page-blog.php:85
 msgid " Previous"
 msgstr ""
 
-#: single.php:166
-msgid "% Comments"
-msgstr ""
-
-#: comments.php:116 inc/comments-functions.php:84
-#, php-format
-msgid "%1$s at %2$s"
+#: inc/admin.php:76
+msgid "(Protected)"
 msgstr ""
 
 #. Description of the theme
 msgid "A custom theme based on the Elegance HTML template."
 msgstr ""
 
+#: inc/custom-post-types.php:20
+msgid "Add New"
+msgstr ""
+
+#: inc/custom-post-types.php:19
+msgid "Add New Notice"
+msgstr ""
+
+#: inc/custom-post-types.php:18
+msgid "All Notices"
+msgstr ""
+
 #: inc/customizer-controls.php:214
 msgid "Available Sections in File:"
 msgstr ""
 
-#: single.php:147 header-blog.php:17
+#: single.php:149 header-blog.php:15
 msgid "Back to Blog Index"
 msgstr ""
 
-#: page-blog.php:116 header-blog.php:15
+#: page-blog.php:117 header-blog.php:13
 msgid "Back to Homepage"
 msgstr ""
 
@@ -53,8 +60,16 @@ msgstr ""
 msgid "Background Video"
 msgstr ""
 
-#: inc/customizer.php:235
+#: inc/customizer.php:184 inc/template-functions.php:87
+msgid "Blog"
+msgstr ""
+
+#: inc/customizer.php:295
 msgid "Blog Background Image"
+msgstr ""
+
+#: inc/customizer.php:190
+msgid "Blog Menu Label"
 msgstr ""
 
 #. Name of the template
@@ -62,46 +77,38 @@ msgstr ""
 msgid "Blog Page"
 msgstr ""
 
-#: single.php:44
+#: inc/customizer.php:202
+msgid "Blog URL Path"
+msgstr ""
+
+#: single.php:46
 #, php-format
 msgid "By %s"
 msgstr ""
 
-#: comments.php:71
-msgid "Cancel Reply"
-msgstr ""
-
-#: page-blog.php:113
+#: page-blog.php:114
 msgid "Check back later for new content."
 msgstr ""
 
-#: inc/customizer.php:152
+#: inc/customizer.php:212
 msgid "Color Settings"
 msgstr ""
 
-#: comments.php:33
-#, php-format
-msgctxt "comments title"
-msgid "%1$s comment on \"%2$s\""
-msgid_plural "%1$s comments on \"%2$s\""
-msgstr[0] ""
-msgstr[1] ""
-
-#: inc/comments-functions.php:88
-msgid "Edit"
+#: inc/custom-post-types.php:22
+msgid "Edit Notice"
 msgstr ""
 
 #. Name of the theme
 msgid "Elegance Theme"
 msgstr ""
 
-#: inc/customizer.php:255
+#: inc/customizer.php:315
 msgid ""
 "Enter the URL from Google Fonts (e.g., https://fonts.googleapis.com/css2?"
 "family=Great+Vibes&display=swap)"
 msgstr ""
 
-#: inc/customizer.php:272
+#: inc/customizer.php:332
 msgid "Export Customizer Sections"
 msgstr ""
 
@@ -109,32 +116,40 @@ msgstr ""
 msgid "Export Selected Sections"
 msgstr ""
 
-#: inc/customizer.php:264
+#: inc/customizer.php:324
 msgid "Export/Import Settings"
 msgstr ""
 
-#: inc/customizer.php:163
+#: inc/customizer.php:223
 msgid "Global Text Color"
 msgstr ""
 
-#: inc/customizer.php:244
+#: inc/customizer.php:304
 msgid "Google Fonts"
 msgstr ""
 
-#: inc/customizer.php:254
+#: inc/customizer.php:314
 msgid "Google Fonts URL"
 msgstr ""
 
-#: inc/customizer.php:175
+#: inc/customizer.php:235
 msgid "Gradient Color 1"
 msgstr ""
 
-#: inc/customizer.php:187
+#: inc/customizer.php:247
 msgid "Gradient Color 2"
 msgstr ""
 
 #: inc/customizer.php:125
 msgid "Hello, welcome to"
+msgstr ""
+
+#: inc/customizer.php:158 inc/template-functions.php:68
+msgid "Home"
+msgstr ""
+
+#: inc/customizer.php:164
+msgid "Home Menu Label"
 msgstr ""
 
 #: inc/customizer.php:120
@@ -149,15 +164,15 @@ msgstr ""
 msgid "Homepage Description Below Title"
 msgstr ""
 
+#. Author URI of the theme
+msgid "https://arvak.hr"
+msgstr ""
+
 #. URI of the theme
 msgid "https://templatemo.com/tm-528-elegance"
 msgstr ""
 
-#. Author URI of the theme
-msgid "https://yourwebsite.com"
-msgstr ""
-
-#: inc/customizer.php:280
+#: inc/customizer.php:340
 msgid "Import Customizer Sections"
 msgstr ""
 
@@ -165,61 +180,73 @@ msgstr ""
 msgid "Import Selected Sections"
 msgstr ""
 
-#: comments.php:69 single.php:164 inc/comments-functions.php:17
-msgid "Leave a Comment"
-msgstr ""
-
-#: comments.php:70
-#, php-format
-msgid "Leave a Reply to %s"
-msgstr ""
-
 #: inc/customizer.php:91
 msgid "Main Page Media"
 msgstr ""
 
-#: comments.php:56
-msgid "Newer Comments"
+#. Author of the theme
+msgid "Matija Lovrekovic"
 msgstr ""
 
-#: page-blog.php:85
+#: inc/customizer.php:152
+msgid "Navigation Settings"
+msgstr ""
+
+#: inc/custom-post-types.php:21
+msgid "New Notice"
+msgstr ""
+
+#: page-blog.php:86
 msgid "Next"
 msgstr ""
 
-#: single.php:130
+#: single.php:132
 msgid "Next Article"
 msgstr ""
 
-#: page-blog.php:110
+#: page-blog.php:111
 msgid "No blog posts found"
+msgstr ""
+
+#: inc/admin.php:62
+msgid "No navigation items available."
 msgstr ""
 
 #: inc/customizer-functions.php:19
 msgid "No sections selected for export."
 msgstr ""
 
-#: comments.php:55
-msgid "Older Comments"
+#: inc/custom-post-types.php:12 inc/custom-post-types.php:14
+#: inc/custom-post-types.php:30
+msgid "Notice"
 msgstr ""
 
-#: single.php:165
-msgid "One Comment"
+#: inc/custom-post-types.php:15
+msgid "Notice Archives"
 msgstr ""
 
-#: comments.php:30
-#, php-format
-msgid "One comment on \"%s\""
+#: inc/custom-post-types.php:16
+msgid "Notice Attributes"
+msgstr ""
+
+#: inc/custom-post-types.php:11 inc/custom-post-types.php:13
+#: inc/customizer.php:171 inc/template-functions.php:77
+msgid "Notices"
+msgstr ""
+
+#: inc/customizer.php:177
+msgid "Notices Menu Label"
+msgstr ""
+
+#: inc/custom-post-types.php:17
+msgid "Parent Notice:"
 msgstr ""
 
 #: inc/customizer-functions.php:13
 msgid "Permission denied."
 msgstr ""
 
-#: comments.php:72
-msgid "Post Comment"
-msgstr ""
-
-#: single.php:113
+#: single.php:115
 msgid "Previous Article"
 msgstr ""
 
@@ -227,16 +254,20 @@ msgstr ""
 msgid "Primary Menu"
 msgstr ""
 
-#: page-blog.php:66
+#: inc/admin.php:202
+msgid "Protected"
+msgstr ""
+
+#: page-blog.php:67
 msgid "Read More"
 msgstr ""
 
-#: comments.php:131 inc/comments-functions.php:45
-msgid "Reply"
+#: inc/customizer.php:205
+msgid "Relative URL path to blog page (e.g., /blog or /arvakhr/blog)"
 msgstr ""
 
-#: inc/comments-functions.php:76
-msgid "says:"
+#: inc/custom-post-types.php:26
+msgid "Search Notices"
 msgstr ""
 
 #: inc/customizer-controls.php:169 inc/customizer-controls.php:218
@@ -251,8 +282,16 @@ msgstr ""
 msgid "Select which sections to import and apply to your theme."
 msgstr ""
 
-#: inc/customizer.php:196 inc/customizer.php:206
+#: inc/customizer.php:256 inc/customizer.php:266
 msgid "Social Icons"
+msgstr ""
+
+#: inc/admin.php:29 inc/admin.php:154
+msgid "Theme Navigation"
+msgstr ""
+
+#: inc/admin.php:176
+msgid "Theme Navigation Item"
 msgstr ""
 
 #: inc/customizer.php:137
@@ -262,31 +301,22 @@ msgid ""
 "to your friends. Thank you."
 msgstr ""
 
+#: inc/admin.php:177
+msgid "This item is managed by your theme and cannot be edited directly."
+msgstr ""
+
+#: inc/custom-post-types.php:23
+msgid "Update Notice"
+msgstr ""
+
 #: inc/customizer-controls.php:209
 msgid "Upload JSON file to preview available sections."
 msgstr ""
 
-#: comments.php:73
-msgid "Your Comment"
+#: inc/custom-post-types.php:24
+msgid "View Notice"
 msgstr ""
 
-#: comments.php:141 inc/comments-functions.php:74
-msgid "Your comment is awaiting moderation."
-msgstr ""
-
-#: comments.php:76
-msgid "Your Email"
-msgstr ""
-
-#: comments.php:81
-msgid "Your email address will not be published."
-msgstr ""
-
-#. Author of the theme
-#: comments.php:75
-msgid "Your Name"
-msgstr ""
-
-#: comments.php:77
-msgid "Your Website (Optional)"
+#: inc/custom-post-types.php:25
+msgid "View Notices"
 msgstr ""

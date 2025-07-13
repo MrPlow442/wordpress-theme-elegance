@@ -99,7 +99,7 @@ function elegance_nav_menu_meta_box() {
         <p class="button-controls wp-clearfix">
             <span class="add-to-menu">
                 <input type="submit" class="button-secondary submit-add-to-menu right" 
-                       value="<?php esc_attr_e('Add to Menu', 'wordpress-theme-elegance'); ?>" 
+                       value="<?php esc_attr_e('Add to Menu'); ?>" 
                        name="add-elegance-nav-item" id="submit-elegance-nav-items" />
                 <span class="spinner"></span>
             </span>
@@ -176,7 +176,7 @@ function elegance_nav_menu_custom_fields($item_id, $item, $depth, $args) {
                 <strong><?php _e('Theme Navigation Item', 'wordpress-theme-elegance'); ?></strong><br>
                 <?php _e('This item is managed by your theme and cannot be edited directly.', 'wordpress-theme-elegance'); ?>
                 <a href="<?php echo admin_url('customize.php?autofocus[section]=navigation_settings'); ?>" class="button button-small">
-                    <?php _e('Customize', 'wordpress-theme-elegance'); ?>
+                    <?php _e('Customize'); ?>
                 </a>
             </p>
         </div>

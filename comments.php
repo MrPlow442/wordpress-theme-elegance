@@ -72,7 +72,7 @@ if ( ! function_exists( 'elegance_bootstrap_comment' ) ) {
                                         <i class="fa fa-clock mr-1"></i>
                                         <time datetime="<?php comment_time( 'c' ); ?>">
                                             <?php
-                                            printf( __( '%s ago', 'wordpress-theme-elegance' ), human_time_diff( get_comment_time( 'U' ), current_time( 'timestamp' ) ) );
+                                            printf( __( '%s ago'), human_time_diff( get_comment_time( 'U' ), current_time( 'timestamp' ) ) );
                                             ?>
                                         </time>
                                     </small>                                    
@@ -146,8 +146,8 @@ if ( ! function_exists( 'elegance_bootstrap_comment' ) ) {
 
             <?php if (get_comment_pages_count() > 1 && get_option('page_comments')) : ?>
                 <nav class="comments-pagination text-center" role="navigation">
-                    <div class="nav-previous d-inline-block mr-3"><?php previous_comments_link(__('← Older Comments', 'wordpress-theme-elegance')); ?></div>
-                    <div class="nav-next d-inline-block"><?php next_comments_link(__('Newer Comments →', 'wordpress-theme-elegance')); ?></div>
+                    <div class="nav-previous d-inline-block mr-3"><?php previous_comments_link(__('Older Comments')); ?></div>
+                    <div class="nav-next d-inline-block"><?php next_comments_link(__('Newer Comments')); ?></div>
                 </nav>
             <?php endif; ?>
 
