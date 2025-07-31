@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Elegance Theme\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-13 07:26+0000\n"
+"POT-Creation-Date: 2025-07-31 16:25+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -52,23 +52,23 @@ msgstr ""
 msgid "Back to Homepage"
 msgstr ""
 
-#: inc/customizer.php:111
+#: inc/customizer.php:42
 msgid "Background Image"
 msgstr ""
 
-#: inc/customizer.php:101
+#: inc/customizer.php:32
 msgid "Background Video"
 msgstr ""
 
-#: inc/customizer.php:184 inc/template-functions.php:87
+#: inc/customizer.php:115 inc/template-functions.php:87
 msgid "Blog"
 msgstr ""
 
-#: inc/customizer.php:295
+#: inc/customizer.php:234
 msgid "Blog Background Image"
 msgstr ""
 
-#: inc/customizer.php:190
+#: inc/customizer.php:121
 msgid "Blog Menu Label"
 msgstr ""
 
@@ -77,7 +77,7 @@ msgstr ""
 msgid "Blog Page"
 msgstr ""
 
-#: inc/customizer.php:202
+#: inc/customizer.php:133
 msgid "Blog URL Path"
 msgstr ""
 
@@ -90,7 +90,7 @@ msgstr ""
 msgid "Check back later for new content."
 msgstr ""
 
-#: inc/customizer.php:212
+#: inc/customizer.php:143
 msgid "Color Settings"
 msgstr ""
 
@@ -102,13 +102,13 @@ msgstr ""
 msgid "Elegance Theme"
 msgstr ""
 
-#: inc/customizer.php:315
+#: inc/customizer.php:254
 msgid ""
 "Enter the URL from Google Fonts (e.g., https://fonts.googleapis.com/css2?"
 "family=Great+Vibes&display=swap)"
 msgstr ""
 
-#: inc/customizer.php:332
+#: inc/customizer.php:271
 msgid "Export Customizer Sections"
 msgstr ""
 
@@ -116,51 +116,51 @@ msgstr ""
 msgid "Export Selected Sections"
 msgstr ""
 
-#: inc/customizer.php:324
+#: inc/customizer.php:263
 msgid "Export/Import Settings"
 msgstr ""
 
-#: inc/customizer.php:223
+#: inc/customizer.php:154
 msgid "Global Text Color"
 msgstr ""
 
-#: inc/customizer.php:304
+#: inc/customizer.php:243
 msgid "Google Fonts"
 msgstr ""
 
-#: inc/customizer.php:314
+#: inc/customizer.php:253
 msgid "Google Fonts URL"
 msgstr ""
 
-#: inc/customizer.php:235
+#: inc/customizer.php:166
 msgid "Gradient Color 1"
 msgstr ""
 
-#: inc/customizer.php:247
+#: inc/customizer.php:178
 msgid "Gradient Color 2"
 msgstr ""
 
-#: inc/customizer.php:125
+#: inc/customizer.php:56
 msgid "Hello, welcome to"
 msgstr ""
 
-#: inc/customizer.php:158 inc/template-functions.php:68
+#: inc/customizer.php:89 inc/template-functions.php:68
 msgid "Home"
 msgstr ""
 
-#: inc/customizer.php:164
+#: inc/customizer.php:95
 msgid "Home Menu Label"
 msgstr ""
 
-#: inc/customizer.php:120
+#: inc/customizer.php:51
 msgid "Home Text Settings"
 msgstr ""
 
-#: inc/customizer.php:130
+#: inc/customizer.php:61
 msgid "Homepage Description Above Title"
 msgstr ""
 
-#: inc/customizer.php:142
+#: inc/customizer.php:73
 msgid "Homepage Description Below Title"
 msgstr ""
 
@@ -172,7 +172,7 @@ msgstr ""
 msgid "https://templatemo.com/tm-528-elegance"
 msgstr ""
 
-#: inc/customizer.php:340
+#: inc/customizer.php:279
 msgid "Import Customizer Sections"
 msgstr ""
 
@@ -180,7 +180,7 @@ msgstr ""
 msgid "Import Selected Sections"
 msgstr ""
 
-#: inc/customizer.php:91
+#: inc/customizer.php:22
 msgid "Main Page Media"
 msgstr ""
 
@@ -188,7 +188,7 @@ msgstr ""
 msgid "Matija Lovrekovic"
 msgstr ""
 
-#: inc/customizer.php:152
+#: inc/customizer.php:83
 msgid "Navigation Settings"
 msgstr ""
 
@@ -230,11 +230,11 @@ msgid "Notice Attributes"
 msgstr ""
 
 #: inc/custom-post-types.php:11 inc/custom-post-types.php:13
-#: inc/customizer.php:171 inc/template-functions.php:77
+#: inc/customizer.php:102 inc/template-functions.php:77
 msgid "Notices"
 msgstr ""
 
-#: inc/customizer.php:177
+#: inc/customizer.php:108
 msgid "Notices Menu Label"
 msgstr ""
 
@@ -262,8 +262,12 @@ msgstr ""
 msgid "Read More"
 msgstr ""
 
-#: inc/customizer.php:205
+#: inc/customizer.php:136
 msgid "Relative URL path to blog page (e.g., /blog or /arvakhr/blog)"
+msgstr ""
+
+#: index.php:32
+msgid "Scroll Down"
 msgstr ""
 
 #: inc/custom-post-types.php:26
@@ -282,7 +286,7 @@ msgstr ""
 msgid "Select which sections to import and apply to your theme."
 msgstr ""
 
-#: inc/customizer.php:256 inc/customizer.php:266
+#: inc/customizer.php:195 inc/customizer.php:205
 msgid "Social Icons"
 msgstr ""
 
@@ -294,7 +298,7 @@ msgstr ""
 msgid "Theme Navigation Item"
 msgstr ""
 
-#: inc/customizer.php:137
+#: inc/customizer.php:68
 msgid ""
 "This is a clean and modern HTML5 template with a video background. You can "
 "use this layout for your profile page. Please spread a word about templatemo "

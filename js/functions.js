@@ -30,7 +30,12 @@ function getSource(element) {
 
 function setSource(element, sourceUrl) {
     if (isVideo(element)) {
-        element.querySelector('source').src = sourceUrl;
+        var sourceElement = element.querySelector('source');
+        if (!sourceElement) {
+            sourceElement = document.createElement('source');
+            sourceElement.type = 'video/mp4';            
+        }
+        sourceElement.src = sourceUrl;
     } else {
         element.src = sourceUrl;
     }

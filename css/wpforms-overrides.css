@@ -9,6 +9,7 @@
   .wpforms-field input[type="text"],
   .wpforms-field input[type="email"],
   .wpforms-field textarea {
+    color:var(--global-text-color) !important;
     display: block;
     width: 100% !important;
     max-width: 100% !important;

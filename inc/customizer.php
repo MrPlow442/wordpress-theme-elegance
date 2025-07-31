@@ -12,75 +12,6 @@ if (!defined('ABSPATH')) {
 
 require_once get_theme_file_path('/inc/customizer-controls.php');
 
-if (!function_exists('elegance_customizer_css')) {
-    function elegance_customizer_css() {
-        $global_text_color = get_theme_mod( 'global_text_color');
-        $gradient_color_1 = get_theme_mod( 'gradient_color_1');
-        $gradient_color_2 = get_theme_mod( 'gradient_color_2');
-
-        $custom_css = "
-            body, a, a:hover, a:focus {
-                color: {$global_text_color};
-            }
-
-            #background-container:after {
-                /* Rest is in templatemo-style.css */
-                background: {$gradient_color_1}; /* Old browsers */
-                background: -moz-linear-gradient(top, {$gradient_color_1} 0%, {$gradient_color_2} 100%); /* FF3.6-15 */
-                background: -webkit-linear-gradient(top, {$gradient_color_1} 0%,{$gradient_color_2} 100%); /* Chrome10-25,Safari5.1-6 */
-                background: linear-gradient(to bottom, {$gradient_color_1} 0%,{$gradient_color_2} 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-                filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='{$gradient_color_1}', endColorstr='{$gradient_color_2}',GradientType=0 ); /* IE6-9 */
-            }
-
-            .preloader {
-                /* Rest is in templatemo-style.css */
-                background: {$gradient_color_1}; /* Old browsers */
-                background: -moz-linear-gradient(top, {$gradient_color_1} 0%, {$gradient_color_2} 100%); /* FF3.6-15 */
-                background: -webkit-linear-gradient(top, {$gradient_color_1} 0%,{$gradient_color_2} 100%); /* Chrome10-25,Safari5.1-6 */
-                background: linear-gradient(to bottom, {$gradient_color_1} 0%,{$gradient_color_2} 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-                filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='{$gradient_color_1}', endColorstr='{$gradient_color_2}',GradientType=0 ); /* IE6-9 */
-            }
-
-            ::-webkit-input-placeholder {
-                /* Rest is in templatemo-style.css */
-                color:{$global_text_color} !important;
-            }
-            ::-moz-placeholder {
-                /* Rest is in templatemo-style.css */
-                color:{$global_text_color} !important;
-            }
-            :-ms-input-placeholder {
-                /* Rest is in templatemo-style.css */
-                color:{$global_text_color} !important;
-            }
-            :-moz-placeholder {
-                /* Rest is in templatemo-style.css */
-                color:{$global_text_color} !important;
-            }
-
-            .wpforms-field input[type=\"text\"],
-            .wpforms-field input[type=\"email\"],
-            .wpforms-field textarea {
-                /* Rest is in wpforms-overrides.css */
-                color:{$global_text_color} !important;
-            }
-
-            #blog-background-container:after {
-                background: {$gradient_color_1}; /* Old browsers */
-                background: -moz-linear-gradient(top, {$gradient_color_1} 0%, {$gradient_color_2} 25%); /* FF3.6-15 */
-                background: -webkit-linear-gradient(top, {$gradient_color_1} 0%,{$gradient_color_2} 25%); /* Chrome10-25,Safari5.1-6 */
-                background: linear-gradient(to bottom, {$gradient_color_1} 0%,{$gradient_color_2} 25%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-                filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='{$gradient_color_1}', endColorstr='{$gradient_color_2}',GradientType=0 ); /* IE6-9 */
-                background-repeat: no-repeat;                
-            }
-        ";
-
-        wp_add_inline_style( 'elegance-style', $custom_css );
-    }
-    add_action( 'wp_enqueue_scripts', 'elegance_customizer_css' );
-}
-
-
 if (!function_exists('elegance_theme_customizer_settings')) {
     function elegance_theme_customizer_settings($wp_customize) {
 
@@ -248,6 +179,14 @@ if (!function_exists('elegance_theme_customizer_settings')) {
             'section'    => 'color_settings',
             'settings'   => 'gradient_color_2',
         )));
+        
+        wp_enqueue_script(
+            'elegance-customizer-preview',
+            get_template_directory_uri() . '/assets/js/customizer-preview.js',
+            array( 'customize-preview' ),
+            '1.0.0',
+            true
+        );
 
         /*************************************
          *          SOCIALS SETTINGS         *

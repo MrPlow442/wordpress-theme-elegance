@@ -27,9 +27,22 @@ CSS SITEMAP >>>>
 :root {
   --gradient-color-1: #4096ee;
   --gradient-color-2: #39ced6;
+  --global-text-color: #fff;
+}
+
+::-webkit-input-placeholder, ::-moz-placeholder, :-ms-input-placeholder {    
+    color:var(--global-text-color) !important;
+}
+
+#blog-background-container:after {
+    background: var(--gradient-color-1); 
+    background: linear-gradient(to bottom, var(--gradient-color-1) 0%, var(--gradient-color-2) 25%);        
+    background-repeat: no-repeat;                
 }
 
 #background-container:after {
+  background: var(--gradient-color-1); 
+  background: linear-gradient(to bottom, var(--gradient-color-1) 0%, var(--gradient-color-2) 100%);
   content: '';
   opacity: 0.75;
   position:fixed;
@@ -40,6 +53,8 @@ CSS SITEMAP >>>>
 }
 
 .preloader {
+  background: var(--gradient-color-1); 
+  background: linear-gradient(to bottom, var(--gradient-color-1) 0%, var(--gradient-color-2) 100%);
   height: 100%;
   left: 0;
   position: fixed;
@@ -59,7 +74,7 @@ body {
 }
 body {
   font: 16px/1.6 'Raleway', Arial, Helvetica, sans-serif;
-  color: #fff;
+  color: var(--global-text-color);
   text-align:center;
   background: #222;
 }
@@ -89,12 +104,12 @@ html {
   transition: all 0.4s ease;
 }
 a {
-  color: #fff;
+  color: var(--global-text-color);
   text-decoration: none;
 }
 a:hover,
 a:focus {
-  color: #fff;
+  color: var(--global-text-color);
   outline: none;
   text-decoration: underline;
 }
@@ -431,6 +446,7 @@ a#logo {
   font-weight: 300;
   line-height: 1.2;
   letter-spacing: 0.02em;
+  padding-bottom: 0.5em;
 }
 .welcome-box p {
   max-width: 620px;
