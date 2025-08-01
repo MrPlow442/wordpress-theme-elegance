@@ -5,7 +5,6 @@
  * @package Elegance
  */
 
-// Prevent direct access
 if (!defined('ABSPATH')) {
     exit;
 }
@@ -19,10 +18,9 @@ function elegance_meta_tags() {
 }
 add_action('wp_head', 'elegance_meta_tags', 1);
 
-/**
- * Enqueue styles and scripts for the Elegance theme
- */
+
 function elegance_theme_scripts() {
+    // Styles
     wp_enqueue_style('elegance-google-fonts', 'https://fonts.googleapis.com/css?family=Raleway:100,300,400,500,700,900', array(), null);
     wp_enqueue_style('bootstrap', get_template_directory_uri() . '/css/bootstrap.min.css');
     wp_enqueue_style('font-awesome', get_template_directory_uri() . '/css/font-awesome.css');
@@ -34,8 +32,8 @@ function elegance_theme_scripts() {
     wp_enqueue_style('wpforms-overrides', get_template_directory_uri() . '/css/wpforms-overrides.css');
     wp_enqueue_style('responsive', get_template_directory_uri() . '/css/responsive.css');
     wp_enqueue_style('elegance-style', get_stylesheet_uri() );
-
-    wp_enqueue_script('jquery');
+    
+    // Scripts
     wp_enqueue_script('bootstrap', get_template_directory_uri() . '/js/bootstrap.min.js', array('jquery'), '', true);    
     wp_enqueue_script('fullpage', get_template_directory_uri() . '/js/fullpage.extensions.min.js', array('jquery'), '', true);
     wp_enqueue_script('scrolloverflow', get_template_directory_uri() . '/js/scrolloverflow.js', array('jquery'), '', true);
@@ -47,9 +45,6 @@ function elegance_theme_scripts() {
 add_action('wp_enqueue_scripts', 'elegance_theme_scripts');
 
 
-/**
- * Enqueue block editor styles for the Elegance theme
- */
 function elegance_enqueue_block_editor_assets() {
     wp_enqueue_style(
         'bootstrap-css',
