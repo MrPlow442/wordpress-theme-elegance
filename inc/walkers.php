@@ -16,7 +16,10 @@
                     if ($item->url === '#notices' && !elegance_has_notices()) {      
                         // If no notices, don't render the nav item              
                         return;
-                    }                    
+                    } else if ($item->url === '#testimonials' && !elegance_has_testimonials()) {
+                        // If no testimonials, don't render the nav item
+                        return;
+                    }                   
                     break;
                 case EleganceNavType::LINK->value:
                     if (elegance_is_blog_page($item->url) && !elegance_has_blog_page()) {                        
@@ -29,17 +32,14 @@
             }            
 
             if ($item->type === 'custom') {                
-                $href = esc_url($item->url);
-                $data_attr = '';
+                $href = esc_url($item->url);                
             } else {                
                 $anchor_name = sanitize_title($item->title);
-                $href = '#' . $anchor_name;
-                $data_attr = sprintf('data-menuanchor="%s"', esc_attr($anchor_name));
+                $href = '#' . $anchor_name;                
             }
             
             $output .= sprintf(
-                '<li %s><a href="%s">%s</a>',
-                $data_attr,
+                '<li><a href="%s">%s</a>',                
                 $href,
                 esc_html($item->title)
             );

@@ -90,8 +90,8 @@ wp.blocks.registerBlockType('wordpress-theme-elegance/testimonial-item-block', {
         const { attributes } = props;
         const { name, quote, position, imageUrl } = attributes;
 
-        return wp.element.createElement('div', { className: 'item animate', 'data-animate': 'fadeInUp' },
-            wp.element.createElement('div', { className: 'testimonial-item' },
+        return wp.element.createElement('div', { className: 'horizontal-slide testimonial-slide' },
+            wp.element.createElement('div', { className: 'testimonial-item animate', 'data-animate': 'fadeInUp' },
                 // Conditionally render the image if present
                 imageUrl && wp.element.createElement('div', { className: 'client-row' },
                     wp.element.createElement('img', { src: imageUrl, className: 'rounded-circle', alt: 'Client image' })

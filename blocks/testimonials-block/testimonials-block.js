@@ -7,7 +7,7 @@ wp.blocks.registerBlockType('wordpress-theme-elegance/testimonials-block', {
         const blockProps = wp.blockEditor.useBlockProps();
         const innerBlockProps = wp.blockEditor.useInnerBlocksProps(
             {
-                className: 'testimonials-slider owl-carousel'
+                className: 'horizontal-scroll-container testimonials-container'
             },
             {
                 allowedBlocks: ['wordpress-theme-elegance/testimonial-item-block'],
@@ -26,8 +26,8 @@ wp.blocks.registerBlockType('wordpress-theme-elegance/testimonials-block', {
     save: () => {
         return wp.element.createElement('div', { className: 'col-md-8 offset-md-2' },
             wp.element.createElement('div', { className: 'testimonials-section' },
-                wp.element.createElement('div', { className: 'testimonials-slider owl-carousel' },
-                    wp.element.createElement(wp.blockEditor.InnerBlocks.Content)
+                wp.element.createElement('div', { id: 'testimonials', className: 'horizontal-scroll-container' },
+                    wp.element.createElement(wp.blockEditor.InnerBlocks.Content)                                                        
                 )
             )
         );

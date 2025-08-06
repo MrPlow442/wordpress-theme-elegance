@@ -167,6 +167,8 @@
 			console.warn( 'EleganceTheme: No config provided for fullpage initialization' );
 			return;
 		}
+
+		console.log('Config: ', config);
 		
 		var elements = {
 			backgroundVideoElement: document.getElementById( config.videoElementId ),
@@ -187,7 +189,9 @@
 		BackgroundManager.preloadImages( pageImages );
 				
 		BackgroundManager.showDefault( config, elements );
-		
+
+		/*
+		 		
 		var fullpageElement = document.querySelector( '.fullpage-default' );
 		
 		if ( fullpageElement && 'function' === typeof window.fullpage ) {
@@ -235,6 +239,8 @@
 				console.error( 'EleganceTheme: Error initializing fullPage.js:', error );
 			}
 		}
+
+		 */
 	}
 
 	function initializeBlogPage( config ) {

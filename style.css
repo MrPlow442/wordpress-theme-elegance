@@ -31,3 +31,193 @@ Domain Path: /languages
     border-width: 0 5px 5px 0;
     border-color: #ffffff;
 }
+
+.with-background {  
+  background-color: rgba(250,250,250,0.25);
+  -webkit-box-shadow: 0 0 20px rgba(0,0,0,.3);
+  box-shadow: 0 5px 5px rgba(0,0,0,.3);
+  border-radius: 10px;
+  backdrop-filter: blur(0.625rem);
+}
+
+.scroll-container {
+    position: relative;
+    z-index: 99;
+    height: 100vh;
+    overflow-y: auto;
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-y: contain;
+}
+
+.snap-section {
+    height: 100vh;
+    width: 100vw;
+    scroll-snap-align: start;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.scroll-container,
+.horizontal-scroll-container {
+    scrollbar-width: none;
+}
+
+.scroll-container::-webkit-scrollbar,
+.horizontal-scroll-container::-webkit-scrollbar {
+    display: none;
+}
+
+.horizontal-scroll-container {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    height: calc(100vh - 12rem); /* Using rem for consistency */
+    border-radius: 0.625rem;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.horizontal-slide {
+    flex: 0 0 100%;
+    min-width: 100%;
+    scroll-snap-align: start;
+    height: 100%;
+    overflow-y: auto;
+    padding: 1.25rem; /* 20px in rem */
+    box-sizing: border-box;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.horizontal-slide .post-container {
+    margin: 0;
+    padding: 1.5rem;        
+    height: 100%;
+}
+
+.horizontal-slide .card {
+    height: 100%;
+    overflow-y: auto;
+    background: transparent !important;
+    border: none !important;
+}
+
+.horizontal-slide img {
+    border-radius: 0.5rem;
+}
+
+.horizontal-scroll-nav-top {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    padding: 1rem 0;
+}
+
+.scroll-btn {
+    background: rgba(255, 255, 255, 0.2);
+    border: 0.125rem solid rgba(255, 255, 255, 0.3);
+    color: white;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+}
+
+.scroll-btn:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.1);
+}
+
+.scroll-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.scroll-dots {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.scroll-dot {
+    width: 0.75rem;
+    height: 0.75rem;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255, 255, 255, 0.4);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.scroll-dot:hover {
+    background: rgba(255, 255, 255, 0.6);
+    transform: scale(1.2);
+}
+
+.scroll-dot.active {
+    background: white;
+    transform: scale(1.3);
+}
+
+video {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%; 
+    min-height: 100%;
+    z-index: -1; /* Keep video behind content */
+}
+
+@media (max-width: 767px) {
+    .horizontal-slide .row {
+        flex-direction: column;
+    }
+    
+    .horizontal-slide .col-md-6,
+    .horizontal-slide .col-md-12 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+
+    .horizontal-slide .post-img {
+        height: 12.5rem; /* 200px - smaller on mobile */
+    }
+    
+    .horizontal-slide .col-md-4,
+    .horizontal-slide .col-md-8,
+    .horizontal-slide .col-md-12 {
+        min-height: auto; /* Allow natural height on mobile */
+    }
+    
+    .horizontal-slide .row {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 768px) {
+    .scroll-container {
+        scroll-snap-type: y proximity; /* Less strict on mobile */
+    }
+    
+    .snap-section {
+        min-height: 100vh;
+        height: auto; /* Allow content to expand */
+    }
+}
+
+@media (max-width: 576px) {
+    .scroll-container {
+        scroll-snap-type: none;
+    }
+}

@@ -11,11 +11,6 @@ if (!function_exists('elegance_theme_setup')) {
             'top' => __('Primary Menu', 'wordpress-theme-elegance'),
         ));
 
-        /*
-        * Enable support for Post Formats.
-        *
-        * See: https://developer.wordpress.org/advanced-administration/wordpress/post-formats/
-        */
         add_theme_support(
             'post-formats',
             array(
