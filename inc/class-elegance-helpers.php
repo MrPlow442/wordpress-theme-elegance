@@ -1,7 +1,7 @@
 <?php
 if (!class_exists('Elegance_Helpers')) {
     class Elegance_Helpers {
-        public static function get_page_background_config() {
+        public static function get_front_end_config() {
             
             $page_info = array();
             $menu_items = wp_get_nav_menu_items('top');
@@ -50,6 +50,7 @@ if (!class_exists('Elegance_Helpers')) {
             ));
                         
             return array(
+                'debug' => true,
                 'videoElementId' => 'background-video',
                 'imageElementId' => 'background-image',            
                 'defaultVideoUrl' => get_theme_mod('main_page_background_video'),

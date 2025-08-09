@@ -36,10 +36,28 @@ function elegance_theme_scripts() {
     wp_enqueue_script('bootstrap', get_template_directory_uri() . '/js/bootstrap.min.js', array('jquery'), '', true);    
     wp_enqueue_script('owl-carousel', get_template_directory_uri() . '/js/owl.carousel.min.js', array('jquery'), '', true);
     wp_enqueue_script('jquery-inview', get_template_directory_uri() . '/js/jquery.inview.min.js', array('jquery'), '', true);
-    wp_enqueue_script('custom', get_template_directory_uri() . '/js/custom.js', array('jquery'), '', true);
-    wp_enqueue_script('functions', get_template_directory_uri() . '/js/functions.js', array('jquery'), '', true);
+    // wp_enqueue_script('custom', get_template_directory_uri() . '/js/custom.js', array('jquery'), '', true);
+    // wp_enqueue_script('functions', get_template_directory_uri() . '/js/functions.js', array('jquery'), '', true);
+
+    $theme_modules = [
+        'elegance-logger' => '/js/modules/logger.js',
+        'elegance-module' => '/js/modules/module.js',
+        'elegance-constants' => '/js/modules/constants.js',
+        'elegance-theme-core' => '/js/modules/theme-core.js',
+        'elegance-section-navigator' => '/js/modules/section-navigator.js', 
+        'elegance-background-manager' => '/js/modules/background-manager.js',
+        'elegance-navigation-manager' => '/js/modules/navigation-manager.js',
+        'elegance-animation-manager' => '/js/modules/animation-manager.js',
+        'elegance-horizontal-scroll-manager' => '/js/modules/horizontal-scroll-manager.js'        
+    ];
+
+    foreach ($theme_modules as $handle => $file) {
+        wp_enqueue_script($handle, get_template_directory_uri() . $file, [], wp_get_theme()->get('Version'), true);
+    }
+    wp_enqueue_script('theme-init', get_template_directory_uri() . '/js/theme-init.js', array_keys($theme_modules), wp_get_theme()->get('Version'), true);
     
-    wp_localize_script('custom', 'EleganceConfig', Elegance_Helpers::get_page_background_config());
+    // wp_localize_script('custom', 'EleganceConfig', Elegance_Helpers::get_front_end_config());
+    wp_localize_script('theme-init', 'EleganceConfig', Elegance_Helpers::get_front_end_config());
 
 }
 add_action('wp_enqueue_scripts', 'elegance_theme_scripts');
