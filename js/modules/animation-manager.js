@@ -7,8 +7,8 @@
  */
 
 class AnimationManager extends EleganceModule {
-    constructor(config) {
-        super('AnimationManager', config);
+    constructor(themeConfig = {}) {
+        super('AnimationManager', themeConfig);
         this.observer = null;
         this.animatedElements = new Map();
         
@@ -17,19 +17,18 @@ class AnimationManager extends EleganceModule {
             threshold: 0.1,
             animationDelay: 50,
             resetOnDesktop: true,
-            mobileBreakpoint: 767
-        };
+            mobileBreakpoint: 767,
+            ...this.themeConfig.animation
+        };        
 
         this.handleIntersection = this.handleIntersection.bind(this);
     }
 
-    init(globalConfig = {}) {
-        this.config = { ...this.config, ...globalConfig.animation };
-        
+    init() {
         this.setupIntersectionObserver();
         this.findAnimatedElements();
         
-        logger.log(`AnimationManager: Initialized with ${this.animatedElements.size} animated elements`);
+        this.logger.log(`AnimationManager: Initialized with ${this.animatedElements.size} animated elements`);
     }
 
     setupIntersectionObserver() {
@@ -42,7 +41,7 @@ class AnimationManager extends EleganceModule {
                 }
             );
         } else {
-            logger.warn('AnimationManager: IntersectionObserver not supported, falling back to immediate animation');
+            this.logger.warn('AnimationManager: IntersectionObserver not supported, falling back to immediate animation');
             this.fallbackToImmediateAnimation();
         }
     }
@@ -105,7 +104,7 @@ class AnimationManager extends EleganceModule {
             element.classList.remove('animate');
             elementData.isAnimated = true;
             
-            logger.log(`AnimationManager: Animated element with '${animation}'`);
+            this.logger.log(`AnimationManager: Animated element with '${animation}'`);
         }, index * this.config.animationDelay);
     }
 
@@ -116,7 +115,7 @@ class AnimationManager extends EleganceModule {
         element.classList.add('animate');
         elementData.isAnimated = false;
         
-        logger.log(`AnimationManager: Reset element animation '${animation}'`);
+        this.logger.log(`AnimationManager: Reset element animation '${animation}'`);
     }
 
     shouldResetAnimation() {
@@ -142,13 +141,13 @@ class AnimationManager extends EleganceModule {
             element.classList.add('animated', animation);
             element.classList.remove('animate');
             
-            logger.log(`AnimationManager: Manually animated element '${selector}' with '${animation}'`);
+            this.logger.log(`AnimationManager: Manually animated element '${selector}' with '${animation}'`);
         }
     }
 
     addAnimatedElement(element, animation, delay = 0) {
         if (!element || !animation) {
-            logger.warn('AnimationManager: Invalid element or animation provided');
+            this.logger.warn('AnimationManager: Invalid element or animation provided');
             return;
         }
 
@@ -168,7 +167,7 @@ class AnimationManager extends EleganceModule {
             this.observer.observe(element);
         }
         
-        logger.log(`AnimationManager: Added new animated element with '${animation}'`);
+        this.logger.log(`AnimationManager: Added new animated element with '${animation}'`);
     }
 
     removeAnimatedElement(element) {
@@ -178,7 +177,7 @@ class AnimationManager extends EleganceModule {
             }
             
             this.animatedElements.delete(element);
-            logger.log('AnimationManager: Removed animated element');
+            this.logger.log('AnimationManager: Removed animated element');
         }
     }
 
@@ -187,7 +186,7 @@ class AnimationManager extends EleganceModule {
             this.observer.disconnect();
         }
         
-        logger.log('AnimationManager: Paused all animations');
+        this.logger.log('AnimationManager: Paused all animations');
     }
 
     resumeAnimations() {
@@ -199,7 +198,7 @@ class AnimationManager extends EleganceModule {
             });
         }
         
-        logger.log('AnimationManager: Resumed animations');
+        this.logger.log('AnimationManager: Resumed animations');
     }
 
     resetAllAnimations() {
@@ -207,7 +206,7 @@ class AnimationManager extends EleganceModule {
             this.resetElement(elementData);
         });
         
-        logger.log('AnimationManager: Reset all animations');
+        this.logger.log('AnimationManager: Reset all animations');
     }
 
     getStats() {
@@ -243,7 +242,7 @@ class AnimationManager extends EleganceModule {
         
         this.animatedElements.clear();
         
-        logger.log('AnimationManager: Destroyed');
+        this.logger.log('AnimationManager: Destroyed');
     }
 }
 

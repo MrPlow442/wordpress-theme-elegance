@@ -7,8 +7,8 @@
  */
 
 class SectionNavigator extends EleganceModule {    
-    constructor(config) {
-        super('SectionNavigator', config);
+    constructor(themeConfig = {}) {
+        super('SectionNavigator', themeConfig);
         this.sections = [];
         this.currentSectionIndex = 0;
         this.currentSection = null;
@@ -19,32 +19,31 @@ class SectionNavigator extends EleganceModule {
             sectionSelector: '.snap-section',
             scrollBehavior: 'smooth',
             scrollDetectionDelay: 100,
-            scrollAnimationDuration: 600
+            scrollAnimationDuration: 600,
+            ...this.themeConfig.sectionNavigator
         };
 
         this.handleScroll = this.handleScroll.bind(this);
         this.handleHashChange = this.handleHashChange.bind(this);
     }
 
-    init(globalConfig = {}) {
-        this.config = { ...this.config, ...globalConfig.sectionNavigator };
-        
+    init() {                
         this.findSections();
         
         if (this.sections.length === 0) {
-            logger.warn('SectionNavigator: No sections found');
+            this.logger.warn('SectionNavigator: No sections found');
             return;
         }
 
         this.setInitialSection();
         this.bindEvents();
         
-        logger.log(`SectionNavigator: Initialized with ${this.sections.length} sections`);
+        this.logger.log(`SectionNavigator: Initialized with ${this.sections.length} sections`);
     }
 
     findSections() {
         this.sections = Array.from(document.querySelectorAll(this.config.sectionSelector));
-        logger.log('SectionNavigator: Found sections:', this.sections.map(s => s.id || s.dataset.section));
+        this.logger.log('SectionNavigator: Found sections:', this.sections.map(s => s.id || s.dataset.section));
     }
 
     setInitialSection() {
@@ -65,6 +64,7 @@ class SectionNavigator extends EleganceModule {
     }
 
     bindEvents() {
+        this.logger.log('Binding events');
         window.addEventListener('scroll', this.handleScroll);
         window.addEventListener('hashchange', this.handleHashChange);
                 
@@ -103,6 +103,7 @@ class SectionNavigator extends EleganceModule {
     }
 
     handleScroll() {
+        this.logger.log('Scroll detected');
         if (this.isScrolling) {
             return;
         }
@@ -115,6 +116,7 @@ class SectionNavigator extends EleganceModule {
     }
 
     handleHashChange() {
+        this.logger.log('Hash change detected');
         if (this.isScrolling) {
             return;
         }
@@ -146,7 +148,10 @@ class SectionNavigator extends EleganceModule {
         }
                 
         if (newSectionIndex !== this.currentSectionIndex) {
+            this.logger.log(`Detected section change from ${this.currentSectionIndex} to ${newSectionIndex}`);
             this.updateCurrentSection(newSectionIndex, true);
+        } else {
+            this.logger.log('No section change detected');
         }
     }
 
@@ -159,7 +164,9 @@ class SectionNavigator extends EleganceModule {
         
         const sectionId = this.getSectionId(this.currentSection);
         
+        this.logger.log(`Updating current section to ${sectionId} (index: ${newIndex})`);
         if (triggerEvents && previousIndex !== newIndex) {
+            this.logger.log(`Triggering onSectionChange for section ${sectionId}`);
             this.onSectionChange(previousSection, this.currentSection, sectionId);
         }
         
@@ -168,7 +175,7 @@ class SectionNavigator extends EleganceModule {
     }
 
     onSectionChange(previousSection, currentSection, sectionId) {
-        logger.log('SectionNavigator: Section changed to', sectionId);
+        this.logger.log('SectionNavigator: Section changed to', sectionId);
         
         // Trigger background change event
         this.triggerEvent(EVENTS.SECTION_NAVIGATOR.SECTION_CHANGE, {
@@ -185,7 +192,7 @@ class SectionNavigator extends EleganceModule {
         );
         
         if (sectionIndex === -1) {
-            logger.warn(`SectionNavigator: Section '${sectionId}' not found`);
+            this.logger.warn(`SectionNavigator: Section '${sectionId}' not found`);
             return;
         }
         
@@ -287,7 +294,7 @@ class SectionNavigator extends EleganceModule {
         window.removeEventListener('hashchange', this.handleHashChange);
         clearTimeout(this.scrollTimeout);
         
-        logger.log('SectionNavigator: Destroyed');
+        this.logger.log('SectionNavigator: Destroyed');
     }
 }
 

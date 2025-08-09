@@ -18,7 +18,7 @@ class EleganceTheme {
 
     async init() {
         if (this.isInitialized) {
-            logger.warn('EleganceTheme: Already initialized');
+            this.logger.warn('EleganceTheme: Already initialized');
             return;
         }
 
@@ -36,20 +36,26 @@ class EleganceTheme {
             }
 
             this.isInitialized = true;
-            logger.log('EleganceTheme: Initialized successfully');
+            this.logger.log('EleganceTheme: Initialized successfully');
         } catch (error) {
-            logger.error('EleganceTheme: Initialization failed', error);
+            this.logger.error('EleganceTheme: Initialization failed', error);
         }
     }
 
-    registerModule(name, module) {
+    registerModule(module) {
+        if (module instanceof EleganceModule === false) {
+            this.logger.error(`EleganceTheme: Module '${name}' is not an instance of EleganceModule`);
+            return;
+        }
+
+        const name = module.name;
         if (this.modules.has(name)) {
-            logger.warn(`EleganceTheme: Module '${name}' already exists`);
+            this.logger.warn(`EleganceTheme: Module '${name}' already exists`);
             return;
         }
 
         this.modules.set(name, module);
-        logger.log(`EleganceTheme: Module '${name}' registered`);
+        this.logger.log(`EleganceTheme: Module '${name}' registered`);
     }
 
     getModule(name) {
@@ -60,15 +66,16 @@ class EleganceTheme {
         const initPromises = [];
 
         for (const [name, module] of this.modules) {
-            if (typeof module.init === 'function') {
+            if (module instanceof EleganceModule) {
                 try {
-                    const initResult = module.init(this.config);
+                    this.logger.log(`EleganceTheme: Initializing module '${name}'`);
+                    const initResult = module.init();
                     if (initResult instanceof Promise) {
                         initPromises.push(initResult);
                     }
-                    logger.log(`EleganceTheme: Module '${name}' initialized`);
+                    this.logger.log(`EleganceTheme: Module '${name}' initialized`);
                 } catch (error) {
-                    logger.error(`EleganceTheme: Module '${name}' initialization failed`, error);
+                    this.logger.error(`EleganceTheme: Module '${name}' initialization failed`, error);
                 }
             }
         }
@@ -122,7 +129,7 @@ class EleganceTheme {
                 try {
                     module[methodName](data);
                 } catch (error) {
-                    logger.error(`EleganceTheme: Module '${name}' event '${eventName}' failed`, error);
+                    this.logger.error(`EleganceTheme: Module '${name}' event '${eventName}' failed`, error);
                 }
             }
         }
@@ -161,9 +168,9 @@ class EleganceTheme {
             if (typeof module.destroy === 'function') {
                 try {
                     module.destroy();
-                    logger.log(`EleganceTheme: Module '${name}' destroyed`);
+                    this.logger.log(`EleganceTheme: Module '${name}' destroyed`);
                 } catch (error) {
-                    logger.error(`EleganceTheme: Module '${name}' destruction failed`, error);
+                    this.logger.error(`EleganceTheme: Module '${name}' destruction failed`, error);
                 }
             }
         }

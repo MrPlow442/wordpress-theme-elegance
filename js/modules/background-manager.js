@@ -7,36 +7,35 @@
  */
 
 class BackgroundManager extends EleganceModule {
-    constructor(config) {
-        super('BackgroundManager', config);
+    constructor(themeConfig = {}) {
+        super('BackgroundManager', themeConfig);
         this.elements = {
             videoElement: null,
             imageElement: null
         };
-        
+
         this.config = {
             transitionDuration: 200,
             videoElementId: null,
             imageElementId: null,
             defaultVideoUrl: null,
             defaultImageUrl: null,
-            pageInfo: []
+            pageInfo: [],
+            ...this.themeConfig
         };
-
+        this.logger.log('Theme Config:', this.themeConfig, ' Background Config:', this.config);
         this.preloadedImages = new Set();
         
         this.handleSectionChange = this.handleSectionChange.bind(this);
     }
 
-    init(globalConfig = {}) {
-        this.config = { ...this.config, ...globalConfig };
-        
+    init() {
         this.findBackgroundElements();
         this.preloadImages();
         this.showDefaultBackground();
         this.bindEvents();
         
-        logger.log('BackgroundManager: Initialized');
+        this.logger.log('BackgroundManager: Initialized');
     }
 
     findBackgroundElements() {
@@ -49,7 +48,7 @@ class BackgroundManager extends EleganceModule {
         }
         
         if (!this.elements.videoElement && !this.elements.imageElement) {
-            logger.warn('BackgroundManager: No background elements found');
+            this.logger.warn('BackgroundManager: No background elements found');
         }
     }
 
@@ -75,10 +74,10 @@ class BackgroundManager extends EleganceModule {
                 const img = new Image();
                 img.onload = () => {
                     this.preloadedImages.add(url);
-                    logger.log(`BackgroundManager: Preloaded image ${url}`);
+                    this.logger.log(`BackgroundManager: Preloaded image ${url}`);
                 };
                 img.onerror = () => {
-                    logger.warn(`BackgroundManager: Failed to preload image ${url}`);
+                    this.logger.warn(`BackgroundManager: Failed to preload image ${url}`);
                 };
                 img.src = url;
             }
@@ -90,7 +89,7 @@ class BackgroundManager extends EleganceModule {
     }
 
     handleSectionChange(event) {
-        logger.log('BackgroundManager: Section change event received', event);
+        this.logger.log('BackgroundManager: Section change event received', event);
         const { sectionId } = event.detail;
         this.updateBackgroundForSection(sectionId);
     }
@@ -102,10 +101,10 @@ class BackgroundManager extends EleganceModule {
 
         if (matchingPage && matchingPage.hasThumbnail && matchingPage.thumbnail) {
             this.showImage(matchingPage.thumbnail);
-            logger.log(`BackgroundManager: Changed background to ${matchingPage.thumbnail}`);
+            this.logger.log(`BackgroundManager: Changed background to ${matchingPage.thumbnail}`);
         } else {
             this.showDefaultBackground();
-            logger.log(`BackgroundManager: Changed to default background for section ${sectionId}`);
+            this.logger.log(`BackgroundManager: Changed to default background for section ${sectionId}`);
         }
     }
 
@@ -119,7 +118,7 @@ class BackgroundManager extends EleganceModule {
 
     showImage(imageUrl) {
         if (!imageUrl) {
-            logger.warn('BackgroundManager: No image URL provided');
+            this.logger.warn('BackgroundManager: No image URL provided');
             return;
         }
 
@@ -129,7 +128,7 @@ class BackgroundManager extends EleganceModule {
 
     showVideo(videoUrl) {
         if (!videoUrl) {
-            logger.warn('BackgroundManager: No video URL provided');
+            this.logger.warn('BackgroundManager: No video URL provided');
             return;
         }
 
@@ -171,7 +170,7 @@ class BackgroundManager extends EleganceModule {
 
         const validStates = ['hidden', 'visible'];
         if (!validStates.includes(visibility)) {
-            logger.warn(`BackgroundManager: Invalid visibility state '${visibility}'`);
+            this.logger.warn(`BackgroundManager: Invalid visibility state '${visibility}'`);
             return;
         }
 
@@ -243,7 +242,7 @@ class BackgroundManager extends EleganceModule {
 
     addPageConfig(pageConfig) {
         if (!pageConfig || !pageConfig.name) {
-            logger.warn('BackgroundManager: Invalid page config');
+            this.logger.warn('BackgroundManager: Invalid page config');
             return;
         }
 
@@ -259,7 +258,7 @@ class BackgroundManager extends EleganceModule {
         
         if (index !== -1) {
             this.config.pageInfo.splice(index, 1);
-            logger.log(`BackgroundManager: Removed page config for '${pageName}'`);
+            this.logger.log(`BackgroundManager: Removed page config for '${pageName}'`);
         }
     }
 
@@ -267,7 +266,7 @@ class BackgroundManager extends EleganceModule {
         document.removeEventListener('sectionNavigator:sectionChange', this.handleSectionChange);
         this.preloadedImages.clear();
         
-        logger.log('BackgroundManager: Destroyed');
+        this.logger.log('BackgroundManager: Destroyed');
     }
 }
 

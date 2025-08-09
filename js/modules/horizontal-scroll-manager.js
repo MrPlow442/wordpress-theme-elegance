@@ -7,8 +7,8 @@
  */
 
 class HorizontalScrollManager extends EleganceModule {
-    constructor(config) {
-        super('HorizontalScrollManager', config);
+    constructor(themeConfig = {}) {
+        super('HorizontalScrollManager', themeConfig);
         this.scrollContainers = new Map();
         
         this.config = {
@@ -18,7 +18,8 @@ class HorizontalScrollManager extends EleganceModule {
             showDots: true,
             scrollBehavior: 'smooth',
             navButtonUpdateDelay: 350,
-            scrollTolerance: 5
+            scrollTolerance: 5,
+            ...this.themeConfig.horizontalScroll
         };
 
         this.handleContainerScroll = this.handleContainerScroll.bind(this);
@@ -27,12 +28,10 @@ class HorizontalScrollManager extends EleganceModule {
         this.handleTouchEnd = this.handleTouchEnd.bind(this);
     }
 
-    init(globalConfig = {}) {
-        this.config = { ...this.config, ...globalConfig.horizontalScroll };
-        
+    init() {                
         this.autoInitializeContainers();
         
-        logger.log(`HorizontalScrollManager: Initialized with ${this.scrollContainers.size} containers`);
+        this.logger.log(`HorizontalScrollManager: Initialized with ${this.scrollContainers.size} containers`);
     }
 
     autoInitializeContainers() {
@@ -56,7 +55,7 @@ class HorizontalScrollManager extends EleganceModule {
             document.getElementById(sectionSelector) || document.querySelector(`#${sectionSelector}`);
             
         if (!section) {
-            logger.warn(`HorizontalScrollManager: Section '${sectionSelector}' not found`);
+            this.logger.warn(`HorizontalScrollManager: Section '${sectionSelector}' not found`);
             return;
         }
 
@@ -64,7 +63,7 @@ class HorizontalScrollManager extends EleganceModule {
         const navContainer = section.querySelector('.horizontal-scroll-nav-top');
         
         if (!container) {
-            logger.warn(`HorizontalScrollManager: Container not found in section '${sectionSelector}'`);
+            this.logger.warn(`HorizontalScrollManager: Container not found in section '${sectionSelector}'`);
             return;
         }
 
@@ -93,7 +92,7 @@ class HorizontalScrollManager extends EleganceModule {
             this.startAutoScroll(containerData);
         }
 
-        logger.log(`HorizontalScrollManager: Initialized container '${sectionSelector}' with ${containerData.slides.length} slides`);
+        this.logger.log(`HorizontalScrollManager: Initialized container '${sectionSelector}' with ${containerData.slides.length} slides`);
     }
 
     setupContainerEvents(containerData) {
@@ -310,7 +309,7 @@ class HorizontalScrollManager extends EleganceModule {
             this.stopAutoScroll(containerData);
             this.scrollContainers.delete(sectionSelector);
             
-            logger.log(`HorizontalScrollManager: Removed container '${sectionSelector}'`);
+            this.logger.log(`HorizontalScrollManager: Removed container '${sectionSelector}'`);
         }
     }
 
@@ -336,7 +335,7 @@ class HorizontalScrollManager extends EleganceModule {
         
         this.scrollContainers.clear();
         
-        logger.log('HorizontalScrollManager: Destroyed');
+        this.logger.log('HorizontalScrollManager: Destroyed');
     }
 }
 

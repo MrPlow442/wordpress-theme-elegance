@@ -6,12 +6,19 @@
  */
 
 class EleganceModule {
-    constructor(name, config) {
+    constructor(name, themeConfig = {}) {        
         if (new.target === EleganceModule) {
             throw new Error("Cannot instantiate abstract class EleganceModule directly");
         }
 
+        if (!name || typeof name !== 'string') {
+            throw new Error("Module name must be a non-empty string");
+        }
+
         this.name = name;        
-        this.logger = config ? new Logger(name, config.debug) : new Logger(name);        
+        this.themeConfig = themeConfig;
+        this.logger = themeConfig ? new Logger(name, themeConfig.debug) : new Logger(name);
     }
+
+
 }

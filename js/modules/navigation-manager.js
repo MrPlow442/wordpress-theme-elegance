@@ -7,8 +7,8 @@
  */
 
 class NavigationManager extends EleganceModule {
-    constructor(config) {
-        super('NavigationManager', config);
+    constructor(themeConfig = {}) {
+        super('NavigationManager', themeConfig);
         this.state = {
             mobileMenuOpen: false,
             sideMenuOpen: false
@@ -16,7 +16,8 @@ class NavigationManager extends EleganceModule {
         
         this.config = {
             slideAnimationDuration: 300,
-            mobileBreakpoint: 767
+            mobileBreakpoint: 767,
+            ...this.themeConfig.navigation
         };
 
         this.handleMenuTrigger = this.handleMenuTrigger.bind(this);
@@ -24,12 +25,9 @@ class NavigationManager extends EleganceModule {
         this.handleWindowResize = this.handleWindowResize.bind(this);
     }
 
-    init(globalConfig = {}) {
-        this.config = { ...this.config, ...globalConfig.navigation };
-        
-        this.bindEvents();
-        
-        logger.log('NavigationManager: Initialized');
+    init() {            
+        this.bindEvents();        
+        this.logger.log('NavigationManager: Initialized');
     }
 
     bindEvents() {
@@ -222,7 +220,7 @@ class NavigationManager extends EleganceModule {
 
         this.closeAllMenus();
         
-        logger.log('NavigationManager: Destroyed');
+        this.logger.log('NavigationManager: Destroyed');
     }
 }
 
