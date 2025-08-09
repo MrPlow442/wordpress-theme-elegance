@@ -16,6 +16,10 @@ $theme_includes = [
     '/inc/setup.php',        // Theme setup
     '/inc/assets.php',       // Asset management
     '/inc/walkers.php',      // Custom walkers
+    '/inc/class-elegance-templates.php', // Templates and helpers
+    '/inc/class-elegance-navigation.php', // Navigation class
+    '/inc/class-elegance-queries.php', // Theme specific queries
+    '/inc/class-elegance-helpers.php', // Helper functions
     '/inc/template-functions.php', // Template helpers
     '/inc/testimonials-functions.php', // Testimonials functions
     '/inc/comments-functions.php', // Comments functions

@@ -17,7 +17,7 @@
     </video>
     <img id="background-image" class="hidden" src="<?php echo !empty($main_page_background_image) ? esc_url($main_page_background_image) : ''; ?>" alt="Background Image" loading="eager">
 
-    <?php elegance_preloader(); ?>
+    <?php Elegance_Templates::preloader(); ?>
 
     <?php get_header(); ?>
 
@@ -43,8 +43,8 @@
             // Extract page IDs and custom URLs with fragments from menu items
             $page_ids = [];
             $custom_items = [];
-            foreach ($menu_items as $item) {
-                if (elegance_is_page_menu_item($item)) {
+            foreach ($menu_items as $item) {                
+                if (Elegance_Navigation::is_page_menu_item($item)) {
                     $page_ids[] = $item->object_id; // Collect page IDs for ordering
                 } 
                 // elseif ($item->type === 'custom') {
@@ -57,65 +57,64 @@
                 // }
             }
 
-            // Fetch pages by IDs, sorted by menu order in "top" menu
-            $pages = get_pages([
+            // Fetch pages by IDs, sorted by menu order in "top" menu            
+            $menu_item_pages = get_pages([
                 'include' => $page_ids,
                 'sort_column' => 'post__in'
-            ]);            
+            ]);                        
 
             // Append custom items to anchors list for fragment navigation
             $anchors = array_map(function ($item) {
                 return sanitize_title($item->post_title);
-            }, $pages);            
-            if (elegance_has_notices()) {
+            }, $menu_item_pages);            
+            if (Elegance_Queries::has_notices()) {
                 array_unshift($anchors, 'notices');
             }
             foreach ($custom_items as $custom) {                
                 $anchors[] = $custom['anchor'];
             }
             array_unshift($anchors, 'home');                    
-
+        
             // Loop through each menu item, rendering custom items separately
-            foreach ($menu_items as $item) {
-                if (!elegance_is_theme_notices_menu_item($item) 
-                 && !elegance_is_theme_testimonials_menu_item($item) 
-                 && !elegance_is_page_menu_item($item)) {
+            foreach ($menu_items as $item) {                                                
+                if (!Elegance_Navigation::is_theme_notices_menu_item($item)
+                 && !Elegance_Navigation::is_theme_testimonials_menu_item($item) 
+                 && !Elegance_Navigation::is_page_menu_item($item)) {                    
                     continue;
                 }                                
 
-                if (elegance_is_theme_notices_menu_item($item)) {
-                    elegance_notices();
+                if (Elegance_Navigation::is_theme_notices_menu_item($item)) {                    
+                    Elegance_Templates::notices();                    
                     continue;
                 }
 
-                if (elegance_is_theme_testimonials_menu_item($item)) {
-                    elegance_testimonials();
+                if (Elegance_Navigation::is_theme_testimonials_menu_item($item)) {                    
+                    Elegance_Templates::testimonials();
                     continue;
                 }
 
-                $page = get_post($item->object_id);                                
-                elegance_page([
-                    'slug' => $page->post_name,
-                    'title' => $page->post_title,
-                    'description' => get_post_meta($page->ID, 'description', true),
-                    'content' => apply_filters('the_content', $page->post_content),
-                    'hide_bg' => get_post_meta($page->ID, 'hide_background', true),
-                    'do_not_animate' => get_post_meta($page->ID, 'do_not_animate', true)
-                ]);                
-            }
+                $menu_item_page = get_post($item->object_id);
+                Elegance_Templates::page([
+                    'slug' => $menu_item_page->post_name,
+                    'title' => $menu_item_page->post_title,
+                    'description' => get_post_meta($menu_item_page->ID, 'description', true),
+                    'content' => apply_filters('the_content', $menu_item_page->post_content),
+                    'hide_bg' => get_post_meta($menu_item_page->ID, 'hide_background', true),
+                    'do_not_animate' => get_post_meta($menu_item_page->ID, 'do_not_animate', true)
+                ]);           
+            }            
         ?>
 
 
     <script type="text/javascript">        
-        <?php        
-        $page_info = array_map(function($page) {
-            error_log('Page in $pages array_map: ' . print_r($page, true));
+        <?php                
+        $page_info = array_map(function($page) {                      
             return [
                 'name' => $page->post_name,
                 'hasThumbnail' => has_post_thumbnail($page->ID),
                 'thumbnail' => has_post_thumbnail($page->ID) ? get_the_post_thumbnail_url($page->ID) : ''
             ];
-        }, $pages);
+        }, $menu_item_pages);
                 
         $js_config = [
             'videoElementId' => 'background-video',
@@ -129,7 +128,10 @@
         
         const config = <?php echo wp_json_encode($js_config); ?>;            
         document.addEventListener('DOMContentLoaded', function() {            
-            initializeFullpage(config);
+            // initializeFullpage(config);
+            console.log('initializeFullpage exists and is a function:', typeof initializeFullpage === 'function');
+            console.log('initializeScrollSnap exists and is a function:', typeof initializeScrollSnap === 'function');
+            initializeScrollSnap(EleganceConfig);
         });        
     </script>
     </main>

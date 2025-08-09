@@ -16,7 +16,7 @@ Template Name: Blog Page
     
     <img id="background-image" class="hidden" src="<?php echo !empty($blog_background_image) ? esc_url($blog_background_image) : ''; ?>" alt="Background Image" loading="eager">
 
-    <?php elegance_preloader(); ?>
+    <?php Elegance_Templates::preloader(); ?>
 
     <?php get_header("blog"); ?>
 

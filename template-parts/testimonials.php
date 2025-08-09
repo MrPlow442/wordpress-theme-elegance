@@ -1,5 +1,5 @@
 <?php 
-$testimonials_query = elegance_testimonials_query();
+$testimonials_query = Elegance_Queries::testimonials_query();
 
 if ($testimonials_query->have_posts()) : ?>
     <section class="snap-section animated-row" id="testimonials">

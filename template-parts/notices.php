@@ -1,5 +1,5 @@
 <?php 
-$notices_query = elegance_notices_query();
+$notices_query = Elegance_Queries::notices_query();
 
 if ($notices_query->have_posts()) : ?>
     <section class="snap-section animated-row" id="notices">

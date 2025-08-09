@@ -13,16 +13,16 @@
 
             switch ($elegance_nav_type) {
                 case EleganceNavType::ANCHOR->value:                    
-                    if ($item->url === '#notices' && !elegance_has_notices()) {      
+                    if ($item->url === '#notices' && !Elegance_Queries::has_notices()) {      
                         // If no notices, don't render the nav item              
                         return;
-                    } else if ($item->url === '#testimonials' && !elegance_has_testimonials()) {
+                    } else if ($item->url === '#testimonials' && !Elegance_Queries::has_testimonials()) {
                         // If no testimonials, don't render the nav item
                         return;
                     }                   
                     break;
                 case EleganceNavType::LINK->value:
-                    if (elegance_is_blog_page($item->url) && !elegance_has_blog_page()) {                        
+                    if (Elegance_Navigation::is_blog_page($item->url) && !Elegance_Navigation::has_blog_page()) {                         
                         // If no blog page, don't render the nav item
                         return;
                     }

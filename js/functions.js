@@ -34,7 +34,6 @@
 			element.classList.add( visibility );
 		},
 
-
 		isVideo: function( element ) {
 			return element && 'video' === element.tagName.toLowerCase();
 		},
@@ -81,8 +80,7 @@
 			}
 			
 			element.style.opacity = 0;
-
-			// Change source and fade in after transition
+			
 			setTimeout( function() {
 				BackgroundManager.setSource( element, url );
 				element.style.opacity = 1;
@@ -158,23 +156,22 @@
 				elements.backgroundImageElement, 
 				imageUrl 
 			);
-		}
+		},		
 	};
 
-
-	function initializeFullpage( config ) {
-		if ( !config ) {
-			console.warn( 'EleganceTheme: No config provided for fullpage initialization' );
+	function initializeScrollSnap(config) {
+		if (!config) {
+			console.warn('EleganceTheme: No config provided for scroll snap initialization');
 			return;
 		}
-
-		console.log('Config: ', config);
 		
+		console.log('Config: ', config);
+
 		var elements = {
 			backgroundVideoElement: document.getElementById( config.videoElementId ),
 			backgroundImageElement: document.getElementById( config.imageElementId )
 		};
-		
+
 		var pageImages = [];
 		if ( config.pageInfo && Array.isArray( config.pageInfo ) ) {
 			pageImages = config.pageInfo
@@ -185,62 +182,9 @@
 					return page.thumbnail;
 				} );
 		}
-		
-		BackgroundManager.preloadImages( pageImages );
-				
+
+		BackgroundManager.preloadImages( pageImages );				
 		BackgroundManager.showDefault( config, elements );
-
-		/*
-		 		
-		var fullpageElement = document.querySelector( '.fullpage-default' );
-		
-		if ( fullpageElement && 'function' === typeof window.fullpage ) {
-			var fullpageOptions = {
-				licenseKey: 'C7F41B00-5E824594-9A5EFB99-B556A3D5',
-				anchors: config.anchorsJson || [],
-				menu: '#nav',
-				lazyLoad: true,
-				navigation: true,
-				slidesNavigation: true,
-				navigationPosition: 'right',
-				scrollOverflow: true,
-				scrollOverflowReset: true,
-				responsiveWidth: 768,
-				responsiveHeight: 600,
-				responsiveSlides: true,
-				onLeave: function( origin, destination ) {
-					if ( !destination || ! destination.item ) {
-						return;
-					}
-					
-					var section = destination.item;
-					var sectionName = section.getAttribute( 'data-section' );
-
-					if ( !sectionName || !config.pageInfo ) {
-						BackgroundManager.showDefault( config, elements );
-						return;
-					}
-
-					var matchingPage = config.pageInfo.find( function( page ) {
-						return page && page.name === sectionName;
-					} );
-					
-					if ( matchingPage && matchingPage.hasThumbnail && matchingPage.thumbnail ) {
-						BackgroundManager.showImage( elements, matchingPage.thumbnail );
-					} else {
-						BackgroundManager.showDefault( config, elements );
-					}
-				}
-			};
-			
-			try {
-				window.eleganceFullpage = new window.fullpage( '.fullpage-default', fullpageOptions );
-			} catch ( error ) {
-				console.error( 'EleganceTheme: Error initializing fullPage.js:', error );
-			}
-		}
-
-		 */
 	}
 
 	function initializeBlogPage( config ) {
@@ -266,6 +210,10 @@
 		}
 	}
 	
+	window.initializeScrollSnap = function( config ) {
+		safeInitialize( 'initializeScrollSnap', initializeScrollSnap, config );
+	}
+
 	window.initializeFullpage = function( config ) {
 		safeInitialize( 'initializeFullpage', initializeFullpage, config );
 	};
