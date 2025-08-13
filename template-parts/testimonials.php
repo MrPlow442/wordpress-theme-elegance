@@ -2,7 +2,7 @@
 $testimonials_query = Elegance_Queries::testimonials_query();
 
 if ($testimonials_query->have_posts()) : ?>
-    <section class="snap-section animated-row" id="testimonials">
+    <section class="vertical-slide animated-row" id="testimonials" data-scroll-slide-id="testimonials">
         <div class="section-inner">
             <div class="row justify-content-center">
                 <div class="col-md-8 offset-md-2">
@@ -16,11 +16,14 @@ if ($testimonials_query->have_posts()) : ?>
                         </div>
                     </div>
                     
-                    <div class="horizontal-scroll-container testimonials-container" 
+                    <div class="horizontal-scroll-container testimonials-container"
+                         data-scroll-container-id="testimonials"
+                         data-scroll-behavior="smooth"
+                         data-scroll-animation-duration="600"
                          data-auto-scroll="true" 
                          data-auto-scroll-delay="5000" 
                          data-show-nav-buttons="false" 
-                         data-show-dots="true">
+                         data-show-dots="true">                         
                         <?php while ($testimonials_query->have_posts()) : $testimonials_query->the_post(); ?>
                             <div class="horizontal-slide testimonial-slide">
                                 <div class="testimonial-item with-background animate" data-animate="fadeInUp">

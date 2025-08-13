@@ -51,7 +51,7 @@ Domain Path: /languages
     overscroll-behavior-y: contain;
 }
 
-.snap-section {
+.vertical-slide {
     height: 100vh;
     width: 100vw;
     scroll-snap-align: start;
@@ -210,7 +210,7 @@ video {
         scroll-snap-type: y proximity; /* Less strict on mobile */
     }
     
-    .snap-section {
+    .vertical-slide {
         min-height: 100vh;
         height: auto; /* Allow content to expand */
     }

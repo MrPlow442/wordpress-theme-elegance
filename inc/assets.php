@@ -44,7 +44,7 @@ function elegance_theme_scripts() {
         'elegance-module' => '/js/modules/module.js',
         'elegance-constants' => '/js/modules/constants.js',
         'elegance-theme-core' => '/js/modules/theme-core.js',
-        'elegance-section-navigator' => '/js/modules/section-navigator.js', 
+        'elegance-scroll-navigator' => '/js/modules/scroll-navigator.js',        
         'elegance-background-manager' => '/js/modules/background-manager.js',
         'elegance-navigation-manager' => '/js/modules/navigation-manager.js',
         'elegance-animation-manager' => '/js/modules/animation-manager.js',
@@ -55,8 +55,7 @@ function elegance_theme_scripts() {
         wp_enqueue_script($handle, get_template_directory_uri() . $file, [], wp_get_theme()->get('Version'), true);
     }
     wp_enqueue_script('theme-init', get_template_directory_uri() . '/js/theme-init.js', array_keys($theme_modules), wp_get_theme()->get('Version'), true);
-    
-    // wp_localize_script('custom', 'EleganceConfig', Elegance_Helpers::get_front_end_config());
+        
     wp_localize_script('theme-init', 'EleganceConfig', Elegance_Helpers::get_front_end_config());
 
 }

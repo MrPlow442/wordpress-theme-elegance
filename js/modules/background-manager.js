@@ -7,8 +7,8 @@
  */
 
 class BackgroundManager extends EleganceModule {
-    constructor(themeConfig = {}) {
-        super('BackgroundManager', themeConfig);
+    constructor(themeConfig = {}, silence = false) {
+        super('BackgroundManager', themeConfig, silence);
         this.elements = {
             videoElement: null,
             imageElement: null
@@ -26,7 +26,7 @@ class BackgroundManager extends EleganceModule {
         this.logger.log('Theme Config:', this.themeConfig, ' Background Config:', this.config);
         this.preloadedImages = new Set();
         
-        this.handleSectionChange = this.handleSectionChange.bind(this);
+        this.handleSlideChange = this.handleSlideChange.bind(this);
     }
 
     init() {
@@ -84,19 +84,19 @@ class BackgroundManager extends EleganceModule {
         });
     }
 
-    bindEvents() {        
-        document.addEventListener(EVENTS.SECTION_NAVIGATOR.SECTION_CHANGE, this.handleSectionChange);
+    bindEvents() {
+        EleganceTheme.bindEvent(EVENTS.SCROLL_NAVIGATOR.SLIDE_CHANGE, this.handleSlideChange);        
     }
 
-    handleSectionChange(event) {
-        this.logger.log('BackgroundManager: Section change event received', event);
-        const { sectionId } = event.detail;
-        this.updateBackgroundForSection(sectionId);
+    handleSlideChange(event) {
+        this.logger.log('BackgroundManager: Slide change event received', event);        
+        const slideId = event.detail.toSlide.dataset.scrollSlideId;
+        this.updateBackgroundForSlide(slideId);
     }
 
-    updateBackgroundForSection(sectionId) {
+    updateBackgroundForSlide(slideId) {        
         const matchingPage = this.config.pageInfo.find(page => 
-            page && page.name === sectionId
+            page && page.name === slideId
         );
 
         if (matchingPage && matchingPage.hasThumbnail && matchingPage.thumbnail) {
@@ -104,7 +104,7 @@ class BackgroundManager extends EleganceModule {
             this.logger.log(`BackgroundManager: Changed background to ${matchingPage.thumbnail}`);
         } else {
             this.showDefaultBackground();
-            this.logger.log(`BackgroundManager: Changed to default background for section ${sectionId}`);
+            this.logger.log(`BackgroundManager: Changed to default background for section ${slideId}`);
         }
     }
 
@@ -263,7 +263,7 @@ class BackgroundManager extends EleganceModule {
     }
 
     destroy() {
-        document.removeEventListener('sectionNavigator:sectionChange', this.handleSectionChange);
+        // document.removeEventListener('sectionNavigator:sectionChange', this.handleSectionChange);
         this.preloadedImages.clear();
         
         this.logger.log('BackgroundManager: Destroyed');

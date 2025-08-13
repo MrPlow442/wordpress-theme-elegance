@@ -17,19 +17,20 @@ function initializeEleganceTheme(config = {}) {
         return eleganceThemeInstance;
     }
 
-    try {        
+    try {
+        LoggerFactory.init(config);
         // Create main theme instance
         eleganceThemeInstance = new EleganceTheme(config);
 
         // Create and register all modules
-        const sectionNavigator = new SectionNavigator(config);
-        const backgroundManager = new BackgroundManager(config);
-        const navigationManager = new NavigationManager(config);
-        const animationManager = new AnimationManager(config);
+        const scrollNavigator = new ScrollNavigator(config);
+        const backgroundManager = new BackgroundManager(config, true);
+        const navigationManager = new NavigationManager(config, true);
+        const animationManager = new AnimationManager(config, true);
         const horizontalScrollManager = new HorizontalScrollManager(config);
 
         // Register modules with the theme
-        eleganceThemeInstance.registerModule(sectionNavigator);
+        eleganceThemeInstance.registerModule(scrollNavigator);        
         eleganceThemeInstance.registerModule(backgroundManager);
         eleganceThemeInstance.registerModule(navigationManager);
         eleganceThemeInstance.registerModule(animationManager);
@@ -42,7 +43,7 @@ function initializeEleganceTheme(config = {}) {
         if (config.debug) {
             window.eleganceModules = {
                 theme: eleganceThemeInstance,
-                sectionNavigator,
+                scrollNavigator,                
                 backgroundManager,
                 navigationManager,
                 animationManager,

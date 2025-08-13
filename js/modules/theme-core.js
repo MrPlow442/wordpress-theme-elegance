@@ -42,6 +42,15 @@ class EleganceTheme {
         }
     }
 
+    static triggerEvent(eventName, data) {
+        const event = new CustomEvent(eventName, { detail: data });
+        document.dispatchEvent(event);
+    }
+
+    static bindEvent(eventName, callback) {
+        document.addEventListener(eventName, callback);
+    }
+
     registerModule(module) {
         if (module instanceof EleganceModule === false) {
             this.logger.error(`EleganceTheme: Module '${name}' is not an instance of EleganceModule`);

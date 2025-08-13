@@ -6,7 +6,7 @@
  */
 
 class EleganceModule {
-    constructor(name, themeConfig = {}) {        
+    constructor(name, themeConfig = {}, silence = false) {        
         if (new.target === EleganceModule) {
             throw new Error("Cannot instantiate abstract class EleganceModule directly");
         }
@@ -17,8 +17,6 @@ class EleganceModule {
 
         this.name = name;        
         this.themeConfig = themeConfig;
-        this.logger = themeConfig ? new Logger(name, themeConfig.debug) : new Logger(name);
-    }
-
-
+        this.logger = LoggerFactory.createLogger(name, silence);
+    }    
 }

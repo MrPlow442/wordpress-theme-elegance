@@ -16,10 +16,10 @@
 
         init: function() {
             // Get all sections
-            this._sections = Array.from(document.querySelectorAll('.snap-section'));
+            this._sections = Array.from(document.querySelectorAll('.vertical-slide'));
             
             if (this._sections.length === 0) {
-                console.warn('No .snap-section elements found');
+                console.warn('No .vertical-slide elements found');
                 return;
             }
 

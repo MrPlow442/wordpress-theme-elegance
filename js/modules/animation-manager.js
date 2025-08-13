@@ -7,8 +7,8 @@
  */
 
 class AnimationManager extends EleganceModule {
-    constructor(themeConfig = {}) {
-        super('AnimationManager', themeConfig);
+    constructor(themeConfig = {}, silence = false) {
+        super('AnimationManager', themeConfig, silence);
         this.observer = null;
         this.animatedElements = new Map();
         

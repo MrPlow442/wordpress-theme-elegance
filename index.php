@@ -21,9 +21,9 @@
 
     <?php get_header(); ?>
 
-    <main class="scroll-container">
+    <main class="scroll-container" data-scroll-container-id="main">
 
-        <section class="snap-section animated-row" id="home">
+        <section class="vertical-slide animated-row" id="home" data-scroll-slide-id="home">
             <div class="section-inner">
                 <div class="welcome-box">
                     <span class="welcome-first animate" data-animate="fadeInUp"><?php echo wp_kses_post(get_theme_mod('home_description_above', '')); ?></span>

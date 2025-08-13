@@ -2,7 +2,7 @@
 extract($args);
 ?>
 
-<section class="snap-section animated-row" id="<?php echo esc_attr($slug); ?>">
+<section class="vertical-slide animated-row" id="<?php echo esc_attr($slug); ?>" data-scroll-slide-id="<?php echo esc_attr($slug); ?>">
     <div class="section-inner">
         <div class="row justify-content-center">
             <div class="col-lg-8 wide-col-laptop">

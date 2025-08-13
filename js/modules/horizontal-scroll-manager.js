@@ -7,8 +7,8 @@
  */
 
 class HorizontalScrollManager extends EleganceModule {
-    constructor(themeConfig = {}) {
-        super('HorizontalScrollManager', themeConfig);
+    constructor(themeConfig = {}, silence = false) {
+        super('HorizontalScrollManager', themeConfig, silence);
         this.scrollContainers = new Map();
         
         this.config = {
@@ -38,7 +38,7 @@ class HorizontalScrollManager extends EleganceModule {
         const containers = document.querySelectorAll('.horizontal-scroll-container');
         
         containers.forEach(container => {
-            const section = container.closest('.snap-section, section');
+            const section = container.closest('.vertical-slide, section');
             const sectionId = section ? (section.id || section.dataset.section) : container.id;
             
             if (sectionId) {

@@ -7,8 +7,8 @@
  */
 
 class NavigationManager extends EleganceModule {
-    constructor(themeConfig = {}) {
-        super('NavigationManager', themeConfig);
+    constructor(themeConfig = {}, silence = false) {
+        super('NavigationManager', themeConfig, silence);
         this.state = {
             mobileMenuOpen: false,
             sideMenuOpen: false

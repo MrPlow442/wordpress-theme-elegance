@@ -5,6 +5,21 @@
  * @version 2.0.0
  */
 
+class LoggerFactory {    
+    static debug = false;
+    
+    static init(themeConfig = {}) {
+        this.debug = themeConfig.debug ?? false;        
+    }
+
+    static createLogger(moduleName, silence = false) {        
+        if (silence) {
+            return new NoOpLogger();
+        }
+        return new Logger(moduleName, this.debug);
+    }
+}
+
 class Logger {
     constructor(moduleName = '', isDebugEnabled = false) {
         this.moduleName = moduleName ? `[${moduleName}] ` : '';
@@ -30,5 +45,23 @@ class Logger {
         if (this.isDebugEnabled) {
             console.info(this.logPrefix, this.moduleName, ...data);
         }        
+    }
+}
+
+class NoOpLogger {
+    log(...data) {
+        // No operation logger, does nothing
+    }
+
+    warn(...data) {
+        // No operation logger, does nothing
+    }
+
+    error(...data) {
+        // No operation logger, does nothing
+    }
+
+    info(...data) {
+        // No operation logger, does nothing
     }
 }

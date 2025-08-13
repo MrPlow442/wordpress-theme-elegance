@@ -2,7 +2,7 @@
 $notices_query = Elegance_Queries::notices_query();
 
 if ($notices_query->have_posts()) : ?>
-    <section class="snap-section animated-row" id="notices">
+    <section class="vertical-slide animated-row" id="notices" data-scroll-slide-id="notices">
         <div class="section-inner">
             <div class="row justify-content-center">
                 <div class="col-12">
@@ -23,7 +23,7 @@ if ($notices_query->have_posts()) : ?>
                             <i class="fa fa-chevron-right"></i>
                         </button>
                     </div>                     
-                    <div class="horizontal-scroll-container">
+                    <div class="horizontal-scroll-container" data-scroll-container-id="notices">
                         <?php while ($notices_query->have_posts()) : $notices_query->the_post(); ?>
                             <div class="horizontal-slide">
                                 <div class="post-container with-background animate" data-animate="fadeInDown">

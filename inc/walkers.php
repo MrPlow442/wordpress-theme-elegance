@@ -31,18 +31,27 @@
                     break;
             }            
 
-            if ($item->type === 'custom') {                
+            if ($item->type === 'custom') {
+                if ($elegance_nav_type && $elegance_nav_type === EleganceNavType::ANCHOR->value) {
+                    $scroll_attributes = self::create_scroll_attributes(ltrim($item->url, '#'));
+                }
                 $href = esc_url($item->url);                
             } else {                
                 $anchor_name = sanitize_title($item->title);
+                $scroll_attributes = self::create_scroll_attributes($anchor_name);
                 $href = '#' . $anchor_name;                
             }
             
             $output .= sprintf(
-                '<li><a href="%s">%s</a>',                
+                '<li><a href="%s" %s>%s</a>',                
                 $href,
+                $scroll_attributes,
                 esc_html($item->title)
             );
+        }
+
+        function create_scroll_attributes($name) {
+            return 'data-scroll-to="' . $name . '" data-scroll-to-container="main"';
         }
     }
 }
