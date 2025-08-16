@@ -47,8 +47,7 @@ function elegance_theme_scripts() {
         'elegance-scroll-navigator' => '/js/modules/scroll-navigator.js',        
         'elegance-background-manager' => '/js/modules/background-manager.js',
         'elegance-navigation-manager' => '/js/modules/navigation-manager.js',
-        'elegance-animation-manager' => '/js/modules/animation-manager.js',
-        'elegance-horizontal-scroll-manager' => '/js/modules/horizontal-scroll-manager.js'        
+        'elegance-animation-manager' => '/js/modules/animation-manager.js'     
     ];
 
     foreach ($theme_modules as $handle => $file) {

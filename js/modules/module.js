@@ -5,7 +5,7 @@
  * @version 2.0.0
  */
 
-class EleganceModule {
+class EleganceModule {    
     constructor(name, themeConfig = {}, silence = false) {        
         if (new.target === EleganceModule) {
             throw new Error("Cannot instantiate abstract class EleganceModule directly");
@@ -17,6 +17,17 @@ class EleganceModule {
 
         this.name = name;        
         this.themeConfig = themeConfig;
-        this.logger = LoggerFactory.createLogger(name, silence);
-    }    
+        this.silence = silence;
+        this.logger = LoggerFactory.createLogger(name, silence);        
+        this.registry = null;
+    }
+
+    getModule(name) {
+        if (!this.registry) {
+            this.logger.log('No registry available, this module might not be fully initialized');
+            return null;
+        }
+
+        return this.registry.getModule(name);
+    }
 }

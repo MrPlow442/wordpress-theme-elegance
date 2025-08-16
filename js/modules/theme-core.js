@@ -10,7 +10,7 @@ class EleganceTheme {
     constructor(config = {}) {
         this.logger = new Logger('EleganceTheme', config.debug);
         this.config = config;
-        this.modules = new Map();
+        this.moduleRegistry = new EleganceModuleRegistry(this.logger);        
         this.isInitialized = false;                
         this.handleWindowLoad = this.handleWindowLoad.bind(this);
         this.handleDOMContentLoaded = this.handleDOMContentLoaded.bind(this);
@@ -52,50 +52,15 @@ class EleganceTheme {
     }
 
     registerModule(module) {
-        if (module instanceof EleganceModule === false) {
-            this.logger.error(`EleganceTheme: Module '${name}' is not an instance of EleganceModule`);
-            return;
-        }
-
-        const name = module.name;
-        if (this.modules.has(name)) {
-            this.logger.warn(`EleganceTheme: Module '${name}' already exists`);
-            return;
-        }
-
-        this.modules.set(name, module);
-        this.logger.log(`EleganceTheme: Module '${name}' registered`);
+        this.moduleRegistry.registerModule(module);
     }
 
     getModule(name) {
-        return this.modules.get(name) || null;
-    }
-
-    async initializeModules() {
-        const initPromises = [];
-
-        for (const [name, module] of this.modules) {
-            if (module instanceof EleganceModule) {
-                try {
-                    this.logger.log(`EleganceTheme: Initializing module '${name}'`);
-                    const initResult = module.init();
-                    if (initResult instanceof Promise) {
-                        initPromises.push(initResult);
-                    }
-                    this.logger.log(`EleganceTheme: Module '${name}' initialized`);
-                } catch (error) {
-                    this.logger.error(`EleganceTheme: Module '${name}' initialization failed`, error);
-                }
-            }
-        }
-        
-        if (initPromises.length > 0) {
-            await Promise.all(initPromises);
-        }
+        this.moduleRegistry.getModule(name);
     }
 
     async handleDOMContentLoaded() {
-        await this.initializeModules();
+        await this.moduleRegistry.initializeModules();
         this.bindGlobalEvents();
     }
 
@@ -131,7 +96,7 @@ class EleganceTheme {
     }
 
     triggerModuleEvent(eventName, data = null) {
-        for (const [name, module] of this.modules) {
+        for (const [name, module] of this.moduleRegistry.getModules()) {
             const methodName = `on${eventName.charAt(0).toUpperCase() + eventName.slice(1)}`;
             
             if (typeof module[methodName] === 'function') {
@@ -172,7 +137,74 @@ class EleganceTheme {
         window.removeEventListener('load', this.handleWindowLoad);
         document.removeEventListener('click', this.handleGlobalClick);
         window.removeEventListener('resize', this.handleWindowResize);
+
+        this.moduleRegistry.destroy();
+        this.isInitialized = false;
+    }
+}
+
+class EleganceModuleRegistry {
+    constructor(logger) {
+        this.logger = logger;
+        this.modules = new Map();
+        this.modulesInitialized = false;
+    }
+
+    registerModule(module) {
+        if (module instanceof EleganceModule === false) {
+            this.logger.error(`EleganceTheme: Module '${name}' is not an instance of EleganceModule`);
+            return;
+        }
+
+        const name = module.name;
+        if (this.modules.has(name)) {
+            this.logger.warn(`EleganceTheme: Module '${name}' already exists`);
+            return;
+        }
+
+        module.registry = this;
+        this.modules.set(name, module);
+        this.logger.log(`EleganceTheme: Module '${name}' registered`);
+    }
+
+    getModule(name) {
+        return this.modules.get(name) || null;
+    }
+
+    getModules() {
+        return this.modules;
+    }
+
+    async initializeModules() {
+        if (this.modulesInitialized) {
+            return;
+        }
+
+        const initPromises = [];
+
+        for (const [name, module] of this.modules) {
+            if (module instanceof EleganceModule) {
+                try {
+                    this.logger.log(`EleganceTheme: Initializing module '${name}'`);
+                    const initResult = module.init();
+                    if (initResult instanceof Promise) {
+                        initPromises.push(initResult);
+                    }
+                    this.logger.log(`EleganceTheme: Module '${name}' initialized`);
+                } catch (error) {
+                    this.logger.error(`EleganceTheme: Module '${name}' initialization failed`, error);
+                }
+            }
+        }
         
+        if (initPromises.length > 0) {
+            await Promise.all(initPromises);
+        }
+
+        this.modulesInitialized = true;
+    }
+
+    destroy() {
         for (const [name, module] of this.modules) {
             if (typeof module.destroy === 'function') {
                 try {
@@ -185,7 +217,7 @@ class EleganceTheme {
         }
 
         this.modules.clear();
-        this.isInitialized = false;
+        this.modulesInitialized = false;
     }
 }
 

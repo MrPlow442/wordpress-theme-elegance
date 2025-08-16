@@ -21,7 +21,8 @@
 
     <?php get_header(); ?>
 
-    <main class="scroll-container" data-scroll-container-id="main">
+    <main class="scroll-container" 
+        data-scroll-container-id="main">
 
         <section class="vertical-slide animated-row" id="home" data-scroll-slide-id="home">
             <div class="section-inner">

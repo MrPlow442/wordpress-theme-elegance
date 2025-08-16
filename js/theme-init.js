@@ -23,18 +23,16 @@ function initializeEleganceTheme(config = {}) {
         eleganceThemeInstance = new EleganceTheme(config);
 
         // Create and register all modules
-        const scrollNavigator = new ScrollNavigator(config);
+        const scrollNavigator = new ScrollNavigator(config, false);
         const backgroundManager = new BackgroundManager(config, true);
-        const navigationManager = new NavigationManager(config, true);
-        const animationManager = new AnimationManager(config, true);
-        const horizontalScrollManager = new HorizontalScrollManager(config);
+        const navigationManager = new NavigationManager(config, false);
+        const animationManager = new AnimationManager(config, true);        
 
         // Register modules with the theme
         eleganceThemeInstance.registerModule(scrollNavigator);        
         eleganceThemeInstance.registerModule(backgroundManager);
         eleganceThemeInstance.registerModule(navigationManager);
-        eleganceThemeInstance.registerModule(animationManager);
-        eleganceThemeInstance.registerModule(horizontalScrollManager);
+        eleganceThemeInstance.registerModule(animationManager);        
 
         // Initialize the theme
         eleganceThemeInstance.init();
@@ -46,8 +44,7 @@ function initializeEleganceTheme(config = {}) {
                 scrollNavigator,                
                 backgroundManager,
                 navigationManager,
-                animationManager,
-                horizontalScrollManager
+                animationManager                
             };
         }
 

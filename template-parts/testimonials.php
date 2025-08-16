@@ -6,22 +6,12 @@ if ($testimonials_query->have_posts()) : ?>
         <div class="section-inner">
             <div class="row justify-content-center">
                 <div class="col-md-8 offset-md-2">
-                    <div class="horizontal-scroll-nav-top testimonials-nav">
-                        <div class="scroll-dots">
-                            <?php 
-                            $post_count = $testimonials_query->found_posts;
-                            for($i = 0; $i < $post_count; $i++) : ?>
-                                <button class="scroll-dot <?php echo $i === 0 ? 'active' : ''; ?>" data-slide="<?php echo $i; ?>"></button>
-                            <?php endfor; ?>
-                        </div>
-                    </div>
-                    
                     <div class="horizontal-scroll-container testimonials-container"
                          data-scroll-container-id="testimonials"
                          data-scroll-behavior="smooth"
                          data-scroll-animation-duration="600"
-                         data-auto-scroll="true" 
-                         data-auto-scroll-delay="5000" 
+                         data-auto-scroll="true"
+                         data-auto-scroll-delay="6000" 
                          data-show-nav-buttons="false" 
                          data-show-dots="true">                         
                         <?php while ($testimonials_query->have_posts()) : $testimonials_query->the_post(); ?>

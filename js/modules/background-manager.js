@@ -89,8 +89,13 @@ class BackgroundManager extends EleganceModule {
     }
 
     handleSlideChange(event) {
-        this.logger.log('BackgroundManager: Slide change event received', event);        
-        const slideId = event.detail.toSlide.dataset.scrollSlideId;
+        this.logger.log('BackgroundManager: Slide change event received', event);
+        const data = event.detail;
+        if (data.container.id !== SCROLL_NAVIGATOR.MAIN_CONTAINER_ID) {
+            return;
+        }
+
+        const slideId = data.toSlideData.id;
         this.updateBackgroundForSlide(slideId);
     }
 

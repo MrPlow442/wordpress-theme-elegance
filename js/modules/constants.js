@@ -1,7 +1,11 @@
 const EVENTS = {
-    SCROLL_NAVIGATOR: {
-        ACTIVE_CONTAINER_CHANGE: 'scrollNavigator:activeContainerChange',
-        SLIDE_CHANGE: 'scrollNavigator:slideChange'
+    SCROLL_NAVIGATOR: {        
+        CONTAINER_VISIBILITY_CHANGE: 'scrollNavigator:containerVisibilityChange',
+        /**
+         * params: 
+         * container, fromSlide, fromIndex, toSlide, toIndex, scrolledBy
+         */
+        SLIDE_CHANGE: 'scrollNavigator:slideChange'        
     },    
     NAVIGATION_MANAGER: {
         MOBILE_MENU_OPENED: 'navigationManager:mobileMenuOpened',
@@ -10,6 +14,31 @@ const EVENTS = {
         SIDE_MENU_CLOSED: 'navigationManager:sideMenuClosed'
     }
 };
+
+const MODULES = {
+    SCROLL_NAVIGATOR: 'ScrollNavigator',
+    NAVIGATION_MANAGER: 'NavigationManager',
+    BACKGROUND_MANAGER: 'BackgroundManager',
+    ANIMATION_MANAGER: 'AnimationManager'
+}
+
+const SCROLL_NAVIGATOR = {
+    DIRECTION: {
+        HORIZONTAL: 'horizontal',
+        VERTICAL: 'vertical'
+    },
+    SCROLLED_BY: {
+        PROGRAM: 'program',
+        USER: 'user'
+    },
+    NAV_POSITION: {
+        TOP: 'top',
+        BOTTOM: 'bottom',
+        LEFT: 'left',
+        RIGHT: 'right'
+    },
+    MAIN_CONTAINER_ID: 'main'
+}
 
 const SCROLLED_BY = {
     PROGRAM: 'program',

@@ -6,24 +6,10 @@ if ($notices_query->have_posts()) : ?>
         <div class="section-inner">
             <div class="row justify-content-center">
                 <div class="col-12">
-                    <div class="horizontal-scroll-nav-top">
-                        <button class="scroll-btn scroll-prev">
-                            <i class="fa fa-chevron-left"></i>
-                        </button>
-                        
-                        <div class="scroll-dots">
-                            <?php 
-                            $post_count = $notices_query->found_posts;
-                            for($i = 0; $i < $post_count; $i++) : ?>
-                                <button class="scroll-dot <?php echo $i === 0 ? 'active' : ''; ?>" data-slide="<?php echo $i; ?>"></button>
-                            <?php endfor; ?>
-                        </div>
-                        
-                        <button class="scroll-btn scroll-next">
-                            <i class="fa fa-chevron-right"></i>
-                        </button>
-                    </div>                     
-                    <div class="horizontal-scroll-container" data-scroll-container-id="notices">
+                    <div class="horizontal-scroll-container" 
+                        data-scroll-container-id="notices"
+                        data-show-nav-buttons="true"
+                        data-show-dots="true">
                         <?php while ($notices_query->have_posts()) : $notices_query->the_post(); ?>
                             <div class="horizontal-slide">
                                 <div class="post-container with-background animate" data-animate="fadeInDown">
