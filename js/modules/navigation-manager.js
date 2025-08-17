@@ -80,18 +80,18 @@ class NavigationManager extends EleganceModule {
         window.addEventListener('hashchange', this.#handleHashChange.bind(this));
     }
 
-    #handleSlideChange(event) {
-        const data = event.detail;
-        if (data.container.id !== SCROLL_NAVIGATOR.MAIN_CONTAINER_ID) {
+    #handleSlideChange({detail}) {
+        this.logger.log('Slide Change Event received: ', detail);
+        if (detail.container.id !== SCROLL_NAVIGATOR.MAIN_CONTAINER_ID) {
             return;
         }
-        const slideId = data.toSlideData.id;
+        const slideId = detail.toSlideData.id;
         this.desktopNavigation.setActive(slideId);
         this.mobileNavigation.setActive(slideId);
         this.#setWindowHash(slideId);
     }
 
-    #handleHashChange(event) {
+    #handleHashChange(_) {
         const slideId = window.location.hash.substring(1);
         if (!slideId) {
             return;
@@ -111,7 +111,7 @@ class NavigationManager extends EleganceModule {
     }
 
     onNavbarToggle(data) {
-        const { target, event } = data;
+        const { _, event } = data;
         
         event.preventDefault();
         this.toggleMobileMenu();

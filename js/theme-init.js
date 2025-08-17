@@ -6,38 +6,32 @@
  * @version 2.0.0
  */
 
-// Global theme instance
 let eleganceThemeInstance = null;
-let rootLogger = typeof Logger !== 'undefined' ? new Logger('ThemeInit', true) : console;
+let rootLogger = typeof Logger !== 'undefined' ? new Logger({ moduleName: 'ThemeInit' }) : console;
 
-function initializeEleganceTheme(config = {}) {
-    // Prevent multiple initializations
+function initializeEleganceTheme(config = {}) {    
     if (eleganceThemeInstance) {
         rootLogger.warn('EleganceTheme: Already initialized');
         return eleganceThemeInstance;
     }
 
     try {
-        LoggerFactory.init(config);
-        // Create main theme instance
+        rootLogger.setDebug(config.debug);
+        LoggerFactory.init(config.debug);        
         eleganceThemeInstance = new EleganceTheme(config);
-
-        // Create and register all modules
+        
         const scrollNavigator = new ScrollNavigator(config, false);
         const backgroundManager = new BackgroundManager(config, true);
         const navigationManager = new NavigationManager(config, false);
         const animationManager = new AnimationManager(config, true);        
 
-        // Register modules with the theme
         eleganceThemeInstance.registerModule(scrollNavigator);        
         eleganceThemeInstance.registerModule(backgroundManager);
         eleganceThemeInstance.registerModule(navigationManager);
         eleganceThemeInstance.registerModule(animationManager);        
 
-        // Initialize the theme
         eleganceThemeInstance.init();
 
-        // Make modules available globally for debugging (development only)
         if (config.debug) {
             window.eleganceModules = {
                 theme: eleganceThemeInstance,
@@ -66,7 +60,6 @@ function destroyEleganceTheme() {
         eleganceThemeInstance.destroy();
         eleganceThemeInstance = null;
         
-        // Clean up global debugging variables
         if (window.eleganceModules) {
             delete window.eleganceModules;
         }
@@ -75,17 +68,14 @@ function destroyEleganceTheme() {
     }
 }
 
-// Legacy scroll snap initialization (replaces initializeScrollSnap)
 window.initializeScrollSnap = function(config) {
     rootLogger.log('EleganceTheme: Legacy initializeScrollSnap called');
     initializeEleganceTheme(config);
 };
-
-// Legacy blog page initialization (replaces initializeBlogPage)  
+  
 window.initializeBlogPage = function(config) {
     rootLogger.log('EleganceTheme: Legacy initializeBlogPage called');
-    
-    // For blog pages, we only need background manager
+        
     if (!eleganceThemeInstance) {
         const theme = new EleganceTheme(config);
         const backgroundManager = new BackgroundManager();
@@ -97,13 +87,11 @@ window.initializeBlogPage = function(config) {
     }
 };
 
-// Legacy fullpage initialization (deprecated, redirects to scroll snap)
 window.initializeFullpage = function(config) {
     rootLogger.warn('EleganceTheme: initializeFullpage is deprecated, using scroll snap instead');
     initializeEleganceTheme(config);
 };
 
-// Maintain legacy background manager reference
 window.EleganceBackgroundManager = {
     showDefault: function(config, elements) {
         const theme = getEleganceTheme();

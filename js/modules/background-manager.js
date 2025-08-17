@@ -8,7 +8,7 @@
 
 class BackgroundManager extends EleganceModule {
     constructor(themeConfig = {}, silence = false) {
-        super('BackgroundManager', themeConfig, silence);
+        super(MODULES.BACKGROUND_MANAGER, themeConfig, silence);
         this.elements = {
             videoElement: null,
             imageElement: null
@@ -88,14 +88,13 @@ class BackgroundManager extends EleganceModule {
         EleganceTheme.bindEvent(EVENTS.SCROLL_NAVIGATOR.SLIDE_CHANGE, this.handleSlideChange);        
     }
 
-    handleSlideChange(event) {
-        this.logger.log('BackgroundManager: Slide change event received', event);
-        const data = event.detail;
-        if (data.container.id !== SCROLL_NAVIGATOR.MAIN_CONTAINER_ID) {
+    handleSlideChange({ detail }) {
+        this.logger.log('Slide Change Event received: ', detail);        
+        if (detail.container.id !== SCROLL_NAVIGATOR.MAIN_CONTAINER_ID) {
             return;
         }
 
-        const slideId = data.toSlideData.id;
+        const slideId = detail.toSlideData.id;
         this.updateBackgroundForSlide(slideId);
     }
 

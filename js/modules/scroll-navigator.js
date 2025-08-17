@@ -29,6 +29,10 @@ class ScrollNavigator extends EleganceModule {
         this.registerContainersOnPage();        
     }
 
+    postInit() {
+        this.containers.values().forEach(container => container.postInit());
+    }
+
     registerContainersOnPage() {
         this.#registerContainersByDirection(SCROLL_NAVIGATOR.DIRECTION.VERTICAL);
         this.#registerContainersByDirection(SCROLL_NAVIGATOR.DIRECTION.HORIZONTAL);
@@ -61,7 +65,7 @@ class ScrollNavigator extends EleganceModule {
         }
 
         this.logger.log('Merged config: ', config);
-        const scrollContainer = new ScrollContainer(this.silence, {
+        const scrollContainer = new ScrollContainer(this.mute, {
             element: element,
             slides: slides,
             direction: direction                   
@@ -112,7 +116,7 @@ class ScrollNavigator extends EleganceModule {
 }
 
 class ScrollContainer {
-    constructor(silence, { element, direction, slides }) {      
+    constructor(mute, { element, direction, slides }) {      
         const defaultConfig = {
             scrollDetectorConfig: {
                 intersectionThreshold: 0.5,
@@ -129,7 +133,7 @@ class ScrollContainer {
         };        
 
         this.id = element.dataset.scrollContainerId;
-        this.logger = LoggerFactory.createLogger("[ScrollNavigator]" + `[Container:${this.id}]`, silence);        
+        this.logger = LoggerFactory.createLogger("[ScrollNavigator]" + `[Container:${this.id}]`, mute);        
         this.element = element;
         this.slides = slides;        
         this.direction = direction;                
@@ -152,12 +156,15 @@ class ScrollContainer {
         this.#setupScrollDetection();
         this.#setupScrollUI();        
         this.#startAutoScroll();
-        // this.#triggerSlideChangeEvent(
-        //     this.#slideEventDataFromIndex(null), 
-        //     this.#slideEventDataFromIndex(0), 
-        //     SCROLLED_BY.PROGRAM
-        // );
         this.logger.log('ScrollContainer initialized')
+    }
+
+    postInit() {
+        this.#triggerSlideChangeEvent(
+            this.#slideStateDataFromIndex(null), 
+            this.#slideStateDataFromIndex(0), 
+            SCROLLED_BY.PROGRAM
+        );
     }
 
     getIndexOfSlideById(slideId) {
@@ -317,7 +324,7 @@ class ScrollContainer {
         }
         const horizontalPositions = [SCROLL_NAVIGATOR.NAV_POSITION.TOP, SCROLL_NAVIGATOR.NAV_POSITION.BOTTOM];
         const verticalPositions = [SCROLL_NAVIGATOR.NAV_POSITION.LEFT, SCROLL_NAVIGATOR.NAV_POSITION.RIGHT];
-        const isValidHorizontal = isHorizontal && !horizontalPositions.includes(navPosition);
+        const isValidHorizontal = isHorizontal && horizontalPositions.includes(navPosition);
         const isValidVertical = isVertical && verticalPositions.includes(navPosition);
         const defaultHorizontal = horizontalPositions[0];
         const defaultVertical = verticalPositions[0];

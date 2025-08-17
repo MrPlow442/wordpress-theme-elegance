@@ -61,6 +61,7 @@ class EleganceTheme {
 
     async handleDOMContentLoaded() {
         await this.moduleRegistry.initializeModules();
+        await this.moduleRegistry.postInitializeModules();
         this.bindGlobalEvents();
     }
 
@@ -202,6 +203,34 @@ class EleganceModuleRegistry {
         }
 
         this.modulesInitialized = true;
+    }
+
+    async postInitializeModules() {
+        if (!this.modulesInitialized) {
+            this.logger.log('Trying to run postInit before modules were initialized');
+            return;
+        }
+
+        const postInitPromises = [];
+
+        for (const [name, module] of this.modules) {
+            if (module instanceof EleganceModule) {
+                try {
+                    this.logger.log(`EleganceTheme: Post Initializing module '${name}'`);
+                    const initResult = module.postInit();
+                    if (initResult instanceof Promise) {
+                        postInitPromises.push(initResult);
+                    }
+                    this.logger.log(`EleganceTheme: Module '${name}' post initialized`);
+                } catch (error) {
+                    this.logger.error(`EleganceTheme: Module '${name}' post initialization failed`, error);
+                }
+            }
+        }
+        
+        if (postInitPromises.length > 0) {
+            await Promise.all(postInitPromises);
+        }
     }
 
     destroy() {
