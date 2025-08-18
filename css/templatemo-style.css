@@ -818,7 +818,7 @@ textarea.form-control {
 ================================================*/
 .page-block-item {
   position: relative;
-  z-index: 1; /* Ensure the content is on top of the background */
+  z-index: 1;
   padding: 40px;
   overflow: hidden;
 }

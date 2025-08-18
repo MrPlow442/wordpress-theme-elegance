@@ -266,8 +266,7 @@ class BackgroundManager extends EleganceModule {
         }
     }
 
-    destroy() {
-        // document.removeEventListener('sectionNavigator:sectionChange', this.handleSectionChange);
+    destroy() {        
         this.preloadedImages.clear();
         
         this.logger.log('BackgroundManager: Destroyed');

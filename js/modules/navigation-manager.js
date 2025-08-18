@@ -73,7 +73,7 @@ class NavigationManager extends EleganceModule {
         sideMenuLinks.forEach(link => {
             link.addEventListener('click', this.#handleSideMenuClick);
         });
-        window.addEventListener('resize', this.#handleWindowResize);
+        window.addEventListener('resize', this.#handleWindowResize.bind(this));
 
         this.logger.log('Binding Slide Change Event');
         EleganceTheme.bindEvent(EVENTS.SCROLL_NAVIGATOR.SLIDE_CHANGE, this.#handleSlideChange.bind(this));
@@ -131,14 +131,6 @@ class NavigationManager extends EleganceModule {
 
     #handleSideMenuClick(event) {
         this.closeSideMenu();
-    }
-
-    onWindowResize(data) {
-        const { width } = data;
-        
-        if (width > this.config.mobileBreakpoint && this.state.mobileMenuOpen) {
-            this.closeMobileMenu();
-        }
     }
 
     #handleWindowResize() {

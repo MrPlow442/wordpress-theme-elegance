@@ -1,0 +1,108 @@
+.testimonials-block-item {
+	position: relative;
+	z-index: 1;
+	padding: 40px;
+	overflow: hidden;
+}
+
+.testimonials-scroll-container {
+	height: calc(100vh - 35rem) !important;
+	max-width: 600px;
+}
+
+.testimonials-scroll-container .testimonial-item {    
+  padding: 20px;
+}
+
+.client-row img.rounded-circle {
+	width: 120px;
+	height: 120px;
+	object-fit: cover;
+	border-radius: 50%;
+	display: block;
+	margin: 0 auto;	
+}
+
+.testimonials-scroll-container .testimonial-item img {
+  width: 140px;
+  height: 140px;
+  margin: 0 auto;
+}
+
+.testimonials-scroll-container .testimonial-item h4 {	
+  margin-top: 40px;
+  font-size: 22px;
+  text-transform: capitalize;
+  font-weight: 700;
+}
+
+.testimonials-scroll-container .testimonial-item p {
+  font-size: 17px;
+  font-style: italic;
+}
+
+.testimonial-content {
+	margin-top: 20px;
+}
+
+.testimonial-content a {
+	color: #fff;
+}
+
+@media only screen and (max-width: 1440px) {
+	.testimonial-content {
+		font-size:18px;
+	}
+	.owl-carousel .owl-item .client-img img {
+		max-width:80px;
+	}
+}
+@media only screen and (max-width: 1199px) {
+	.testimonial-content {
+		font-size: 16px;
+		padding:20px 25px;
+	}
+	.testimonials-section {
+		padding-top:10px;
+	}
+}
+@media only screen and (max-width: 767px) {
+	.testimonials-section {
+		padding-top:0;
+	}
+
+	.testimonials-section .item {
+		padding: 5px 0 0 0;
+	}
+}
+@media only screen and (max-width: 575px) {
+	.owl-carousel .owl-item .client-img img {
+		max-width:65px;
+		margin-right: 10px;
+	}
+	.testimonials-scroll-container {
+		font-size:13px;
+	}
+	.testimonial-content:before {
+		left: 46%;
+	}
+	.testimonials-scroll-container .testimonial-item {
+		padding: 5px 0 0 0;
+	}
+}
+@media only screen and (max-width: 460px) {
+	.testimonial-content:before {
+		left: 45%;
+	}
+	.testimonials-scroll-container .testimonial-item {
+		padding: 5px 0 0 0;
+	}
+}
+@media only screen and (max-width: 320px) {
+	.testimonial-content:before {
+		left: 43%;
+	}
+	.testimonials-scroll-container .testimonial-item {
+		padding: 5px 0 0 0;
+	}
+}

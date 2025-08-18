@@ -29,6 +29,7 @@ function elegance_theme_scripts() {
     wp_enqueue_style('templatemo-style', get_template_directory_uri() . '/css/templatemo-style.css');
     wp_enqueue_style('blog-style', get_template_directory_uri() . '/css/blog-style.css');
     wp_enqueue_style('wpforms-overrides', get_template_directory_uri() . '/css/wpforms-overrides.css');
+    wp_enqueue_style('testimonials', get_template_directory_uri() . '/css/testimonials.css');
     wp_enqueue_style('responsive', get_template_directory_uri() . '/css/responsive.css');
     wp_enqueue_style('elegance-style', get_stylesheet_uri() );
     

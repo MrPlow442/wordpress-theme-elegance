@@ -17,8 +17,7 @@
 
     <main id="blog-content">
         <?php while (have_posts()) : the_post(); ?>
-
-            <!-- Featured Image Header -->
+            
             <?php if (has_post_thumbnail()) : ?>
                 <div class="container-fluid p-0 mb-4">
                     <div class="position-relative" style="height: 400px; overflow: hidden;">
@@ -27,15 +26,12 @@
                     </div>
                 </div>
             <?php endif; ?>
-
-            <!-- Article Content -->
-            <article class="container content">
+            
+            <article class="container content with-background">
                 <div class="row justify-content-center">
                     <div class="col-lg-8 col-md-10">
-                        
-                        <!-- Article Header -->
-                        <header class="mb-5">
-                            <!-- Meta Information -->
+                                                
+                        <header class="mb-5">                            
                             <div class="d-flex flex-wrap align-items-center mb-3 text-muted">
                                 <small class="mr-3">
                                     <i class="fa fa-calendar-alt mr-1"></i>
@@ -60,24 +56,20 @@
                                     </div>
                                 <?php endif; ?>
                             </div>
-                            
-                            <!-- Article Title -->
+                                                        
                             <h1 class="display-4 font-weight-bold text-dark mb-4">
                                 <?php the_title(); ?>
                             </h1>
-                            
-                            <!-- Article Excerpt/Summary -->
+                                                        
                             <?php if (has_excerpt()) : ?>
                                 <div class="lead text-muted mb-4 p-3 bg-light rounded">
                                     <?php the_excerpt(); ?>
                                 </div>
                             <?php endif; ?>
                         </header>
-                        
-                        <!-- Article Body -->
+                                                
                         <div class="article-content mb-5">
-                            <?php
-                            // Add Bootstrap classes to content automatically
+                            <?php                            
                             add_filter('the_content', function($content) {
                                 // Add Bootstrap classes to images
                                 $content = preg_replace('/<img([^>]*)class="([^"]*)"([^>]*)>/i', '<img$1class="$2 img-fluid rounded shadow-sm"$3>', $content);
@@ -97,9 +89,7 @@
                             ?>
                         </div>
                         
-                        <!-- Article Footer -->
                         <footer class="border-top pt-4 mb-5">
-                            <!-- Post Navigation -->
                             <div class="row">
                                 <?php
                                 $prev_post = get_previous_post();
@@ -157,7 +147,6 @@
                             </div>
                         </footer>
                         
-                        <!-- Comments Section -->
                         <?php if (comments_open() || get_comments_number()) : ?>
                             <section class="comments-section mt-5 pt-4 border-top">
                                 <h3 class="h4 mb-4">
