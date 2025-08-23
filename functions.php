@@ -26,9 +26,7 @@ $theme_includes = [
     '/inc/customizer-functions.php', // Customizer functions
     '/inc/custom-post-types.php', // CPTs
     '/inc/customizer-inline-styles.php', // Customizer inline styles
-    '/inc/customizer.php',    // Customizer        
-    '/blocks/testimonials-block/testimonials-block.php', // Testimonials block
-    '/blocks/work-block/work-block.php', // Work block
+    '/inc/customizer.php',    // Customizer     
 ];
 
 $admin_includes = [
