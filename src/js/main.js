@@ -34,7 +34,7 @@ function initializeEleganceTheme(config = {}) {
         
         const scrollNavigator = new ScrollNavigator(config, false);
         const backgroundManager = new BackgroundManager(config, true);
-        const navigationManager = new NavigationManager(config, false);
+        const navigationManager = new NavigationManager(config, true);
         const animationManager = new AnimationManager(config, true);        
 
         eleganceThemeInstance.registerModule(scrollNavigator);        

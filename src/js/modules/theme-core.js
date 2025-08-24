@@ -54,6 +54,10 @@ export class EleganceTheme {
         document.addEventListener(eventName, callback);
     }
 
+    static unbindEvent(eventName, callback) {
+        document.removeEventListener(eventName, callback);
+    }
+
     registerModule(module) {
         this.moduleRegistry.registerModule(module);
     }

@@ -13,7 +13,7 @@ export class ScrollNavigator extends EleganceModule {
     constructor(themeConfig = {}, silence = false) {
         super(MODULES.SCROLL_NAVIGATOR, themeConfig, silence);
 
-        this.containers = new Map();        
+        this.containers = new Map();
 
         this.config = {
             containerSelector: {
@@ -23,13 +23,13 @@ export class ScrollNavigator extends EleganceModule {
             slideSelector: {
                 [SCROLL_NAVIGATOR.DIRECTION.VERTICAL]: '.vertical-slide',
                 [SCROLL_NAVIGATOR.DIRECTION.HORIZONTAL]: '.horizontal-slide'
-            },            
+            },
             ...this.themeConfig.scrollNavigator
-        };        
+        };
     }
 
     init() {
-        this.registerContainersOnPage();        
+        this.registerContainersOnPage();
     }
 
     postInit() {
@@ -41,7 +41,7 @@ export class ScrollNavigator extends EleganceModule {
         this.#registerContainersByDirection(SCROLL_NAVIGATOR.DIRECTION.HORIZONTAL);
     }
 
-    #registerContainersByDirection(direction) {        
+    #registerContainersByDirection(direction) {
         document
             .querySelectorAll(`${this.config.containerSelector[direction]}[data-scroll-container-id]`)
             .forEach(element => this.registerContainer(element, direction));
@@ -57,9 +57,9 @@ export class ScrollNavigator extends EleganceModule {
         if (this.containers.has(id)) {
             this.logger.warn(`Attempted registration of a container with an existing id ${id}`)
             return;
-        }    
+        }
 
-        const selector = this.config.slideSelector[direction];                
+        const selector = this.config.slideSelector[direction];
         const slides = Array.from(element.querySelectorAll(selector));
 
         if (slides.length === 0) {
@@ -71,7 +71,7 @@ export class ScrollNavigator extends EleganceModule {
         const scrollContainer = new ScrollContainer(this.mute, {
             element: element,
             slides: slides,
-            direction: direction                   
+            direction: direction
         });
         scrollContainer.init();
 
@@ -102,7 +102,7 @@ export class ScrollNavigator extends EleganceModule {
             targetContainer = this.containers.get(containerId);
         } else {
             this.logger.log(`Container id wrong or not present: ${containerId} so we're searching for ${slideId} in all containers`);
-            targetContainer = this.containers.values().find(container => container.hasSlideWithId(slideId));            
+            targetContainer = this.containers.values().find(container => container.hasSlideWithId(slideId));
         }
 
         if (!targetContainer) {
@@ -119,31 +119,31 @@ export class ScrollNavigator extends EleganceModule {
 }
 
 class ScrollContainer {
-    constructor(mute, { element, direction, slides }) {      
+    constructor(mute, { element, direction, slides }) {
         const defaultConfig = {
             scrollDetectorConfig: {
                 intersectionThreshold: 0.5,
                 intersectionRootMargin: '-10px',
                 scrollDetectionDelay: 100
-            },                
-            scrollBehavior: 'smooth',                
+            },
+            scrollBehavior: 'smooth',
             scrollDetectionDelay: 100,
             scrollAnimationDuration: 600,
             showNavButtons: false,
-            showDots: false,            
+            showDots: false,
             autoScroll: false,
             autoScrollDelay: 3000
-        };        
+        };
 
         this.id = element.dataset.scrollContainerId;
-        this.logger = LoggerFactory.createLogger("[ScrollNavigator]" + `[Container:${this.id}]`, mute);        
+        this.logger = LoggerFactory.createLogger("[ScrollNavigator]" + `[Container:${this.id}]`, mute);
         this.element = element;
-        this.slides = slides;        
-        this.direction = direction;                
-        
-        this.config = this.#mergeConfig(direction, defaultConfig, element.dataset);        
+        this.slides = slides;
+        this.direction = direction;
+
+        this.config = this.#mergeConfig(direction, defaultConfig, element.dataset);
         this.logger.log('Config', this.config);
-        
+
         this.isVisible = false;
         this.currentSlideIndex = 0;
         this.autoScrollTimer = null;
@@ -152,22 +152,25 @@ class ScrollContainer {
         this.programScrollTimeout = null;
         this.scrollDetector = null;
 
-        this.ui = null;        
-    }    
+        this.ui = null;
+    }
 
     init() {
         this.#setupScrollDetection();
-        this.#setupScrollUI();        
-        this.#startAutoScroll();
+        this.#setupScrollUI();
         this.logger.log('ScrollContainer initialized')
     }
 
     postInit() {
         this.#triggerSlideChangeEvent(
-            this.#slideStateDataFromIndex(null), 
-            this.#slideStateDataFromIndex(0), 
+            this.#slideStateDataFromIndex(null),
+            this.#slideStateDataFromIndex(0),
             SCROLL_NAVIGATOR.SCROLLED_BY.PROGRAM
         );
+
+        if (this.isVisible) {
+            this.#startAutoScroll();
+        }
     }
 
     getIndexOfSlideById(slideId) {
@@ -179,15 +182,15 @@ class ScrollContainer {
     }
 
     isAtFirst() {
-        return this.currentSlideIndex === 0;    
+        return this.currentSlideIndex === 0;
     }
 
     isAtLast() {
         return this.currentSlideIndex === this.slides.length - 1;
     }
 
-    navigateToSlideById(slideId) {        
-        if(!this.hasSlideWithId(slideId)) {
+    navigateToSlideById(slideId) {
+        if (!this.hasSlideWithId(slideId)) {
             this.logger.warn(`Given slide id ${slideId} not found on this container`);
             return;
         }
@@ -205,9 +208,9 @@ class ScrollContainer {
             this.logger.log(`Container is already on slide ${targetIndex}`);
             return;
         }
-             
+
         const fromIndex = this.currentSlideIndex;
-        const targetSlide = this.slides[targetIndex];        
+        const targetSlide = this.slides[targetIndex];
 
         this.isProgramScrolling = true;
 
@@ -216,18 +219,18 @@ class ScrollContainer {
             block: 'start',
             inline: 'start'
         });
-        
+
         this.#handleProgramScrollingTimeout();
 
         const fromSlideData = this.#slideStateDataFromIndex(fromIndex);
         const toSlideData = this.#slideStateDataFromIndex(targetIndex);
 
-        this.#updateAndTriggerChangeEvent(fromSlideData, toSlideData, SCROLL_NAVIGATOR.SCROLLED_BY.PROGRAM);        
+        this.#updateAndTriggerChangeEvent(fromSlideData, toSlideData, SCROLL_NAVIGATOR.SCROLLED_BY.PROGRAM);
     }
 
     #slideStateDataFromIndex(index) {
-        if (index === null || 
-            index === undefined || 
+        if (index === null ||
+            index === undefined ||
             index < 0 ||
             index > this.slides.length) {
             return {
@@ -268,7 +271,7 @@ class ScrollContainer {
 
         this.navigateToSlideByIndex(this.currentSlideIndex - 1);
     }
-    
+
     #handleUserSlideChange(targetIndex) {
         if (this.isProgramScrolling) {
             this.logger.log('Ignoring user slide change during program navigation');
@@ -278,22 +281,22 @@ class ScrollContainer {
         if (targetIndex === this.currentSlideIndex) {
             return;
         }
-             
-        const fromIndex = this.currentSlideIndex;        
+
+        const fromIndex = this.currentSlideIndex;
 
         this.logger.log(`User scroll detected ${fromIndex} -> ${targetIndex}`);
 
         const fromSlideData = this.#slideStateDataFromIndex(fromIndex);
         const toSlideData = this.#slideStateDataFromIndex(targetIndex);
 
-        this.#updateAndTriggerChangeEvent(fromSlideData, toSlideData, SCROLL_NAVIGATOR.SCROLLED_BY.USER);        
+        this.#updateAndTriggerChangeEvent(fromSlideData, toSlideData, SCROLL_NAVIGATOR.SCROLLED_BY.USER);
     }
 
     #mergeConfig(direction, defaultConfig, dataset) {
-        const config = {...defaultConfig};
+        const config = { ...defaultConfig };
 
         ['showNavButtons', 'showDots', 'autoScroll'].forEach(key => {
-            if (dataset[key] === undefined) {                
+            if (dataset[key] === undefined) {
                 return;
             }
             config[key] = dataset[key] === 'true';
@@ -304,7 +307,7 @@ class ScrollContainer {
                 return;
             }
             config[key] = parseInt(dataset[key]);
-        });        
+        });
 
         ['navPosition', 'scrollBehavior'].forEach(key => {
             if (dataset[key] === undefined) {
@@ -344,7 +347,7 @@ class ScrollContainer {
             container: this,
             config: this.config.scrollDetectorConfig,
             onSlideChange: this.#handleUserSlideChange.bind(this),
-            onVisibilityChange: this.#handleVisibilityChange.bind(this)            
+            onVisibilityChange: this.#handleVisibilityChange.bind(this)
         });
     }
 
@@ -352,18 +355,18 @@ class ScrollContainer {
         const wasVisible = this.isVisible;
         this.isVisible = isVisible;
         this.intersectionRatio = intersectionRatio;
-        
+
         if (wasVisible === isVisible) {
             return;
         }
 
-        this.logger.log(`Container ${this.id} visibility changed: ${wasVisible} -> ${isVisible}`);                                    
+        this.logger.log(`Container ${this.id} visibility changed: ${wasVisible} -> ${isVisible}`);
         EleganceTheme.triggerEvent(EVENTS.SCROLL_NAVIGATOR.CONTAINER_VISIBILITY_CHANGE, {
             container: this,
             isVisible: isVisible,
             intersectionRatio: intersectionRatio
         });
-        
+
         if (!this.config.autoScroll) {
             return;
         }
@@ -372,7 +375,7 @@ class ScrollContainer {
             this.#startAutoScroll();
         } else {
             this.#stopAutoScroll();
-        }        
+        }
     }
 
     #setupScrollUI() {
@@ -384,7 +387,7 @@ class ScrollContainer {
         if (!this.config.autoScroll) {
             return;
         }
-        
+
         clearInterval(this.autoScrollTimer);
 
         this.logger.log(`Starting auto-scroll for container ${this.id} with delay ${this.config.autoScrollDelay}ms`);
@@ -420,27 +423,27 @@ class ScrollContainer {
     }
 
     #updateAndTriggerChangeEvent(fromSlideData, toSlideData, scrolledBy) {
-        this.currentSlideIndex = toSlideData.index;        
-        this.#updateUI();     
+        this.currentSlideIndex = toSlideData.index;
+        this.#updateUI();
         this.#triggerSlideChangeEvent(fromSlideData, toSlideData, scrolledBy);
     }
 
     #triggerSlideChangeEvent(fromSlideData, toSlideData, scrolledBy) {
-        this.logger.log(`${EVENTS.SCROLL_NAVIGATOR.SLIDE_CHANGE} called here with these params`, 
+        this.logger.log(`${EVENTS.SCROLL_NAVIGATOR.SLIDE_CHANGE} called here with these params`,
             {
                 container: this,
-                fromSlideData: fromSlideData,                
-                toSlideData: toSlideData,                
+                fromSlideData: fromSlideData,
+                toSlideData: toSlideData,
                 scrolledBy: scrolledBy
             }
         );
 
         EleganceTheme.triggerEvent(EVENTS.SCROLL_NAVIGATOR.SLIDE_CHANGE, {
             container: this,
-            fromSlideData: fromSlideData,                
-            toSlideData: toSlideData,                
+            fromSlideData: fromSlideData,
+            toSlideData: toSlideData,
             scrolledBy: scrolledBy
-        });               
+        });
     }
 
     #getCurrentSlide() {
@@ -467,10 +470,10 @@ export class ScrollDetector {
         }
 
         this.logger = logger;
-        this.container = container;        
+        this.container = container;
         this.onSlideChange = onSlideChange;
         this.onVisibilityChange = onVisibilityChange;
-        
+
         this.slideIntersectionObserver = null;
         this.scrollTimeout = null;
         this.slideIntersectionTimeout = null;
@@ -487,7 +490,7 @@ export class ScrollDetector {
             this.#setupScrollFallback();
             this.#setupContainerVisibilityFallback();
         }
-    }    
+    }
 
     #setupIntersectionObserver() {
         this.slideIntersectionObserver = new IntersectionObserver(
@@ -498,7 +501,7 @@ export class ScrollDetector {
                 rootMargin: this.config.intersectionRootMargin
             }
         );
-        
+
         this.container.slides.forEach(slide => {
             this.slideIntersectionObserver.observe(slide);
         });
@@ -506,7 +509,7 @@ export class ScrollDetector {
         this.logger.log('IntersectionObserver setup complete');
     }
 
-    #handleIntersectionEntries(entries) {        
+    #handleIntersectionEntries(entries) {
         if (this.container.isProgramScrolling) {
             return;
         }
@@ -523,12 +526,12 @@ export class ScrollDetector {
             }
         });
 
-        if (mostVisibleSlide && mostVisibleIndex !== -1) {            
+        if (mostVisibleSlide && mostVisibleIndex !== -1) {
             clearTimeout(this.slideIntersectionTimeout);
-            this.slideIntersectionTimeout = setTimeout(() => {                
-                if (!this.container.isProgramScrolling && 
+            this.slideIntersectionTimeout = setTimeout(() => {
+                if (!this.container.isProgramScrolling &&
                     mostVisibleIndex !== this.lastDetectedIndex) {
-                    
+
                     this.lastDetectedIndex = mostVisibleIndex;
                     this.onSlideChange(mostVisibleIndex);
                 }
@@ -536,8 +539,8 @@ export class ScrollDetector {
         }
     }
 
-        #setupScrollFallback() {
-        this.container.element.addEventListener('scroll', () => {            
+    #setupScrollFallback() {
+        this.container.element.addEventListener('scroll', () => {
             if (this.container.isProgramScrolling) {
                 return;
             }
@@ -554,7 +557,7 @@ export class ScrollDetector {
         const element = this.container.element;
         const slides = this.container.slides;
 
-        switch(this.container.direction) {
+        switch (this.container.direction) {
             case SCROLL_NAVIGATOR.DIRECTION.VERTICAL:
                 const scrollTop = element.scrollTop;
                 const containerHeight = element.clientHeight;
@@ -606,14 +609,14 @@ export class ScrollDetector {
         entries.forEach(entry => {
             const isVisible = entry.isIntersecting;
             const intersectionRatio = entry.intersectionRatio;
-            
+
             this.logger.log(`Container ${this.container.id} visibility: ${isVisible} (${Math.round(intersectionRatio * 100)}%)`);
-                        
+
             this.onVisibilityChange(isVisible, intersectionRatio);
         });
     }
 
-    #setupContainerVisibilityFallback() {        
+    #setupContainerVisibilityFallback() {
         const checkVisibility = () => {
             clearTimeout(this.containerVisibilityTimeout);
             this.containerVisibilityTimeout = setTimeout(() => {
@@ -623,9 +626,9 @@ export class ScrollDetector {
 
         window.addEventListener('scroll', checkVisibility);
         window.addEventListener('resize', checkVisibility);
-                
+
         setTimeout(() => this.#detectContainerVisibilityFallback(), 100);
-        
+
         this.logger.log('Container visibility fallback setup complete');
     }
 
@@ -633,31 +636,31 @@ export class ScrollDetector {
         const containerRect = this.container.element.getBoundingClientRect();
         const windowHeight = window.innerHeight;
         const windowWidth = window.innerWidth;
-        
+
         // Check if container is in viewport
         const isInViewportY = containerRect.top < windowHeight && containerRect.bottom > 0;
         const isInViewportX = containerRect.left < windowWidth && containerRect.right > 0;
         const isInViewport = isInViewportY && isInViewportX;
-        
+
         if (!isInViewport) {
             this.onVisibilityChange(false, 0);
             return;
         }
-        
+
         // Calculate intersection ratio manually
         const visibleTop = Math.max(0, containerRect.top);
         const visibleBottom = Math.min(windowHeight, containerRect.bottom);
         const visibleLeft = Math.max(0, containerRect.left);
         const visibleRight = Math.min(windowWidth, containerRect.right);
-        
+
         const visibleHeight = Math.max(0, visibleBottom - visibleTop);
         const visibleWidth = Math.max(0, visibleRight - visibleLeft);
         const visibleArea = visibleHeight * visibleWidth;
         const totalArea = containerRect.height * containerRect.width;
-        
+
         const intersectionRatio = totalArea > 0 ? visibleArea / totalArea : 0;
         const isVisible = intersectionRatio >= this.config.containerVisibilityThreshold;
-        
+
         this.logger.log(`Container ${this.container.id} visibility (fallback): ${isVisible} (${Math.round(intersectionRatio * 100)}%)`);
         this.onVisibilityChange(isVisible, intersectionRatio);
     }
@@ -684,7 +687,7 @@ export class ScrollUI {
         this.container = container;
         this.config = config;
         this.logger = logger;
-        
+
         this.elements = {
             container: null,
             previousButton: null,
@@ -707,20 +710,20 @@ export class ScrollUI {
         const navContainer = document.createElement('div');
         navContainer.classList.add(
             'scroll-nav',
-            `scroll-nav-${this.container.direction}`, 
+            `scroll-nav-${this.container.direction}`,
             `scroll-nav-${this.config.navPosition}`
-        );        
+        );
         this.#positionNavigationContainer(navContainer);
         this.elements.container = navContainer;
     }
 
     #positionNavigationContainer(navContainer) {
         const containerParent = this.container.element.parentElement;
-        
+
         switch (this.container.direction) {
             case SCROLL_NAVIGATOR.DIRECTION.VERTICAL:
                 let positioningParent = this.#ensurePositioningWrapper(containerParent);
-                switch(this.config.navPosition) {
+                switch (this.config.navPosition) {
                     case SCROLL_NAVIGATOR.NAV_POSITION.RIGHT:
                         navContainer.classList.add('scroll-nav-right');
                         positioningParent.appendChild(navContainer);
@@ -729,61 +732,61 @@ export class ScrollUI {
                         navContainer.classList.add('scroll-nav-left');
                         positioningParent.insertBefore(navContainer, this.container.element);
                         break;
-                }                                
+                }
                 break;
 
             case SCROLL_NAVIGATOR.DIRECTION.HORIZONTAL:
-                switch(this.config.navPosition) {
+                switch (this.config.navPosition) {
                     case SCROLL_NAVIGATOR.NAV_POSITION.BOTTOM:
                         containerParent.insertBefore(navContainer, this.container.element.nextSibling);
                         break;
                     case SCROLL_NAVIGATOR.NAV_POSITION.TOP:
                         containerParent.insertBefore(navContainer, this.container.element);
                         break;
-                }                
+                }
                 break;
         }
     }
 
-    #ensurePositioningWrapper(containerParent) {        
+    #ensurePositioningWrapper(containerParent) {
         const existingWrapper = containerParent.querySelector(`[data-scroll-nav-wrapper="${this.container.id}"]`);
         if (existingWrapper) {
             return existingWrapper;
         }
-        
+
         const computedStyle = window.getComputedStyle(containerParent);
         if (computedStyle.position === 'relative' || computedStyle.position === 'absolute') {
             return containerParent;
         }
-        
+
         const wrapper = document.createElement('div');
         wrapper.classList.add('scroll-nav-positioning-wrapper');
         wrapper.setAttribute('data-scroll-nav-wrapper', this.container.id);
-        
+
         containerParent.insertBefore(wrapper, this.container.element);
         wrapper.appendChild(this.container.element);
-        
+
         return wrapper;
     }
 
-    #createControls() {       
+    #createControls() {
         const controlsContainer = document.createElement('div');
         controlsContainer.className = 'scroll-nav-controls';
-        
+
         let previousButton = null;
         let nextButton = null;
         let dotsContainer = null;
-        
+
         if (this.config.showNavButtons) {
             const buttons = this.#createButtons();
             previousButton = buttons.previous;
             nextButton = buttons.next;
         }
-        
+
         if (this.config.showDots) {
             dotsContainer = this.#createDots();
         }
-        
+
         if (previousButton) {
             controlsContainer.appendChild(previousButton);
         }
@@ -799,33 +802,33 @@ export class ScrollUI {
 
     #createButtons() {
         const prevButton = document.createElement('button');
-        prevButton.classList.add('scroll-btn', 'scroll-btn-prev')        
+        prevButton.classList.add('scroll-btn', 'scroll-btn-prev')
         const prevIcon = document.createElement('i');
         prevIcon.classList.add('fa');
-        switch(this.container.direction) {
+        switch (this.container.direction) {
             case SCROLL_NAVIGATOR.DIRECTION.HORIZONTAL:
                 prevIcon.classList.add('fa-chevron-left');
                 break;
             case SCROLL_NAVIGATOR.DIRECTION.VERTICAL:
                 prevIcon.classList.add('fa-chevron-up');
                 break;
-        }        
+        }
         prevButton.appendChild(prevIcon);
 
         const nextButton = document.createElement('button');
-        nextButton.classList.add('scroll-btn', 'scroll-btn-next')        
+        nextButton.classList.add('scroll-btn', 'scroll-btn-next')
         const nextIcon = document.createElement('i');
         nextIcon.classList.add('fa');
-        switch(this.container.direction) {
+        switch (this.container.direction) {
             case SCROLL_NAVIGATOR.DIRECTION.HORIZONTAL:
                 nextIcon.classList.add('fa-chevron-right');
                 break;
             case SCROLL_NAVIGATOR.DIRECTION.VERTICAL:
                 nextIcon.classList.add('fa-chevron-down');
                 break;
-        }              
+        }
         nextButton.appendChild(nextIcon);
-        
+
         this.elements.previousButton = prevButton;
         this.elements.nextButton = nextButton;
 
@@ -842,7 +845,7 @@ export class ScrollUI {
         this.container.slides.forEach((_, index) => {
             const dotButton = document.createElement('button');
             dotButton.classList.add('scroll-dot');
-            dotButton.classList.toggle('active', index === 0);                      
+            dotButton.classList.toggle('active', index === 0);
             dotButton.dataset.slideIndex = index;
             dotsContainer.appendChild(dotButton);
             this.elements.dots.push(dotButton);
@@ -886,7 +889,7 @@ export class ScrollUI {
     }
 
     destroy() {
-       if (this.elements.container) {            
+        if (this.elements.container) {
             const wrapper = this.elements.container.closest('[data-scroll-nav-wrapper]');
             if (wrapper && wrapper.dataset.scrollNavWrapper === this.container.id) {
                 const container = wrapper.querySelector(this.container.element.tagName);

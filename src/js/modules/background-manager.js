@@ -88,7 +88,7 @@ export class BackgroundManager extends EleganceModule {
     }
 
     bindEvents() {
-        EleganceTheme.bindEvent(EVENTS.SCROLL_NAVIGATOR.SLIDE_CHANGE, this.handleSlideChange);        
+        EleganceTheme.bindEvent(EVENTS.SCROLL_NAVIGATOR.SLIDE_CHANGE, this.handleSlideChange);
     }
 
     handleSlideChange({ detail }) {
