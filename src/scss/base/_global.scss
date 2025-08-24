@@ -1,0 +1,155 @@
+html,
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-font-smoothing: antialiased;
+  -ms-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font: 16px/1.6 'Raleway', Arial, Helvetica, sans-serif;
+  color: var(--global-text-color);
+  text-align: center;
+  background: #222;
+
+  @media only screen and (max-width: 767px) {
+    font-size: 15px;
+  }
+}
+
+img {
+  border: 0;
+  max-width: 100%;
+}
+
+html {
+  -ms-overflow-style: scrollbar;
+}
+
+p {
+  margin: 0 0 20px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  line-height: 1.2;
+  margin: 0 0 20px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+h1,
+h2 {
+  font-size: 32px;
+
+  @media only screen and (max-width: 1440px) {
+    font-size: 56px;
+    line-height: 1.05;
+    margin-bottom: 10px;
+  }
+
+  @media only screen and (max-width: 1199px) {
+    font-size: 48px;
+  }
+
+  @media only screen and (max-width: 767px) {
+    font-size: 36px;
+  }
+  @media only screen and (max-width: 575px) {
+    font-size:30px;
+  }
+}
+
+h3 {
+  font-size: 30px;
+  font-weight: 600;
+}
+
+h4 {
+  font-size: 22px;
+  font-weight: 600;
+
+  @media only screen and (max-width: 767px) {
+    font-size: 18px;
+  }
+  @media only screen and (max-width: 460px) { 
+    font-size: 14px;
+  }  
+}
+
+h5 {
+  font-size: 20px;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+h6 {
+  font-size: 18px;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+figure {
+  margin: 0;
+}
+
+#main {
+  padding: 0;
+  background: #fff;
+}
+
+.no-margin {
+  margin: 0 !important;
+}
+
+.opacity-no {
+  opacity: 1 !important;
+}
+
+.hidden {
+  display: none;
+}
+
+.visible {
+  display: block;
+}
+
+.alltrans,
+.social-icons li a,
+.form-control,
+.subscribe-row,
+.close-btn,
+.close-btn:before,
+.close-btn:after,
+.tag-btn,
+.btn {
+  -webkit-transition: all 0.4s ease;
+  transition: all 0.4s ease;
+}
+
+.title-block {
+  margin-bottom: 40px;
+
+  span {
+    font-size: 24px;
+    text-transform: uppercase;
+    font-weight: 300;
+  }
+
+  p {
+    line-height: 1.6;
+  }
+
+  @media only screen and (max-width: 1440px) {
+    margin-bottom: 25px;
+
+    p {
+      line-height: 1.6;
+    }
+  }
+}

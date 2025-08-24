@@ -1,0 +1,45 @@
+#header {
+  padding: 20px 0;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 999;
+
+  @media only screen and (max-width: 767px) {
+    padding:0;
+    position: fixed;
+    top: 0;
+    z-index: 6666;
+    background-color: rgba(250, 250, 250, 0.9);
+  }
+}
+
+#blog-header {
+  padding: 20px 0;
+  position: relative;
+  z-index: 999;
+
+  @media only screen and (max-width: 767px) {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 6666;
+    background-color: rgba(250, 250, 250, 0.9);
+  }
+}
+
+#header,
+#blog-header {
+  .container-fluid {
+    padding: 0 20px;
+  }
+}
+
+a#logo {
+  text-decoration: none;
+  font-size: 32px;
+  text-transform: uppercase;
+  font-weight: 700;
+}

@@ -12,7 +12,7 @@ if ($notices_query->have_posts()) : ?>
                         data-show-dots="true">
                         <?php while ($notices_query->have_posts()) : $notices_query->the_post(); ?>
                             <div class="horizontal-slide">
-                                <div class="post-container with-background animate" data-animate="fadeInDown">
+                                <div class="notice-container with-background animate" data-animate="fadeInDown">
                                     <?php if (has_post_thumbnail()) : ?>
                                         <div class="card h-100 bg-transparent border-0">
                                             <div class="row no-gutters">

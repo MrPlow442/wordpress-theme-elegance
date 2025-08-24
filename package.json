@@ -1,0 +1,24 @@
+{
+  "name": "elegance-theme",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite build --watch --mode development",
+    "build": "vite build --mode production",
+    "package": "npm run build && zip -r elegance-theme.zip . -x 'node_modules/*' 'src/*' '.git/*'"
+  },
+  "devDependencies": {
+    "@fullhuman/postcss-purgecss": "^6.0.0",
+    "autoprefixer": "^10.4.20",
+    "cssnano": "^7.0.6",
+    "glob": "^11.0.0",
+    "postcss": "^8.4.49",
+    "sass": "^1.80.7",
+    "vite": "^7.1.2"
+  },
+  "dependencies": {
+    "bootstrap": "^4.6.2",
+    "font-awesome": "^4.7.0",
+    "animate.css": "^3.7.2"
+  }
+}

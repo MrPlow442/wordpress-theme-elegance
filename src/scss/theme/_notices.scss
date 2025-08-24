@@ -1,0 +1,27 @@
+// .notice-container {
+//   margin: 0px 0px !important;
+//   padding: 0px 25px;
+
+//   @media (max-width: 768px) {
+//     max-height: 80vh;
+//     overflow-y: auto;
+//   }
+
+// }
+
+.notice-container {
+    margin: 0;
+    padding: 1.5rem;        
+    height: 100%;
+
+    & .card {
+      height: 100%;
+      overflow-y: auto;
+      background: transparent !important;
+      border: none !important;
+    }
+
+    & img {
+        border-radius: 0.5rem;
+    }
+}

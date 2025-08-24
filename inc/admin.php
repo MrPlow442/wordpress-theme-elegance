@@ -217,19 +217,6 @@ function elegance_nav_menu_custom_fields($item_id, $item, $depth, $args) {
 }
 add_action('wp_nav_menu_item_custom_fields', 'elegance_nav_menu_custom_fields', 10, 4);
 
-
-function elegance_admin_menu_styles($hook) {
-    if ($hook === 'nav-menus.php') {
-        wp_enqueue_style(
-            'elegance-admin-menu',
-            get_template_directory_uri() . '/css/admin-style.css',
-            array(),
-            '1.0.0'
-        );
-    }
-}
-add_action('admin_enqueue_scripts', 'elegance_admin_menu_styles');
-
 function elegance_sync_menu_items() {
     $menus = wp_get_nav_menus();
     foreach ($menus as $menu) {

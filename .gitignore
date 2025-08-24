@@ -13,6 +13,7 @@ wp-content/uploads/
 wp-content/cache/
 
 # Build files
+assets/
 node_modules/
 npm-debug.log*
 yarn-debug.log*

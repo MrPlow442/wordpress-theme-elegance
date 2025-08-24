@@ -1,6 +1,13 @@
 <?php
 if (!class_exists('Elegance_Helpers')) {
     class Elegance_Helpers {
+        public static function is_dev() {            
+            return (
+                (defined('WP_DEBUG') && WP_DEBUG) &&
+                (defined('SCRIPT_DEBUG') && SCRIPT_DEBUG)
+            );
+        }        
+
         public static function get_front_end_config() {
             
             $page_info = array();
