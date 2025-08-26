@@ -35,7 +35,7 @@ function initializeEleganceTheme(config = {}) {
         const scrollNavigator = new ScrollNavigator(config, false);
         const backgroundManager = new BackgroundManager(config, true);
         const navigationManager = new NavigationManager(config, true);
-        const animationManager = new AnimationManager(config, true);        
+        const animationManager = new AnimationManager(config, false);        
 
         eleganceThemeInstance.registerModule(scrollNavigator);        
         eleganceThemeInstance.registerModule(backgroundManager);
@@ -97,11 +97,6 @@ window.initializeBlogPage = function(config) {
         
         eleganceThemeInstance = theme;
     }
-};
-
-window.initializeFullpage = function(config) {
-    rootLogger.warn('EleganceTheme: initializeFullpage is deprecated, using scroll snap instead');
-    initializeEleganceTheme(config);
 };
 
 window.EleganceBackgroundManager = {

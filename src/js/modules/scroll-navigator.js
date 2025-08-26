@@ -67,7 +67,6 @@ export class ScrollNavigator extends EleganceModule {
             return;
         }
 
-        this.logger.log('Merged config: ', config);
         const scrollContainer = new ScrollContainer(this.mute, {
             element: element,
             slides: slides,
@@ -102,7 +101,7 @@ export class ScrollNavigator extends EleganceModule {
             targetContainer = this.containers.get(containerId);
         } else {
             this.logger.log(`Container id wrong or not present: ${containerId} so we're searching for ${slideId} in all containers`);
-            targetContainer = this.containers.values().find(container => container.hasSlideWithId(slideId));
+            targetContainer = Array.from(this.containers.values()).find(container => container.hasSlideWithId(slideId));
         }
 
         if (!targetContainer) {
@@ -121,18 +120,14 @@ export class ScrollNavigator extends EleganceModule {
 class ScrollContainer {
     constructor(mute, { element, direction, slides }) {
         const defaultConfig = {
-            scrollDetectorConfig: {
-                intersectionThreshold: 0.5,
-                intersectionRootMargin: '-10px',
-                scrollDetectionDelay: 100
-            },
             scrollBehavior: 'smooth',
-            scrollDetectionDelay: 100,
             scrollAnimationDuration: 600,
             showNavButtons: false,
             showDots: false,
             autoScroll: false,
-            autoScrollDelay: 3000
+            autoScrollDelay: 3000,
+            slideInViewThreshold: 0.1,    // 10% visible = inView
+            slideActiveThreshold: 0.5     // 50% visible = active slide
         };
 
         this.id = element.dataset.scrollContainerId;
@@ -148,25 +143,27 @@ class ScrollContainer {
         this.currentSlideIndex = 0;
         this.autoScrollTimer = null;
 
-        this.programScrolling = false;
+        this.slideStates = new Map(); // slideIndex -> {inView: boolean, isActive: boolean}
+
+        this.isProgramScrolling = false;
         this.programScrollTimeout = null;
-        this.scrollDetector = null;
 
         this.ui = null;
+
+        this.slides.forEach((slide, index) => {
+            this.slideStates.set(index, { inView: false, isActive: index === 0 });
+        });
     }
 
     init() {
         this.#setupScrollDetection();
         this.#setupScrollUI();
+        this.#setupContainerVisibility();
         this.logger.log('ScrollContainer initialized')
     }
 
     postInit() {
-        this.#triggerSlideChangeEvent(
-            this.#slideStateDataFromIndex(null),
-            this.#slideStateDataFromIndex(0),
-            SCROLL_NAVIGATOR.SCROLLED_BY.PROGRAM
-        );
+        this.#checkAllSlidesVisibility();
 
         if (this.isVisible) {
             this.#startAutoScroll();
@@ -210,48 +207,27 @@ class ScrollContainer {
         }
 
         const fromIndex = this.currentSlideIndex;
-        const targetSlide = this.slides[targetIndex];
+        const fromSlideData = this.#slideStateDataFromIndex(fromIndex);
+        const toSlideData = this.#slideStateDataFromIndex(targetIndex);
+
+        this.#triggerSlideLeaveEvent(fromSlideData, toSlideData, SCROLL_NAVIGATOR.SCROLLED_BY.PROGRAM);
 
         this.isProgramScrolling = true;
 
+        const targetSlide = this.slides[targetIndex];
         targetSlide.scrollIntoView({
             behavior: this.config.scrollBehavior,
             block: 'start',
             inline: 'start'
         });
 
+        this.currentSlideIndex = targetIndex;
+        this.#updateSlideStates(fromIndex, targetIndex);
+        this.#updateUI();
+
+        this.#triggerSlideInViewEvent(toSlideData, SCROLL_NAVIGATOR.SCROLLED_BY.PROGRAM);
+
         this.#handleProgramScrollingTimeout();
-
-        const fromSlideData = this.#slideStateDataFromIndex(fromIndex);
-        const toSlideData = this.#slideStateDataFromIndex(targetIndex);
-
-        this.#updateAndTriggerChangeEvent(fromSlideData, toSlideData, SCROLL_NAVIGATOR.SCROLLED_BY.PROGRAM);
-    }
-
-    #slideStateDataFromIndex(index) {
-        if (index === null ||
-            index === undefined ||
-            index < 0 ||
-            index > this.slides.length) {
-            return {
-                index: null,
-                slide: null,
-                id: null
-            };
-        }
-
-        const slide = this.slides[index];
-        const slideId = slide?.dataset?.scrollSlideId;
-
-        return {
-            index: index,
-            slide: slide,
-            id: slideId
-        };
-    }
-
-    getCurrentState() {
-        return this.#slideStateDataFromIndex(this.currentSlideIndex);
     }
 
     navigateToNextSlide() {
@@ -272,83 +248,176 @@ class ScrollContainer {
         this.navigateToSlideByIndex(this.currentSlideIndex - 1);
     }
 
-    #handleUserSlideChange(targetIndex) {
-        if (this.isProgramScrolling) {
-            this.logger.log('Ignoring user slide change during program navigation');
-            return;
-        }
-
-        if (targetIndex === this.currentSlideIndex) {
-            return;
-        }
-
-        const fromIndex = this.currentSlideIndex;
-
-        this.logger.log(`User scroll detected ${fromIndex} -> ${targetIndex}`);
-
-        const fromSlideData = this.#slideStateDataFromIndex(fromIndex);
-        const toSlideData = this.#slideStateDataFromIndex(targetIndex);
-
-        this.#updateAndTriggerChangeEvent(fromSlideData, toSlideData, SCROLL_NAVIGATOR.SCROLLED_BY.USER);
+    getCurrentState() {
+        return this.#slideStateDataFromIndex(this.currentSlideIndex);
     }
 
-    #mergeConfig(direction, defaultConfig, dataset) {
-        const config = { ...defaultConfig };
-
-        ['showNavButtons', 'showDots', 'autoScroll'].forEach(key => {
-            if (dataset[key] === undefined) {
-                return;
-            }
-            config[key] = dataset[key] === 'true';
-        });
-
-        ['autoScrollDelay'].forEach(key => {
-            if (dataset[key] === undefined) {
-                return;
-            }
-            config[key] = parseInt(dataset[key]);
-        });
-
-        ['navPosition', 'scrollBehavior'].forEach(key => {
-            if (dataset[key] === undefined) {
-                return;
-            }
-            config[key] = dataset[key];
-        });
-
-        this.#configureDefaultPosition(direction, config);
-
-        return config;
-    }
-
-    #configureDefaultPosition(direction, config) {
-        let navPosition = config['navPosition'];
-        const isHorizontal = direction === SCROLL_NAVIGATOR.DIRECTION.HORIZONTAL;
-        const isVertical = direction === SCROLL_NAVIGATOR.DIRECTION.VERTICAL;
-        if (navPosition === undefined || navPosition === null) {
-            navPosition = isHorizontal ? SCROLL_NAVIGATOR.NAV_POSITION.TOP : SCROLL_NAVIGATOR.NAV_POSITION.LEFT;
+    #slideStateDataFromIndex(index) {
+        if (index === null ||
+            index === undefined ||
+            index < 0 ||
+            index >= this.slides.length) {
+            return {
+                index: null,
+                slide: null,
+                id: null
+            };
         }
-        const horizontalPositions = [SCROLL_NAVIGATOR.NAV_POSITION.TOP, SCROLL_NAVIGATOR.NAV_POSITION.BOTTOM];
-        const verticalPositions = [SCROLL_NAVIGATOR.NAV_POSITION.LEFT, SCROLL_NAVIGATOR.NAV_POSITION.RIGHT];
-        const isValidHorizontal = isHorizontal && horizontalPositions.includes(navPosition);
-        const isValidVertical = isVertical && verticalPositions.includes(navPosition);
-        const defaultHorizontal = horizontalPositions[0];
-        const defaultVertical = verticalPositions[0];
 
-        if (!isValidHorizontal || !isValidVertical) {
-            const defaultPosition = isHorizontal ? defaultHorizontal : defaultVertical;
-            this.logger.log(`Assigned navigation elements position ${navPosition} is not valid for ${direction} direction! Using default (${defaultPosition}) instead`);
-            config['navPosition'] = defaultPosition;
-        }
+        const slide = this.slides[index];
+        const slideId = slide?.dataset?.scrollSlideId;
+
+        return {
+            index: index,
+            slide: slide,
+            id: slideId
+        };
     }
 
     #setupScrollDetection() {
-        this.scrollDetector = new ScrollDetector(this.logger, {
-            container: this,
-            config: this.config.scrollDetectorConfig,
-            onSlideChange: this.#handleUserSlideChange.bind(this),
-            onVisibilityChange: this.#handleVisibilityChange.bind(this)
+        this.element.addEventListener('scroll', () => {
+            if (!this.isProgramScrolling) {
+                this.#checkAllSlidesVisibility();
+            }
+        }, { passive: true });
+    }
+
+    #checkAllSlidesVisibility() {
+        this.logger.log('Calling checkAllSlidesVisiblity');
+        const containerRect = this.element.getBoundingClientRect();
+        let newActiveSlideIndex = this.currentSlideIndex;
+        let maxActiveVisibility = 0;
+
+        this.slides.forEach((slide, index) => {
+            const slideRect = slide.getBoundingClientRect();
+            const visibilityRatio = this.#calculateVisibilityRatio(slideRect, containerRect);
+            
+            const previousState = this.slideStates.get(index);
+            const isInView = visibilityRatio >= this.config.slideInViewThreshold;
+            const isActive = visibilityRatio >= this.config.slideActiveThreshold;
+
+            this.logger.log(`Previous state for slide ${index}`, previousState);
+            this.logger.log(`Setting state for slide ${index} to `, { inView: isInView, isActive });
+            this.slideStates.set(index, { inView: isInView, isActive });
+
+            if (visibilityRatio > maxActiveVisibility) {
+                maxActiveVisibility = visibilityRatio;
+                newActiveSlideIndex = index;
+            }
+
+            if (previousState.inView !== isInView) {
+                if (isInView) {
+                    this.logger.log(`Slide ${index} entered viewport (${Math.round(visibilityRatio * 100)}% visible)`);
+                    this.#triggerSlideInViewEvent(
+                        this.#slideStateDataFromIndex(index), 
+                        SCROLL_NAVIGATOR.SCROLLED_BY.USER
+                    );
+                } else {
+                    const destinationIndex = this.#determineDestinationSlide(index);
+                    this.logger.log(`Slide ${index} left viewport, going to slide ${destinationIndex}`);
+                    this.#triggerSlideLeaveEvent(
+                        this.#slideStateDataFromIndex(index),
+                        this.#slideStateDataFromIndex(destinationIndex),
+                        SCROLL_NAVIGATOR.SCROLLED_BY.USER
+                    );
+                }
+            }
         });
+
+        if (newActiveSlideIndex !== this.currentSlideIndex) {
+            this.logger.log(`Active slide changed from ${this.currentSlideIndex} to ${newActiveSlideIndex}`);
+            this.currentSlideIndex = newActiveSlideIndex;
+            this.#updateUI();
+        }
+    }
+
+    #determineDestinationSlide(leavingIndex) {
+        let bestIndex = leavingIndex;
+        let bestVisibility = 0;
+
+        const containerRect = this.element.getBoundingClientRect();
+        
+        this.slides.forEach((slide, index) => {
+            if (index === leavingIndex) {
+                return;
+            }
+            
+            const slideRect = slide.getBoundingClientRect();
+            const visibilityRatio = this.#calculateVisibilityRatio(slideRect, containerRect);
+            
+            if (visibilityRatio > bestVisibility) {
+                bestVisibility = visibilityRatio;
+                bestIndex = index;
+            }
+        });
+
+        return bestIndex;
+    }
+
+    #calculateVisibilityRatio(slideRect, containerRect) {
+        const intersectionTop = Math.max(slideRect.top, containerRect.top);
+        const intersectionBottom = Math.min(slideRect.bottom, containerRect.bottom);
+        const intersectionLeft = Math.max(slideRect.left, containerRect.left);
+        const intersectionRight = Math.min(slideRect.right, containerRect.right);
+        
+        const intersectionHeight = Math.max(0, intersectionBottom - intersectionTop);
+        const intersectionWidth = Math.max(0, intersectionRight - intersectionLeft);
+        const intersectionArea = intersectionHeight * intersectionWidth;
+        
+        const slideArea = slideRect.width * slideRect.height;
+        return slideArea > 0 ? intersectionArea / slideArea : 0;
+    }
+
+    #updateSlideStates(fromIndex, toIndex) {
+        if (fromIndex !== null && fromIndex >= 0 && fromIndex < this.slides.length) {
+            const fromState = this.slideStates.get(fromIndex);
+            this.slideStates.set(fromIndex, { ...fromState, isActive: false });
+        }
+        
+        const toState = this.slideStates.get(toIndex);
+        this.slideStates.set(toIndex, { ...toState, isActive: true });
+    }
+
+    #setupContainerVisibility() {
+        const checkVisibility = () => {
+            this.#detectContainerVisibility();
+        };
+
+        window.addEventListener('scroll', checkVisibility, { passive: true });
+        window.addEventListener('resize', checkVisibility);
+
+        setTimeout(() => this.#detectContainerVisibility(), 100);
+    }
+
+    #detectContainerVisibility() {
+        const containerRect = this.element.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+        const windowWidth = window.innerWidth;
+
+        const isInViewportY = containerRect.top < windowHeight && containerRect.bottom > 0;
+        const isInViewportX = containerRect.left < windowWidth && containerRect.right > 0;
+        const isInViewport = isInViewportY && isInViewportX;
+
+        if (!isInViewport) {
+            this.#handleVisibilityChange(false, 0);
+            return;
+        }
+
+        const visibleTop = Math.max(0, containerRect.top);
+        const visibleBottom = Math.min(windowHeight, containerRect.bottom);
+        const visibleLeft = Math.max(0, containerRect.left);
+        const visibleRight = Math.min(windowWidth, containerRect.right);
+
+        const visibleHeight = Math.max(0, visibleBottom - visibleTop);
+        const visibleWidth = Math.max(0, visibleRight - visibleLeft);
+        const visibleArea = visibleHeight * visibleWidth;
+        const totalArea = containerRect.height * containerRect.width;
+
+        const intersectionRatio = totalArea > 0 ? visibleArea / totalArea : 0;
+        const threshold = 0.3;
+        const isVisible = intersectionRatio >= threshold;
+
+        this.#handleVisibilityChange(isVisible, intersectionRatio);
     }
 
     #handleVisibilityChange(isVisible, intersectionRatio = 0) {
@@ -416,29 +485,20 @@ class ScrollContainer {
 
     #handleProgramScrollingTimeout() {
         clearTimeout(this.programScrollTimeout);
-        this.logger.log(`Creating program scroll timeout which will last ${this.config.scrollAnimationDuration + 50}`);
         this.programScrollTimeout = setTimeout(() => {
             this.isProgramScrolling = false;
         }, this.config.scrollAnimationDuration + 50);
     }
 
-    #updateAndTriggerChangeEvent(fromSlideData, toSlideData, scrolledBy) {
-        this.currentSlideIndex = toSlideData.index;
-        this.#updateUI();
-        this.#triggerSlideChangeEvent(fromSlideData, toSlideData, scrolledBy);
-    }
+    #triggerSlideLeaveEvent(fromSlideData, toSlideData, scrolledBy) {
+        this.logger.log(`onSlideLeave: slide ${fromSlideData.index} -> slide ${toSlideData.index}`, {
+            container: this,
+            fromSlideData: fromSlideData,
+            toSlideData: toSlideData,
+            scrolledBy: scrolledBy
+        });
 
-    #triggerSlideChangeEvent(fromSlideData, toSlideData, scrolledBy) {
-        this.logger.log(`${EVENTS.SCROLL_NAVIGATOR.SLIDE_CHANGE} called here with these params`,
-            {
-                container: this,
-                fromSlideData: fromSlideData,
-                toSlideData: toSlideData,
-                scrolledBy: scrolledBy
-            }
-        );
-
-        EleganceTheme.triggerEvent(EVENTS.SCROLL_NAVIGATOR.SLIDE_CHANGE, {
+        EleganceTheme.triggerEvent(EVENTS.SCROLL_NAVIGATOR.SLIDE_LEAVE, {
             container: this,
             fromSlideData: fromSlideData,
             toSlideData: toSlideData,
@@ -446,239 +506,81 @@ class ScrollContainer {
         });
     }
 
-    #getCurrentSlide() {
-        if (this.currentSlideIndex === null || this.currentSlideIndex < 0 || this.currentSlideIndex > this.slides.length) {
-            return null;
-        }
-        return this.slides[this.currentSlideIndex];
-    }
-}
-
-export class ScrollDetector {
-    constructor(logger, { container, config = {}, onSlideChange, onVisibilityChange }) {
-        const defaultConfig = {
-            intersectionThreshold: 0.5,
-            intersectionRootMargin: '-10px',
-            scrollDetectionDelay: 100,
-            containerVisibilityThreshold: 0.3,
-            containerVisiblityRootMargin: '50px',
-        }
-
-        this.config = {
-            ...defaultConfig,
-            ...config
-        }
-
-        this.logger = logger;
-        this.container = container;
-        this.onSlideChange = onSlideChange;
-        this.onVisibilityChange = onVisibilityChange;
-
-        this.slideIntersectionObserver = null;
-        this.scrollTimeout = null;
-        this.slideIntersectionTimeout = null;
-        this.lastDetectedIndex = container.currentSlideIndex;
-
-        this.containerVisibilityObserver = null;
-        this.containerVisibilityTimeout = null;
-
-        if ('IntersectionObserver' in window) {
-            this.#setupIntersectionObserver();
-            this.#setupContainerVisibilityObserver();
-        } else {
-            this.logger.log('IntersectionObserver not supported, using scroll fallback');
-            this.#setupScrollFallback();
-            this.#setupContainerVisibilityFallback();
-        }
-    }
-
-    #setupIntersectionObserver() {
-        this.slideIntersectionObserver = new IntersectionObserver(
-            (entries) => this.#handleIntersectionEntries(entries),
-            {
-                root: this.container.element,
-                threshold: this.config.intersectionThreshold,
-                rootMargin: this.config.intersectionRootMargin
-            }
-        );
-
-        this.container.slides.forEach(slide => {
-            this.slideIntersectionObserver.observe(slide);
+    #triggerSlideInViewEvent(slideData, scrolledBy) {
+        this.logger.log(`slideInView: slide ${slideData.index}`, {
+            container: this,
+            slideData: slideData,
+            scrolledBy: scrolledBy
         });
 
-        this.logger.log('IntersectionObserver setup complete');
-    }
-
-    #handleIntersectionEntries(entries) {
-        if (this.container.isProgramScrolling) {
-            return;
-        }
-
-        let maxIntersectionRatio = 0;
-        let mostVisibleSlide = null;
-        let mostVisibleIndex = -1;
-
-        entries.forEach(entry => {
-            if (entry.isIntersecting && entry.intersectionRatio > maxIntersectionRatio) {
-                maxIntersectionRatio = entry.intersectionRatio;
-                mostVisibleSlide = entry.target;
-                mostVisibleIndex = this.container.slides.indexOf(entry.target);
-            }
+        EleganceTheme.triggerEvent(EVENTS.SCROLL_NAVIGATOR.SLIDE_IN_VIEW, {
+            container: this,
+            slideData: slideData,
+            scrolledBy: scrolledBy
         });
-
-        if (mostVisibleSlide && mostVisibleIndex !== -1) {
-            clearTimeout(this.slideIntersectionTimeout);
-            this.slideIntersectionTimeout = setTimeout(() => {
-                if (!this.container.isProgramScrolling &&
-                    mostVisibleIndex !== this.lastDetectedIndex) {
-
-                    this.lastDetectedIndex = mostVisibleIndex;
-                    this.onSlideChange(mostVisibleIndex);
-                }
-            }, this.config.scrollDetectionDelay);
-        }
     }
 
-    #setupScrollFallback() {
-        this.container.element.addEventListener('scroll', () => {
-            if (this.container.isProgramScrolling) {
+    #mergeConfig(direction, defaultConfig, dataset) {
+        const config = { ...defaultConfig };
+
+        ['showNavButtons', 'showDots', 'autoScroll'].forEach(key => {
+            if (dataset[key] === undefined) {
                 return;
             }
-
-            clearTimeout(this.scrollTimeout);
-            this.scrollTimeout = setTimeout(() => {
-                this.#detectSlideFromScrollPosition();
-            }, this.config.scrollDetectionDelay);
+            config[key] = dataset[key] === 'true';
         });
-    }
 
-    #detectSlideFromScrollPosition() {
-        let targetIndex = 0;
-        const element = this.container.element;
-        const slides = this.container.slides;
-
-        switch (this.container.direction) {
-            case SCROLL_NAVIGATOR.DIRECTION.VERTICAL:
-                const scrollTop = element.scrollTop;
-                const containerHeight = element.clientHeight;
-                const viewportCenter = scrollTop + (containerHeight / 2);
-
-                for (let i = 0; i < slides.length; i++) {
-                    const slide = slides[i];
-                    const slideTop = slide.offsetTop;
-                    const slideBottom = slideTop + slide.offsetHeight;
-
-                    if (viewportCenter >= slideTop && viewportCenter < slideBottom) {
-                        targetIndex = i;
-                        break;
-                    }
-                }
-                break;
-
-            case SCROLL_NAVIGATOR.DIRECTION.HORIZONTAL:
-                const scrollLeft = element.scrollLeft;
-                const slideWidth = element.clientWidth;
-                targetIndex = Math.round(scrollLeft / slideWidth);
-                break;
-
-            default:
-                this.logger.error('Unknown direction:', this.container.direction);
+        ['autoScrollDelay', 'slideInViewThreshold', 'slideActiveThreshold'].forEach(key => {
+            if (dataset[key] === undefined) {
                 return;
-        }
-
-        if (targetIndex !== this.lastDetectedIndex) {
-            this.lastDetectedIndex = targetIndex;
-            this.onSlideChange(targetIndex);
-        }
-    }
-
-    #setupContainerVisibilityObserver() {
-        this.containerVisibilityObserver = new IntersectionObserver(
-            (entries) => this.#handleContainerVisibilityEntries(entries),
-            {
-                threshold: this.config.containerVisibilityThreshold,
-                rootMargin: this.config.containerVisiblityRootMargin
             }
-        );
-
-        this.containerVisibilityObserver.observe(this.container.element);
-        this.logger.log('Container visibility observer setup complete');
-    }
-
-    #handleContainerVisibilityEntries(entries) {
-        entries.forEach(entry => {
-            const isVisible = entry.isIntersecting;
-            const intersectionRatio = entry.intersectionRatio;
-
-            this.logger.log(`Container ${this.container.id} visibility: ${isVisible} (${Math.round(intersectionRatio * 100)}%)`);
-
-            this.onVisibilityChange(isVisible, intersectionRatio);
+            const value = parseFloat(dataset[key]);
+            if (!isNaN(value)) {
+                config[key] = value;
+            }
         });
+
+        ['navPosition', 'scrollBehavior'].forEach(key => {
+            if (dataset[key] === undefined) {
+                return;
+            }
+            config[key] = dataset[key];
+        });
+
+        this.#configureDefaultPosition(direction, config);
+
+        return config;
     }
 
-    #setupContainerVisibilityFallback() {
-        const checkVisibility = () => {
-            clearTimeout(this.containerVisibilityTimeout);
-            this.containerVisibilityTimeout = setTimeout(() => {
-                this.#detectContainerVisibilityFallback();
-            }, this.config.scrollDetectionDelay);
-        };
-
-        window.addEventListener('scroll', checkVisibility);
-        window.addEventListener('resize', checkVisibility);
-
-        setTimeout(() => this.#detectContainerVisibilityFallback(), 100);
-
-        this.logger.log('Container visibility fallback setup complete');
-    }
-
-    #detectContainerVisibilityFallback() {
-        const containerRect = this.container.element.getBoundingClientRect();
-        const windowHeight = window.innerHeight;
-        const windowWidth = window.innerWidth;
-
-        // Check if container is in viewport
-        const isInViewportY = containerRect.top < windowHeight && containerRect.bottom > 0;
-        const isInViewportX = containerRect.left < windowWidth && containerRect.right > 0;
-        const isInViewport = isInViewportY && isInViewportX;
-
-        if (!isInViewport) {
-            this.onVisibilityChange(false, 0);
-            return;
+    #configureDefaultPosition(direction, config) {
+        let navPosition = config['navPosition'];
+        const isHorizontal = direction === SCROLL_NAVIGATOR.DIRECTION.HORIZONTAL;
+        const isVertical = direction === SCROLL_NAVIGATOR.DIRECTION.VERTICAL;
+        if (navPosition === undefined || navPosition === null) {
+            navPosition = isHorizontal ? SCROLL_NAVIGATOR.NAV_POSITION.TOP : SCROLL_NAVIGATOR.NAV_POSITION.LEFT;
         }
+        const horizontalPositions = [SCROLL_NAVIGATOR.NAV_POSITION.TOP, SCROLL_NAVIGATOR.NAV_POSITION.BOTTOM];
+        const verticalPositions = [SCROLL_NAVIGATOR.NAV_POSITION.LEFT, SCROLL_NAVIGATOR.NAV_POSITION.RIGHT];
+        const isValidHorizontal = isHorizontal && horizontalPositions.includes(navPosition);
+        const isValidVertical = isVertical && verticalPositions.includes(navPosition);
+        const defaultHorizontal = horizontalPositions[0];
+        const defaultVertical = verticalPositions[0];
 
-        // Calculate intersection ratio manually
-        const visibleTop = Math.max(0, containerRect.top);
-        const visibleBottom = Math.min(windowHeight, containerRect.bottom);
-        const visibleLeft = Math.max(0, containerRect.left);
-        const visibleRight = Math.min(windowWidth, containerRect.right);
-
-        const visibleHeight = Math.max(0, visibleBottom - visibleTop);
-        const visibleWidth = Math.max(0, visibleRight - visibleLeft);
-        const visibleArea = visibleHeight * visibleWidth;
-        const totalArea = containerRect.height * containerRect.width;
-
-        const intersectionRatio = totalArea > 0 ? visibleArea / totalArea : 0;
-        const isVisible = intersectionRatio >= this.config.containerVisibilityThreshold;
-
-        this.logger.log(`Container ${this.container.id} visibility (fallback): ${isVisible} (${Math.round(intersectionRatio * 100)}%)`);
-        this.onVisibilityChange(isVisible, intersectionRatio);
+        if (!isValidHorizontal || !isValidVertical) {
+            const defaultPosition = isHorizontal ? defaultHorizontal : defaultVertical;
+            this.logger.log(`Assigned navigation elements position ${navPosition} is not valid for ${direction} direction! Using default (${defaultPosition}) instead`);
+            config['navPosition'] = defaultPosition;
+        }
     }
 
     destroy() {
-        if (this.slideIntersectionObserver) {
-            this.slideIntersectionObserver.disconnect();
-            this.slideIntersectionObserver = null;
+        this.#stopAutoScroll();
+        
+        clearTimeout(this.programScrollTimeout);
+        
+        if (this.ui) {
+            this.ui.destroy();
         }
-
-        if (this.containerVisibilityObserver) {
-            this.containerVisibilityObserver.disconnect();
-            this.containerVisibilityObserver = null;
-        }
-
-        clearTimeout(this.scrollTimeout);
-        clearTimeout(this.slideIntersectionTimeout);
-        clearTimeout(this.containerVisibilityTimeout);
     }
 }
 

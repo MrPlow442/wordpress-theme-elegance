@@ -7,10 +7,11 @@
 
 import { EleganceModule } from './module.js';
 import { EVENTS } from './constants.js';
+import { EleganceTheme } from './theme-core.js';
 
 export class AnimationManager extends EleganceModule {
     constructor(themeConfig = {}, silence = false) {
-        super('AnimationManager', themeConfig, silence);        
+        super('AnimationManager', themeConfig, silence);
         this.animatedElements = new Map();
         this.paused = false;
 
@@ -21,45 +22,53 @@ export class AnimationManager extends EleganceModule {
             resetOnDesktop: true,
             mobileBreakpoint: 767,
             ...this.themeConfig.animation
-        };        
-        
-        this.handleSlideChange = this.handleSlideChange.bind(this);
+        };
+
+        this.handleSlideInView = this.handleSlideInView.bind(this);
     }
 
-    init() {        
+    init() {
         this.#findAnimatedElements();
-        this.#bindEvents();
         this.logger.log(`AnimationManager: Initialized with ${this.animatedElements.size} animated elements`);
     }
 
-    handleSlideChange({ detail }) {
-        this.logger.log('Slide Change Event received: ', detail);        
+    postInit() {
+        this.#bindEvents();
+    }
 
-        const { slide: fromSlide } = detail.fromSlideData;
-        const { slide: toSlide } = detail.toSlideData;        
+    handleSlideInView({ detail }) {
+        this.logger.log('Slide In View event received: ', detail);
+        const { slide } = detail.slideData;
 
-        this.#findAnimationElementsIn(toSlide)
+        this.#findAnimationElementsIn(slide)
             .filter(e => !e.isAnimated)
-            .forEach(e => {                
-                this.animateElement(e);                
+            .forEach(e => {
+                this.animateElement(e);
             });
+    }
 
-        if (fromSlide && this.#shouldResetAnimation()) {
-            this.#findAnimationElementsIn(fromSlide)
-                .filter(e => e.isAnimated)
-                .forEach(e => {
-                    this.resetElement(e);
-                });
+    handleSlideLeave({ detail }) {
+        this.logger.log('Slide Leave event received: ', detail);
+        if (!this.#shouldResetAnimation()) {
+            return;
         }
+
+        const { slide } = detail.fromSlideData;
+
+        this.#findAnimationElementsIn(slide)
+            .filter(e => e.isAnimated)
+            .forEach(e => {
+                this.resetElement(e);
+            });
     }
 
     animateElementBySelector(selector, animation) {
         const element = document.querySelector(selector);
-        
+
         if (element) {
             element.classList.add('animated', animation);
             element.classList.remove('animate');
-            
+
             this.logger.log(`AnimationManager: Manually animated element '${selector}' with '${animation}'`);
         }
     }
@@ -79,14 +88,14 @@ export class AnimationManager extends EleganceModule {
 
         element.dataset.animate = animation;
         element.classList.add('animate');
-        
+
         this.animatedElements.set(element, elementData);
-        
+
         this.logger.log(`AnimationManager: Added new animated element with '${animation}'`);
     }
 
     removeAnimatedElement(element) {
-        if (this.animatedElements.has(element)) {            
+        if (this.animatedElements.has(element)) {
             this.animatedElements.delete(element);
             this.logger.log('AnimationManager: Removed animated element');
         }
@@ -94,41 +103,37 @@ export class AnimationManager extends EleganceModule {
 
     animateElement(elementData) {
         const { element, animation, index } = elementData;
-        
+
         setTimeout(() => {
             element.classList.add('animated', animation);
             element.classList.remove('animate');
             elementData.isAnimated = true;
-            
-            this.logger.log(`AnimationManager: Animated element `, element ,` with '${animation}'`);
+
+            this.logger.log(`AnimationManager: Animated element `, element, ` with '${animation}'`);
         }, index * this.config.animationDelay);
     }
 
     resetElement(elementData) {
         const { element, animation } = elementData;
-        
+
         element.classList.remove('animated', animation);
         element.classList.add('animate');
         elementData.isAnimated = false;
-        
-        this.logger.log(`AnimationManager: Reset element `, element ,` animation '${animation}'`);
+
+        this.logger.log(`AnimationManager: Reset element `, element, ` animation '${animation}'`);
     }
 
-    #bindEvents() {
-        EleganceTheme.bindEvent(EVENTS.SCROLL_NAVIGATOR.SLIDE_CHANGE, this.handleSlideChange);
-    }
-
-    pauseAnimations() {        
-        EleganceTheme.unbindEvent(EVENTS.SCROLL_NAVIGATOR.SLIDE_CHANGE, this.handleSlideChange);
+    pauseAnimations() {
+        this.#unbindEvents();
         this.paused = true;
         this.logger.log('AnimationManager: Paused all animations');
     }
 
-    resumeAnimations() {    
+    resumeAnimations() {
         if (!this.paused) {
             return;
         }
-        EleganceTheme.bindEvent(EVENTS.SCROLL_NAVIGATOR.SLIDE_CHANGE, this.handleSlideChange);
+        this.#bindEvents();
         this.logger.log('AnimationManager: Resumed animations');
     }
 
@@ -136,7 +141,7 @@ export class AnimationManager extends EleganceModule {
         this.animatedElements.forEach((elementData) => {
             this.resetElement(elementData);
         });
-        
+
         this.logger.log('AnimationManager: Reset all animations');
     }
 
@@ -144,30 +149,40 @@ export class AnimationManager extends EleganceModule {
         const total = this.animatedElements.size;
         const animated = Array.from(this.animatedElements.values()).filter(data => data.isAnimated).length;
         const pending = total - animated;
-        
+
         return {
             total,
             animated,
-            pending            
+            pending
         };
+    }
+
+    #bindEvents() {
+        EleganceTheme.bindEvent(EVENTS.SCROLL_NAVIGATOR.SLIDE_IN_VIEW, this.handleSlideInView);
+        EleganceTheme.bindEvent(EVENTS.SCROLL_NAVIGATOR.SLIDE_LEAVE, this.handleSlideLeave);
+    }
+
+    #unbindEvents() {
+        EleganceTheme.unbindEvent(EVENTS.SCROLL_NAVIGATOR.SLIDE_IN_VIEW, this.handleSlideInView);
+        EleganceTheme.unbindEvent(EVENTS.SCROLL_NAVIGATOR.SLIDE_LEAVE, this.handleSlideLeave);
     }
 
     #findAnimatedElements() {
         const animatedRows = document.querySelectorAll('.animated-row');
-        
+
         animatedRows.forEach(row => {
             const animateElements = row.querySelectorAll('.animate');
-            
+
             if (animateElements.length > 0) {
                 const rowData = {
                     row: row,
                     elements: Array.from(animateElements),
                     isAnimated: false
                 };
-                
+
                 animateElements.forEach((element, index) => {
                     const animation = element.dataset.animate;
-                    
+
                     if (animation) {
                         const elementData = {
                             ...rowData,
@@ -175,8 +190,8 @@ export class AnimationManager extends EleganceModule {
                             animation: animation,
                             index: index
                         };
-                        
-                        this.animatedElements.set(element, elementData);                                                
+
+                        this.animatedElements.set(element, elementData);
                     }
                 });
             }
@@ -197,9 +212,9 @@ export class AnimationManager extends EleganceModule {
         return window.innerWidth <= this.config.mobileBreakpoint;
     }
 
-    destroy() {                
+    destroy() {
         this.animatedElements.clear();
-        
+
         this.logger.log('AnimationManager: Destroyed');
     }
 }

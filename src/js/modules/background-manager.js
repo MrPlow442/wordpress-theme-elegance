@@ -29,7 +29,7 @@ export class BackgroundManager extends EleganceModule {
         this.logger.log('Theme Config:', this.themeConfig, ' Background Config:', this.config);
         this.preloadedImages = new Set();
         
-        this.handleSlideChange = this.handleSlideChange.bind(this);
+        this.handleSlideLeave = this.handleSlideLeave.bind(this);
     }
 
     init() {
@@ -88,11 +88,11 @@ export class BackgroundManager extends EleganceModule {
     }
 
     bindEvents() {
-        EleganceTheme.bindEvent(EVENTS.SCROLL_NAVIGATOR.SLIDE_CHANGE, this.handleSlideChange);
+        EleganceTheme.bindEvent(EVENTS.SCROLL_NAVIGATOR.SLIDE_LEAVE, this.handleSlideLeave);
     }
 
-    handleSlideChange({ detail }) {
-        this.logger.log('Slide Change Event received: ', detail);        
+    handleSlideLeave({ detail }) {
+        this.logger.log('Slide Leave Event received: ', detail);        
         if (detail.container.id !== SCROLL_NAVIGATOR.MAIN_CONTAINER_ID) {
             return;
         }

@@ -128,9 +128,7 @@
         ?>
         
         const config = <?php echo wp_json_encode($js_config); ?>;            
-        document.addEventListener('DOMContentLoaded', function() {            
-            // initializeFullpage(config);
-            console.log('initializeFullpage exists and is a function:', typeof initializeFullpage === 'function');
+        document.addEventListener('DOMContentLoaded', function() {                        
             console.log('initializeScrollSnap exists and is a function:', typeof initializeScrollSnap === 'function');
             initializeScrollSnap(EleganceConfig);
         });        

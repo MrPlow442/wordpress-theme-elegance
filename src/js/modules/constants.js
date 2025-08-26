@@ -1,12 +1,17 @@
 export const EVENTS = {
-    SCROLL_NAVIGATOR: {        
+    SCROLL_NAVIGATOR: { 
         CONTAINER_VISIBILITY_CHANGE: 'scrollNavigator:containerVisibilityChange',
         /**
-         * params: 
-         * container, fromSlide, fromIndex, toSlide, toIndex, scrolledBy
+         * Triggered when a slide is about to leave the viewport
+         * params: container, slideData, scrolledBy
          */
-        SLIDE_CHANGE: 'scrollNavigator:slideChange'        
-    },    
+        SLIDE_LEAVE: 'scrollNavigator:onSlideLeave',
+        /**
+         * Triggered when a slide enters the viewport and becomes active
+         * params: container, slideData, scrolledBy
+         */
+        SLIDE_IN_VIEW: 'scrollNavigator:slideInView'        
+    }, 
     NAVIGATION_MANAGER: {
         MOBILE_MENU_OPENED: 'navigationManager:mobileMenuOpened',
         MOBILE_MENU_CLOSED: 'navigationManager:mobileMenuClosed',

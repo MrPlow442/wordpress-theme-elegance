@@ -66,18 +66,17 @@ export class NavigationManager extends EleganceModule {
             link.addEventListener('click', this.#handleSideMenuClick);
         });
         window.addEventListener('resize', this.#handleWindowResize.bind(this));
-
-        this.logger.log('Binding Slide Change Event');
-        EleganceTheme.bindEvent(EVENTS.SCROLL_NAVIGATOR.SLIDE_CHANGE, this.#handleSlideChange.bind(this));
+        
+        EleganceTheme.bindEvent(EVENTS.SCROLL_NAVIGATOR.SLIDE_IN_VIEW, this.#handleSlideInView.bind(this));
         window.addEventListener('hashchange', this.#handleHashChange.bind(this));
     }
 
-    #handleSlideChange({detail}) {
-        this.logger.log('Slide Change Event received: ', detail);
+    #handleSlideInView({detail}) {
+        this.logger.log('Slide In View Event received: ', detail);
         if (detail.container.id !== SCROLL_NAVIGATOR.MAIN_CONTAINER_ID) {
             return;
         }
-        const slideId = detail.toSlideData.id;
+        const slideId = detail.slideData.id;
         this.desktopNavigation.setActive(slideId);
         this.mobileNavigation.setActive(slideId);
         this.#setWindowHash(slideId);
