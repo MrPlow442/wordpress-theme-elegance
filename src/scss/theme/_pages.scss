@@ -2,7 +2,14 @@
   position: relative;
   z-index: 1;
   padding: 40px;
-  overflow: hidden;
+  max-height: calc(100vh - 160px);
+  overflow-x: hidden;
+  overflow-y: auto;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 
   > * {
     position: relative;
@@ -10,8 +17,9 @@
   }
 }
 
-.page-block-item-content {
+.page-block-item-content {  
   text-align: inherit;
+  overflow-y: auto;
 
   .has-text-align-left {
     text-align: left;
