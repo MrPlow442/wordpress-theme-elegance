@@ -59,6 +59,8 @@ export class ScrollNavigator extends EleganceModule {
             return;
         }
 
+        const parent = this.#findParentContainer(element);
+
         const selector = this.config.slideSelector[direction];
         const slides = Array.from(element.querySelectorAll(selector));
 
@@ -67,8 +69,9 @@ export class ScrollNavigator extends EleganceModule {
             return;
         }
 
-        const scrollContainer = new ScrollContainer(this.mute, {
+        const scrollContainer = new ScrollContainer(this.mute, {                        
             element: element,
+            parent: parent,
             slides: slides,
             direction: direction
         });
@@ -77,6 +80,11 @@ export class ScrollNavigator extends EleganceModule {
         this.containers.set(id, scrollContainer);
 
         this.logger.log(`Registered ${direction} container with ${slides.length} sections`, scrollContainer);
+    }
+
+    #findParentContainer(element) {        
+        return element.parentElement
+            ?.closest(`${this.config.containerSelector[SCROLL_NAVIGATOR.DIRECTION.VERTICAL]}, ${this.config.containerSelector[SCROLL_NAVIGATOR.DIRECTION.VERTICAL]}`);
     }
 
     navigateToSlideByIndex(slideIndex, containerId) {
@@ -118,7 +126,7 @@ export class ScrollNavigator extends EleganceModule {
 }
 
 class ScrollContainer {
-    constructor(mute, { element, direction, slides }) {
+    constructor(mute, { element, parent, direction, slides }) {
         const defaultConfig = {
             scrollBehavior: 'smooth',
             scrollAnimationDuration: 600,
@@ -133,6 +141,7 @@ class ScrollContainer {
         this.id = element.dataset.scrollContainerId;
         this.logger = LoggerFactory.createLogger("[ScrollNavigator]" + `[Container:${this.id}]`, mute);
         this.element = element;
+        this.parent = parent;
         this.slides = slides;
         this.direction = direction;
 
@@ -153,6 +162,8 @@ class ScrollContainer {
         this.slides.forEach((slide, index) => {
             this.slideStates.set(index, { inView: false, isActive: index === 0 });
         });
+
+        this.detectContainerVisibility = this.#detectContainerVisibility.bind(this);        
     }
 
     init() {
@@ -378,18 +389,17 @@ class ScrollContainer {
         this.slideStates.set(toIndex, { ...toState, isActive: true });
     }
 
-    #setupContainerVisibility() {
-        const checkVisibility = () => {
-            this.#detectContainerVisibility();
-        };
-
-        window.addEventListener('scroll', checkVisibility, { passive: true });
-        window.addEventListener('resize', checkVisibility);
+    #setupContainerVisibility() {            
+        const parent = this.parent ?? window;
+        this.logger.log(`Container ${this.id} is registering visibility check scroll event on `, parent);
+        parent.addEventListener('scroll', this.detectContainerVisibility, { passive: true });        
+        window.addEventListener('resize', this.detectContainerVisibility);        
 
         setTimeout(() => this.#detectContainerVisibility(), 100);
     }
 
     #detectContainerVisibility() {
+        this.logger.log(`Container ${this.id} is detecting container visibility`);
         const containerRect = this.element.getBoundingClientRect();
         const windowHeight = window.innerHeight;
         const windowWidth = window.innerWidth;
@@ -421,6 +431,7 @@ class ScrollContainer {
     }
 
     #handleVisibilityChange(isVisible, intersectionRatio = 0) {
+        this.logger.log(`Container ${this.id} visibility changed: isVisible: ${isVisible}, intersectionRatio: ${intersectionRatio}`);
         const wasVisible = this.isVisible;
         this.isVisible = isVisible;
         this.intersectionRatio = intersectionRatio;
@@ -436,13 +447,16 @@ class ScrollContainer {
             intersectionRatio: intersectionRatio
         });
 
+        this.logger.log(`Container ${this.id} has auto-scroll configured? ${this.config.autoScroll}`);
         if (!this.config.autoScroll) {
             return;
         }
 
         if (isVisible) {
+            this.logger.log(`Container ${this.id} starting auto-scroll`);
             this.#startAutoScroll();
         } else {
+            this.logger.log(`Container ${this.id} stopping auto-scroll`);
             this.#stopAutoScroll();
         }
     }

@@ -6,12 +6,12 @@
  */
 
 import { EleganceModule } from './module.js';
-import { EVENTS } from './constants.js';
+import { EVENTS, MODULES } from './constants.js';
 import { EleganceTheme } from './theme-core.js';
 
 export class AnimationManager extends EleganceModule {
     constructor(themeConfig = {}, silence = false) {
-        super('AnimationManager', themeConfig, silence);
+        super(MODULES.ANIMATION_MANAGER, themeConfig, silence);
         this.animatedElements = new Map();
         this.paused = false;
 
@@ -25,11 +25,12 @@ export class AnimationManager extends EleganceModule {
         };
 
         this.handleSlideInView = this.handleSlideInView.bind(this);
+        this.handleSlideLeave = this.handleSlideLeave.bind(this);
     }
 
     init() {
         this.#findAnimatedElements();
-        this.logger.log(`AnimationManager: Initialized with ${this.animatedElements.size} animated elements`);
+        this.logger.log(`Initialized with ${this.animatedElements.size} animated elements`);
     }
 
     postInit() {
