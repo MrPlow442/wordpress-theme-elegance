@@ -1,0 +1,14 @@
+.notices-swiper {
+    .notice-slide {
+        
+        &.padded {
+            padding: clamp(1.5rem, 5vw, 2.5rem);
+        }
+        
+        .card {
+            .notice-img {
+                max-height: 35vh;
+            }
+        }
+    }
+}

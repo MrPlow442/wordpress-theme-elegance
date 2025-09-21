@@ -1,0 +1,53 @@
+#header {
+  padding: clamp(15px, 3vw, 20px) 0;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 999;
+
+  @media only screen and (max-width: 767px) {
+    padding: 0;
+    position: fixed;
+    top: 0;
+    z-index: 6666;
+    background-color: rgba(250, 250, 250, 0.9);
+  }
+}
+
+#blog-header {
+  padding: clamp(15px, 3vw, 20px) 0;
+  position: relative;
+  z-index: 999;
+
+  @media only screen and (max-width: 767px) {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 6666;
+    background-color: rgba(250, 250, 250, 0.9);
+  }
+}
+
+#header,
+#blog-header {
+  .container-fluid {
+    padding: 0 clamp(15px, 4vw, 25px);
+    
+    @media (max-width: 480px) {
+      padding: 0 1rem;
+    }
+  }
+}
+
+a#logo {
+  text-decoration: none;
+  font-size: clamp(24px, 5vw, 32px);
+  text-transform: uppercase;
+  font-weight: 700;
+  
+  @media (max-width: 480px) {
+    font-size: clamp(20px, 4vw, 24px);
+  }
+}

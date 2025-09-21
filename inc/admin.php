@@ -53,8 +53,8 @@ function elegance_nav_menu_meta_box() {
             }
         }
     }    
-    
-    $nav_items = array_filter(elegance_get_theme_nav_items(), function($item) use ($existing_items) {
+        
+    $nav_items = array_filter(Elegance_Navigation::get_theme_nav_items(), function($item) use ($existing_items) {
         return !in_array($item['id'], $existing_items, true);
     });
     
@@ -116,7 +116,7 @@ function elegance_save_menu_item_meta($menu_id, $menu_item_db_id, $args) {
         return;
     }
 
-    $theme_nav_items = elegance_get_theme_nav_items();        
+    $theme_nav_items = Elegance_Navigation::get_theme_nav_items();        
 
     $item_data = null;
     foreach ($theme_nav_items as $item) {
@@ -153,7 +153,7 @@ function elegance_setup_nav_menu_item($menu_item) {
         $menu_item->elegance_nav_id = $elegance_id;
         $menu_item->type_label = __('Theme Navigation', 'wordpress-theme-elegance');
                 
-        $nav_items = elegance_get_theme_nav_items();
+        $nav_items = Elegance_Navigation::get_theme_nav_items();
         foreach ($nav_items as $item) {
             if ($item['id'] === $elegance_id) {
                 $menu_item->title = $item['label'];
@@ -217,19 +217,6 @@ function elegance_nav_menu_custom_fields($item_id, $item, $depth, $args) {
 }
 add_action('wp_nav_menu_item_custom_fields', 'elegance_nav_menu_custom_fields', 10, 4);
 
-
-function elegance_admin_menu_styles($hook) {
-    if ($hook === 'nav-menus.php') {
-        wp_enqueue_style(
-            'elegance-admin-menu',
-            get_template_directory_uri() . '/css/admin-style.css',
-            array(),
-            '1.0.0'
-        );
-    }
-}
-add_action('admin_enqueue_scripts', 'elegance_admin_menu_styles');
-
 function elegance_sync_menu_items() {
     $menus = wp_get_nav_menus();
     foreach ($menus as $menu) {
@@ -239,7 +226,7 @@ function elegance_sync_menu_items() {
         foreach ($menu_items as $item) {
             $elegance_id = get_post_meta($item->ID, ELEGANCE_NAV_ID_KEY, true);
             if ($elegance_id) {                
-                $nav_items = elegance_get_theme_nav_items();
+                $nav_items = Elegance_Navigation::get_theme_nav_items();
                 foreach ($nav_items as $theme_item) {
                     if ($theme_item['id'] === $elegance_id) {
                         wp_update_post(array(

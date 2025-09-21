@@ -10,62 +10,49 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+$migrator_includes = [
+    '/inc/classes/migrators/class-elegance-migrator-helpers.php', // Migrator Helpers
+    '/inc/classes/migrators/interface-elegance-migrator.php', // Theme version migrator interface, classes and constants    
+    '/inc/classes/migrators/class-elegance-testimonials-migrator.php', // Testimonials migrator
+    '/inc/classes/migrators/class-elegance-social-icons-migrator.php' // Social icons migrator
+];
+
 // Load dependencies with child theme support and safe inclusion
 $theme_includes = [
     '/inc/constants.php',    // Theme constants
-    '/inc/setup.php',        // Theme setup
+    '/inc/setup/setup.php',        // Theme setup
+    '/inc/setup/migration.php',  // Theme migration setup
     '/inc/assets.php',       // Asset management
     '/inc/walkers.php',      // Custom walkers
-    '/inc/template-functions.php', // Template helpers
-    '/inc/comments-functions.php', // Comments functions
-    '/inc/customizer-functions.php', // Customizer functions
+    '/inc/classes/class-elegance-helpers.php', // Helper functions
+    '/inc/classes/class-elegance-asset-loader.php', // Asset loader
+    '/inc/classes/class-elegance-templates.php', // Templates and helpers
+    '/inc/classes/class-elegance-navigation.php', // Navigation class
+    '/inc/classes/class-elegance-queries.php', // Theme specific queries   
+    '/inc/classes/class-elegance-migration-runner.php', // Theme version migrations    
+    '/inc/testimonials/functions.php', // Testimonials functions
+    '/inc/comments/functions.php', // Comments functions    
     '/inc/custom-post-types.php', // CPTs
-    '/inc/customizer-inline-styles.php', // Customizer inline styles
-    '/inc/customizer.php',    // Customizer        
-    '/blocks/testimonials-block/testimonials-block.php', // Testimonials block
-    '/blocks/work-block/work-block.php', // Work block
+    '/inc/customizer/functions.php', // Customizer functions
+    '/inc/customizer/controls.php', // Customizer controls
+    '/inc/customizer/inline-styles.php', // Customizer inline styles
+    '/inc/customizer/customizer.php',    // Customizer     
 ];
 
 $admin_includes = [
     '/inc/admin.php', // Admin-only functionality
 ];
 
+foreach ($migrator_includes as $file) {
+    require_once get_theme_file_path($file);
+}
+
 foreach ($theme_includes as $file) {
     require_once get_theme_file_path($file);
 }
 
 if (is_admin()) {
-  foreach ($admin_includes as $file) {
-      require_once get_theme_file_path($file);
-  }  
+    foreach ($admin_includes as $file) {
+        require_once get_theme_file_path($file);
+    }
 }
-
-add_action( 'wp_enqueue_scripts', function () {
-
-    $scripts = wp_scripts();
-
-    if ( ! wp_script_is( 'wp-preferences', 'enqueued' ) ) {
-        return;
-    }
-
-    $parents = [];
-
-    // Recursive walk
-    $check = function( $handle, $trail = [] ) use ( &$check, $scripts, &$parents ) {
-        $trail[] = $handle;
-        $deps    = $scripts->registered[ $handle ]->deps ?? [];
-        if ( in_array( 'wp-preferences', $deps, true ) ) {
-            $parents[] = implode( ' → ', $trail ) . ' → wp-preferences';
-        }
-        foreach ( $deps as $dep ) {
-            $check( $dep, $trail );
-        }
-    };
-
-    foreach ( $scripts->queue as $h ) {
-        $check( $h );
-    }
-
-    error_log( "Handles that lead to wp-preferences:\n" . implode( "\n", array_unique( $parents ) ) );
-}, 99 );
-

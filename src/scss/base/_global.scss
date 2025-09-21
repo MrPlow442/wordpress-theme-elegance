@@ -1,0 +1,220 @@
+html,
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-font-smoothing: antialiased;
+  -ms-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font: 16px/1.6 'Raleway', Arial, Helvetica, sans-serif;
+  color: var(--global-text-color);
+  background: #222;
+
+  @media only screen and (max-width: 767px) {
+    font-size: 14px;
+  }
+
+  @media screen and (max-height: 500px) and (orientation: landscape) {
+    font-size: 12px;
+  }
+}
+
+img {
+  border: 0;
+  max-width: 100%;
+}
+
+html {
+  -ms-overflow-style: scrollbar;
+}
+
+p {
+  margin: 0 0 20px;
+
+  @media screen and (max-height: 500px) and (orientation: landscape) {
+    margin: 0 0 12px;
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  line-height: 1.2;
+  margin: 0 0 clamp(0.6rem, 3vw, 1.2rem);
+  font-weight: 600;
+  text-transform: uppercase;
+
+  @media (max-height: 800px) {
+    margin-bottom: clamp(0.3rem, 2vw, 0.9rem);
+  }
+  
+  @media (max-width: 768px) {
+    margin-bottom: clamp(0.5rem, 2.5vw, 0.9rem);
+  }
+  
+  @media (max-width: 480px) {
+    margin-bottom: clamp(0.3rem, 2vw, 0.6rem);
+  }
+
+  @media screen and (max-height: 500px) and (orientation: landscape) {
+    margin-bottom: clamp(0.2rem, 1vh, 0.4rem);
+    line-height: 1.1;
+  }
+}
+
+h1,
+h2 {
+  font-size: clamp(1.7rem, 6vw, 2.0rem);
+
+  @media only screen and (max-width: 1440px) {
+    font-size: clamp(2.5rem, 8vw, 3.5rem);
+    line-height: 1.05;
+    margin-bottom: clamp(0.5rem, 2vw, 0.6rem);
+  }
+
+  @media only screen and (max-width: 1199px) {
+    font-size: clamp(2.2rem, 7vw, 3.0rem);
+  }
+
+  @media only screen and (max-width: 767px) {
+    font-size: clamp(1.8rem, 6vw, 2.2rem);
+  }
+
+  @media only screen and (max-width: 575px) {
+    font-size: clamp(1.5rem, 5vw, 1.8rem);
+  }
+
+  @media screen and (max-height: 500px) and (orientation: landscape) {
+    font-size: clamp(1.2rem, 4vh, 1.6rem);
+  }
+}
+
+h3 {
+  font-size: clamp(1.5rem, 5vw, 1.8rem);
+  font-weight: 600;
+
+  @media screen and (max-height: 500px) and (orientation: landscape) {
+    font-size: clamp(1.1rem, 3vh, 1.3rem);
+  }
+}
+
+h4 {
+  font-size: clamp(1.1rem, 4vw, 1.3rem);
+  font-weight: 600;
+
+  @media only screen and (max-width: 767px) {
+    font-size: clamp(1.0rem, 3.5vw, 1.1rem);
+  }
+
+  @media only screen and (max-width: 460px) {
+    font-size: clamp(0.8rem, 3vw, 1.0rem);
+  }
+
+  @media screen and (max-height: 500px) and (orientation: landscape) {
+    font-size: clamp(0.9rem, 2.5vh, 1.0rem);
+  }
+}
+
+h5 {
+  font-size: clamp(1.0rem, 3.5vw, 1.2rem);
+  margin-bottom: clamp(0.3rem, 2vw, 0.6rem);
+  font-weight: 600;
+
+  @media screen and (max-height: 500px) and (orientation: landscape) {
+    font-size: clamp(0.8rem, 2vh, 1.0rem);
+    margin-bottom: clamp(0.2rem, 1vh, 0.3rem);
+  }
+}
+
+h6 {
+  font-size: clamp(0.8rem, 3vw, 1.1rem);
+  margin-bottom: clamp(0.3rem, 2vw, 0.6rem);
+  font-weight: 600;
+
+  @media screen and (max-height: 500px) and (orientation: landscape) {
+    font-size: clamp(0.7rem, 1.8vh, 0.9rem);
+    margin-bottom: clamp(0.2rem, 1vh, 0.3rem);
+  }
+}
+
+figure {
+  margin: 0;
+}
+
+#main {
+  padding: 0;
+  background: #fff;
+}
+
+.no-margin {
+  margin: 0 !important;
+}
+
+.opacity-no {
+  opacity: 1 !important;
+}
+
+.hidden {
+  display: none;
+}
+
+.visible {
+  display: block;
+}
+
+.alltrans,
+.social-icons li a,
+.form-control,
+.subscribe-row,
+.close-btn,
+.close-btn:before,
+.close-btn:after,
+.tag-btn,
+.btn {
+  -webkit-transition: all 0.4s ease;
+  transition: all 0.4s ease;
+}
+
+.scrollable {
+  overflow-y: auto;
+  padding-right: 1rem;
+  scrollbar-color: var(--global-text-color) transparent;
+  scrollbar-width: thin;
+
+  &::-webkit-scrollbar {
+    color: var(--global-text-color);
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  @media screen and (max-height: 500px) and (orientation: landscape) {
+    padding-right: 0.5rem;
+  }
+}
+
+.mvh-70 {
+  max-height: 70vh;
+}
+
+.mvh-65 {
+  max-height: 65vh;
+}
+
+.mvh-50 {
+  max-height: 50vh;
+}
+
+.invisible-scrollbar {
+  scrollbar-width: none;    
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}

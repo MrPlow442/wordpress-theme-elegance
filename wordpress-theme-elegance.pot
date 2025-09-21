@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Elegance Theme\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-31 16:25+0000\n"
+"POT-Creation-Date: 2025-09-07 16:55+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -16,8 +16,20 @@ msgstr ""
 "X-Loco-Version: 2.8.0; wp-6.8.1; php-8.3.14\n"
 "X-Domain: wordpress-theme-elegance"
 
-#: page-blog.php:85
+#: template-parts/blog_posts.php:57
 msgid " Previous"
+msgstr ""
+
+#: inc/setup/migration.php:196
+msgid "%d errors occurred"
+msgstr ""
+
+#: inc/setup/migration.php:389
+msgid "%d items migrated"
+msgstr ""
+
+#: inc/setup/migration.php:188
+msgid "%d testimonials migrated"
 msgstr ""
 
 #: inc/admin.php:76
@@ -28,7 +40,7 @@ msgstr ""
 msgid "A custom theme based on the Elegance HTML template."
 msgstr ""
 
-#: inc/custom-post-types.php:20
+#: inc/custom-post-types.php:20 inc/custom-post-types.php:62
 msgid "Add New"
 msgstr ""
 
@@ -36,39 +48,56 @@ msgstr ""
 msgid "Add New Notice"
 msgstr ""
 
+#: inc/custom-post-types.php:61
+msgid "Add New Testimonial"
+msgstr ""
+
+#: inc/setup/migration.php:288
+msgid "All migration statuses have been reset."
+msgstr ""
+
 #: inc/custom-post-types.php:18
 msgid "All Notices"
 msgstr ""
 
-#: inc/customizer-controls.php:214
+#: inc/custom-post-types.php:60
+msgid "All Testimonials"
+msgstr ""
+
+#: inc/setup/migration.php:98
+msgid "Are you sure you want to run all migrations?"
+msgstr ""
+
+#: inc/customizer/controls.php:207
 msgid "Available Sections in File:"
 msgstr ""
 
-#: single.php:149 header-blog.php:15
+#: header-blog.php:15 single.php:131
 msgid "Back to Blog Index"
 msgstr ""
 
-#: page-blog.php:117 header-blog.php:13
+#: header-blog.php:13 template-parts/blog_posts.php:89
 msgid "Back to Homepage"
 msgstr ""
 
-#: inc/customizer.php:42
+#: inc/customizer/customizer.php:38
 msgid "Background Image"
 msgstr ""
 
-#: inc/customizer.php:32
+#: inc/customizer/customizer.php:28
 msgid "Background Video"
 msgstr ""
 
-#: inc/customizer.php:115 inc/template-functions.php:87
+#: inc/classes/class-elegance-navigation.php:36
+#: inc/customizer/customizer.php:111
 msgid "Blog"
 msgstr ""
 
-#: inc/customizer.php:234
+#: inc/customizer/customizer.php:230
 msgid "Blog Background Image"
 msgstr ""
 
-#: inc/customizer.php:121
+#: inc/customizer/customizer.php:117
 msgid "Blog Menu Label"
 msgstr ""
 
@@ -77,91 +106,167 @@ msgstr ""
 msgid "Blog Page"
 msgstr ""
 
-#: inc/customizer.php:133
+#: inc/customizer/customizer.php:129
 msgid "Blog URL Path"
 msgstr ""
 
-#: single.php:46
+#: single.php:42
 #, php-format
 msgid "By %s"
 msgstr ""
 
-#: page-blog.php:114
+#: template-parts/blog_posts.php:86
 msgid "Check back later for new content."
 msgstr ""
 
-#: inc/customizer.php:143
+#: inc/testimonials/functions.php:38
+msgid "Client Name"
+msgstr ""
+
+#: inc/custom-post-types.php:71
+msgid "Client Photo"
+msgstr ""
+
+#: inc/customizer/customizer.php:139
 msgid "Color Settings"
+msgstr ""
+
+#: template-parts/blog_comments.php:27
+#, php-format
+msgctxt "comments title"
+msgid "One comment to %2$s"
+msgid_plural "%1$s comments to %2$s"
+msgstr[0] ""
+msgstr[1] ""
+
+#: inc/setup/migration.php:152
+msgid "Completed"
+msgstr ""
+
+#: inc/testimonials/functions.php:17
+msgid "Content:"
+msgstr ""
+
+#: inc/custom-post-types.php:84
+msgid "Customer testimonials and reviews"
+msgstr ""
+
+#: inc/setup/migration.php:133 inc/setup/migration.php:238
+msgid "Details"
+msgstr ""
+
+#: inc/setup/migration.php:135
+msgid "Dev Actions"
+msgstr ""
+
+#: inc/setup/migration.php:87
+msgid "Development Controls"
+msgstr ""
+
+#: inc/setup/migration.php:64
+msgid "Development Mode:"
 msgstr ""
 
 #: inc/custom-post-types.php:22
 msgid "Edit Notice"
 msgstr ""
 
+#: inc/custom-post-types.php:64
+msgid "Edit Testimonial"
+msgstr ""
+
+#: inc/setup/migration.php:39 inc/setup/migration.php:40
+msgid "Elegance Migration Status"
+msgstr ""
+
 #. Name of the theme
 msgid "Elegance Theme"
 msgstr ""
 
-#: inc/customizer.php:254
+#: inc/testimonials/functions.php:16 inc/testimonials/functions.php:29
+msgid "Enter the client's name (e.g., \"John Smith\")"
+msgstr ""
+
+#: inc/customizer/customizer.php:250
 msgid ""
 "Enter the URL from Google Fonts (e.g., https://fonts.googleapis.com/css2?"
 "family=Great+Vibes&display=swap)"
 msgstr ""
 
-#: inc/customizer.php:271
+#: inc/classes/migrators/class-elegance-testimonials-migrator.php:281
+msgid "Errors encountered:"
+msgstr ""
+
+#: inc/setup/migration.php:326
+msgid "Errors:"
+msgstr ""
+
+#: inc/customizer/customizer.php:267
 msgid "Export Customizer Sections"
 msgstr ""
 
-#: inc/customizer-controls.php:184
+#: inc/customizer/controls.php:177
 msgid "Export Selected Sections"
 msgstr ""
 
-#: inc/customizer.php:263
+#: inc/customizer/customizer.php:259
 msgid "Export/Import Settings"
 msgstr ""
 
-#: inc/customizer.php:154
+#: inc/testimonials/functions.php:18
+msgid "Featured Image:"
+msgstr ""
+
+#: inc/custom-post-types.php:79
+msgid "Filter testimonials list"
+msgstr ""
+
+#: inc/customizer/customizer.php:150
 msgid "Global Text Color"
 msgstr ""
 
-#: inc/customizer.php:243
+#: inc/customizer/customizer.php:239
 msgid "Google Fonts"
 msgstr ""
 
-#: inc/customizer.php:253
+#: inc/customizer/customizer.php:249
 msgid "Google Fonts URL"
 msgstr ""
 
-#: inc/customizer.php:166
+#: inc/customizer/customizer.php:162
 msgid "Gradient Color 1"
 msgstr ""
 
-#: inc/customizer.php:178
+#: inc/customizer/customizer.php:174
 msgid "Gradient Color 2"
 msgstr ""
 
-#: inc/customizer.php:56
+#: inc/customizer/customizer.php:52
 msgid "Hello, welcome to"
 msgstr ""
 
-#: inc/customizer.php:89 inc/template-functions.php:68
+#: inc/classes/class-elegance-navigation.php:7 inc/customizer/customizer.php:85
 msgid "Home"
 msgstr ""
 
-#: inc/customizer.php:95
+#: inc/customizer/customizer.php:91
 msgid "Home Menu Label"
 msgstr ""
 
-#: inc/customizer.php:51
+#: inc/customizer/customizer.php:47
 msgid "Home Text Settings"
 msgstr ""
 
-#: inc/customizer.php:61
+#: inc/customizer/customizer.php:57
 msgid "Homepage Description Above Title"
 msgstr ""
 
-#: inc/customizer.php:73
+#: inc/customizer/customizer.php:69
 msgid "Homepage Description Below Title"
+msgstr ""
+
+#: inc/testimonials/functions.php:14
+msgid "How to create testimonials:"
 msgstr ""
 
 #. Author URI of the theme
@@ -172,15 +277,23 @@ msgstr ""
 msgid "https://templatemo.com/tm-528-elegance"
 msgstr ""
 
-#: inc/customizer.php:279
+#: inc/setup/migration.php:131
+msgid "ID"
+msgstr ""
+
+#: inc/customizer/customizer.php:275
 msgid "Import Customizer Sections"
 msgstr ""
 
-#: inc/customizer-controls.php:226
+#: inc/customizer/controls.php:219
 msgid "Import Selected Sections"
 msgstr ""
 
-#: inc/customizer.php:22
+#: inc/custom-post-types.php:75
+msgid "Insert into testimonial"
+msgstr ""
+
+#: inc/customizer/customizer.php:18
 msgid "Main Page Media"
 msgstr ""
 
@@ -188,7 +301,37 @@ msgstr ""
 msgid "Matija Lovrekovic"
 msgstr ""
 
-#: inc/customizer.php:83
+#: inc/setup/migration.php:323
+msgid "Migrated Count:"
+msgstr ""
+
+#: inc/setup/migration.php:205
+msgid "Migration completed"
+msgstr ""
+
+#: inc/setup/migration.php:315
+#, php-format
+msgid "Migration Data for: %s"
+msgstr ""
+
+#: inc/setup/migration.php:267
+msgid "Migration not found or failed to run."
+msgstr ""
+
+#: inc/setup/migration.php:60 inc/setup/migration.php:125
+msgid "Migration Status"
+msgstr ""
+
+#: inc/setup/migration.php:278
+#, php-format
+msgid "Migration status reset for: %s"
+msgstr ""
+
+#: inc/setup/migration.php:130
+msgid "Migration Type"
+msgstr ""
+
+#: inc/customizer/customizer.php:79
 msgid "Navigation Settings"
 msgstr ""
 
@@ -196,24 +339,58 @@ msgstr ""
 msgid "New Notice"
 msgstr ""
 
-#: page-blog.php:86
+#: inc/custom-post-types.php:63
+msgid "New Testimonial"
+msgstr ""
+
+#: template-parts/blog_posts.php:58
 msgid "Next"
 msgstr ""
 
-#: single.php:132
+#: single.php:117
 msgid "Next Article"
 msgstr ""
 
-#: page-blog.php:111
+#: template-parts/blog_posts.php:83
 msgid "No blog posts found"
+msgstr ""
+
+#: inc/setup/migration.php:162
+msgid "No data available"
+msgstr ""
+
+#: inc/setup/migration.php:333
+msgid "No errors recorded."
+msgstr ""
+
+#: inc/setup/migration.php:308
+msgid "No migration data found for this migrator."
+msgstr ""
+
+#: inc/setup/migration.php:348
+msgid "No migration results to display."
 msgstr ""
 
 #: inc/admin.php:62
 msgid "No navigation items available."
 msgstr ""
 
-#: inc/customizer-functions.php:19
+#: inc/customizer/functions.php:19
 msgid "No sections selected for export."
+msgstr ""
+
+#: inc/custom-post-types.php:69
+msgid "Not found"
+msgstr ""
+
+#: inc/custom-post-types.php:70
+msgid "Not found in Trash"
+msgstr ""
+
+#: inc/testimonials/functions.php:21
+msgid ""
+"Note: You can add links, formatting, and any other content blocks in the "
+"testimonial quote."
 msgstr ""
 
 #: inc/custom-post-types.php:12 inc/custom-post-types.php:14
@@ -230,27 +407,48 @@ msgid "Notice Attributes"
 msgstr ""
 
 #: inc/custom-post-types.php:11 inc/custom-post-types.php:13
-#: inc/customizer.php:102 inc/template-functions.php:77
+#: inc/classes/class-elegance-navigation.php:16
+#: inc/customizer/customizer.php:98
 msgid "Notices"
 msgstr ""
 
-#: inc/customizer.php:108
+#: inc/customizer/customizer.php:104
 msgid "Notices Menu Label"
+msgstr ""
+
+#: inc/testimonials/functions.php:41
+msgid "Order"
+msgstr ""
+
+#: inc/testimonials/functions.php:19
+msgid "Order:"
 msgstr ""
 
 #: inc/custom-post-types.php:17
 msgid "Parent Notice:"
 msgstr ""
 
-#: inc/customizer-functions.php:13
+#: inc/custom-post-types.php:59
+msgid "Parent Testimonial:"
+msgstr ""
+
+#: inc/setup/migration.php:155
+msgid "Pending"
+msgstr ""
+
+#: inc/customizer/functions.php:13
 msgid "Permission denied."
 msgstr ""
 
-#: single.php:115
+#: inc/testimonials/functions.php:40
+msgid "Photo"
+msgstr ""
+
+#: single.php:102
 msgid "Previous Article"
 msgstr ""
 
-#: inc/setup.php:11
+#: inc/setup/setup.php:13
 msgid "Primary Menu"
 msgstr ""
 
@@ -258,15 +456,51 @@ msgstr ""
 msgid "Protected"
 msgstr ""
 
-#: page-blog.php:67
+#: template-parts/blog_posts.php:39
 msgid "Read More"
 msgstr ""
 
-#: inc/customizer.php:136
+#: inc/customizer/customizer.php:132
 msgid "Relative URL path to blog page (e.g., /blog or /arvakhr/blog)"
 msgstr ""
 
-#: index.php:32
+#: inc/custom-post-types.php:73
+msgid "Remove client photo"
+msgstr ""
+
+#: inc/setup/migration.php:229
+msgid "Reset"
+msgstr ""
+
+#: inc/setup/migration.php:107
+msgid "Reset all migration statuses."
+msgstr ""
+
+#: inc/setup/migration.php:110
+msgid "Reset All Statuses"
+msgstr ""
+
+#: inc/setup/migration.php:230
+msgid "Reset migration status?"
+msgstr ""
+
+#: inc/setup/migration.php:219
+msgid "Run"
+msgstr ""
+
+#: inc/setup/migration.php:94
+msgid "Run all available migrations."
+msgstr ""
+
+#: inc/setup/migration.php:97
+msgid "Run All Migrations"
+msgstr ""
+
+#: inc/setup/migration.php:220
+msgid "Run this migration?"
+msgstr ""
+
+#: template-parts/welcome.php:9
 msgid "Scroll Down"
 msgstr ""
 
@@ -274,20 +508,69 @@ msgstr ""
 msgid "Search Notices"
 msgstr ""
 
-#: inc/customizer-controls.php:169 inc/customizer-controls.php:218
+#: inc/custom-post-types.php:68
+msgid "Search Testimonial"
+msgstr ""
+
+#: inc/customizer/controls.php:162 inc/customizer/controls.php:211
 msgid "Select All Sections"
 msgstr ""
 
-#: inc/customizer-controls.php:187
+#: inc/customizer/controls.php:180
 msgid "Select which sections to export, then click the export button."
 msgstr ""
 
-#: inc/customizer-controls.php:229
+#: inc/customizer/controls.php:222
 msgid "Select which sections to import and apply to your theme."
 msgstr ""
 
-#: inc/customizer.php:195 inc/customizer.php:205
+#: inc/custom-post-types.php:72
+msgid "Set client photo"
+msgstr ""
+
+#: inc/customizer/customizer.php:191 inc/customizer/customizer.php:201
 msgid "Social Icons"
+msgstr ""
+
+#: inc/setup/migration.php:132
+msgid "Status"
+msgstr ""
+
+#: inc/custom-post-types.php:56 inc/custom-post-types.php:83
+msgid "Testimonial"
+msgstr ""
+
+#: inc/custom-post-types.php:57
+msgid "Testimonial Archives"
+msgstr ""
+
+#: inc/custom-post-types.php:58
+msgid "Testimonial Attributes"
+msgstr ""
+
+#: inc/testimonials/functions.php:39
+msgid "Testimonial Preview"
+msgstr ""
+
+#: inc/custom-post-types.php:55 template-parts/testimonials.php:8
+#: inc/classes/class-elegance-navigation.php:26
+msgid "Testimonials"
+msgstr ""
+
+#: inc/custom-post-types.php:77
+msgid "Testimonials list"
+msgstr ""
+
+#: inc/custom-post-types.php:78
+msgid "Testimonials list navigation"
+msgstr ""
+
+#: inc/classes/migrators/class-elegance-testimonials-migrator.php:275
+msgid "Testimonials migration completed! %d testimonials were migrated."
+msgstr ""
+
+#: inc/setup/migration.php:65
+msgid "Testing controls are available. Use with caution."
 msgstr ""
 
 #: inc/admin.php:29 inc/admin.php:154
@@ -298,7 +581,7 @@ msgstr ""
 msgid "Theme Navigation Item"
 msgstr ""
 
-#: inc/customizer.php:68
+#: inc/customizer/customizer.php:64
 msgid ""
 "This is a clean and modern HTML5 template with a video background. You can "
 "use this layout for your profile page. Please spread a word about templatemo "
@@ -309,12 +592,46 @@ msgstr ""
 msgid "This item is managed by your theme and cannot be edited directly."
 msgstr ""
 
+#: inc/setup/migration.php:73
+msgid ""
+"This page shows the status of theme migrations that have been performed on "
+"your site."
+msgstr ""
+
+#: inc/setup/migration.php:111
+msgid "This will reset all migration flags. Are you sure?"
+msgstr ""
+
+#: inc/testimonials/functions.php:16
+msgid "Title:"
+msgstr ""
+
 #: inc/custom-post-types.php:23
 msgid "Update Notice"
 msgstr ""
 
-#: inc/customizer-controls.php:209
+#: inc/custom-post-types.php:65
+msgid "Update Testimonial"
+msgstr ""
+
+#: inc/customizer/controls.php:202
 msgid "Upload JSON file to preview available sections."
+msgstr ""
+
+#: inc/testimonials/functions.php:18
+msgid "Upload the client's photo (optional)"
+msgstr ""
+
+#: inc/custom-post-types.php:76
+msgid "Uploaded to this testimonial"
+msgstr ""
+
+#: inc/custom-post-types.php:74
+msgid "Use as client photo"
+msgstr ""
+
+#: inc/testimonials/functions.php:19
+msgid "Use the Order field in Page Attributes to control the display sequence"
 msgstr ""
 
 #: inc/custom-post-types.php:24
@@ -323,4 +640,22 @@ msgstr ""
 
 #: inc/custom-post-types.php:25
 msgid "View Notices"
+msgstr ""
+
+#: inc/custom-post-types.php:66
+msgid "View Testimonial"
+msgstr ""
+
+#: inc/custom-post-types.php:67
+msgid "View Testimonials"
+msgstr ""
+
+#: template-parts/testimonials.php:9
+msgid "What do the clients say?"
+msgstr ""
+
+#: inc/testimonials/functions.php:17
+msgid ""
+"Write the testimonial quote. You can use any blocks including paragraphs, "
+"quotes, links, etc."
 msgstr ""

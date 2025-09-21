@@ -4,30 +4,9 @@ Theme URI: https://templatemo.com/tm-528-elegance
 Author: Matija Lovrekovic
 Author URI: https://arvak.hr
 Description: A custom theme based on the Elegance HTML template.
-Version: 1.0
+Version: 2.0
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: wordpress-theme-elegance
 Domain Path: /languages
 */
-
-.fp-controlArrow {
-    width: 30px !important;
-    height: 30px !important;
-    border-style: solid;
-    padding: 3px;  
-}
-.fp-controlArrow.fp-prev {
-    left: -10px;
-    transform: rotate(135deg);
-    -webkit-transform: rotate(135deg);
-    border-width: 0 5px 5px 0;
-    border-color: #ffffff;
-}
-.fp-controlArrow.fp-next {
-    right: -10px; 
-    transform: rotate(-45deg);
-    -webkit-transform: rotate(-45deg);
-    border-width: 0 5px 5px 0;
-    border-color: #ffffff;
-}

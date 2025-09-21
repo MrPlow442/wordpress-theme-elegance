@@ -6,7 +6,7 @@
             </a>
             <div class="navigation-row">
                 <nav id="navigation">
-                    <button type="button" class="navbar-toggle"> <i class="fa fa-bars"></i> </button>
+                    <button type="button" class="navbar-toggle"> <i class="fas fa-bars pe-none"></i> </button>
                     <div class="nav-box navbar-collapse">
                         <?php
                         wp_nav_menu(array(

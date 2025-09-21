@@ -1,0 +1,62 @@
+.export-sections-container,
+.import-sections-container {
+  margin-top: 1rem;
+}
+
+.section-checkboxes,
+#import-sections-list {
+  max-height: 200px;
+  overflow-y: auto;
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  padding: .75rem;
+  margin: .5rem 0;
+}
+
+.section-checkbox-label,
+.select-all-label {
+  display: block;
+  margin: .25rem 0;
+  cursor: pointer;
+  
+  &:hover {
+    background: #e9e9e9;
+  }
+}
+
+.select-all-label {
+  border-bottom: 1px solid #ccc;
+  padding-bottom: .5rem;
+  margin-bottom: .5rem;
+}
+
+.section-id {
+  color: #666;
+  font-style: italic;
+  margin-left: .5rem;
+}
+
+.export-actions,
+.import-actions {
+  margin-top: 1rem;
+}
+
+#import-file {
+  width: 100%;
+  margin-top: .5rem;
+  padding: .25rem;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+#import-sections-preview {
+  border-top: 1px solid #ddd;
+  margin-top: 1rem;
+  padding-top: 1rem;
+}
+
+.description {
+  font-style: italic;
+  color: #666;
+  margin-top: .25rem;
+}

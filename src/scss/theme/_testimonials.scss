@@ -1,0 +1,79 @@
+#testimonials {
+  .section-content {
+    &.padded {
+      padding-top: 0;
+    }
+  }
+}
+
+.testimonials-swiper {
+  margin-top: 0;
+  .testimonial-slide {
+    .card {
+      padding: 1rem 0;
+
+      img.rounded-circle {
+        width: clamp(80px, 15vw, 120px);
+        height: clamp(80px, 15vw, 120px);
+        object-fit: cover;
+        border-radius: 50%;
+        display: block;
+        margin: 0 auto;
+
+          @media screen and (max-height: 500px) and (orientation: landscape) {
+            width: clamp(45px, 10vw, 80px);
+            height: clamp(45px, 10vw, 80px);
+        }
+      }
+      
+      .card-body {
+        padding-bottom: 0;
+        .card-text {
+          font-style: italic;
+          text-align: center;
+          &.responsive-mh {
+            max-height: 50vh;
+
+            @media screen and (max-height: 500px) and (orientation: landscape) {
+              max-height: 25vh;
+            }
+
+            @media screen and (min-width: 568px) and (orientation: landscape) and (max-width: 896px) {
+              max-height: 29vh;
+            }
+
+            @media screen and (max-height: 800px) {
+              max-height: 29vh;
+            }
+
+            @media screen and (min-width: 1024px) and (max-width: 1440px) {
+              max-height: 29vh;
+              
+              @media screen and (max-height: 800px) {
+                max-height: 25vh;
+              }
+            }                        
+
+            @media screen and (min-width: 1441px) and (min-height: 900px) {
+              max-height: 50vh;
+            }                        
+          }
+        }                
+      }
+
+      .card-footer {                
+        .card-title {
+          padding-top: 0.5rem;
+          text-transform: capitalize;
+          font-style: italic;          
+          text-align: right;
+        }
+
+        .client-website {
+          text-align: right;
+          width: 100%;          
+        }
+      }
+    }
+  }
+}
